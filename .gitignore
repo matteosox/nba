@@ -1,0 +1,7 @@
+# Python Files
+__pycache__/
+.ipynb_checkpoints
+
+# VS Code Files
+.vscode
+*.code-workspace

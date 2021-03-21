@@ -1,0 +1,11 @@
+jupyter
+pymc3
+matplotlib
+seaborn
+scipy
+numpy
+pandas
+pyarrow
+requests
+bokeh
+pbpstats
