@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+set -euf -o pipefail
+
+DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
+
+echo "Buildin'..."
+$DIR/../../cicd/build.sh
+echo "Testin'..."
+$DIR/../../cicd/test.sh
