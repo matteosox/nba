@@ -9,21 +9,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Cache
-      uses: actions/cache@v2
-      with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{github.ref}}-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-buildx-${{github.ref}}-
-          ${{ runner.os }}-buildx-
-          ${{ runner.os }}-
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{github.ref}}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-${{github.ref}}-
+            ${{ runner.os }}-buildx-
+            ${{ runner.os }}-
 
-    - name: Build
-      run: ./cicd/build.sh --cache /tmp/.buildx-cache
+      - name: Build
+        run: ./cicd/build.sh --cache /tmp/.buildx-cache
 
-    - name: Test
-      run: ./cicd/test.sh
+      - name: Test
+        run: ./cicd/test.sh
