@@ -22,12 +22,8 @@ TBD
 
 ## MVP TODO
 
-- Make environment for documenting changes.
-- Make script for updating package version.
-- Setup Github Actions for CI/CD.
 - Document notebooks environment.
 - Web app build, test, and deploy steps.
-- Setup branch protection status checks.
 - Setup mounted data volume for notebooks environment.
 
 ## Developer Notes
@@ -40,9 +36,9 @@ We use Docker for a clean environment within which to build/test/release. The `b
 
 ### Documenting changes
 
-_TL;DR: Run `changelog (added|changed|deprecated|removed|fixed|security) "<message>"` before committing your changes to document them._
+_TL;DR: Run `./docs/changelog.sh (added|changed|deprecated|removed|fixed|security) "<message>"` before committing your changes to document them._
 
-We use [`changelog-cli`](https://github.com/mc706/changelog-cli) to document changes from version to version in the `CHANGELOG.md` file. Before committing changes that impact users of the `pynba` package, use the command-line tool to document features added, changed, deprecated, removed, fixed, or security-related changes. **TBD on what dev environment to do this in!**
+We use [`changelog-cli`](https://github.com/mc706/changelog-cli) to document changes from version to version in the `CHANGELOG.md` file. Before committing changes that impact users of the `pynba` package, use the command-line tool to document features added, changed, deprecated, removed, fixed, or security-related changes.
 
 ### Versioning
 
@@ -50,7 +46,7 @@ _TL;DR: Run `./docs/release.sh` to summarize unreleased changes in `CHANGELOG.md
 
 We version this package, using the syntax defined in [PEP440](https://www.python.org/dev/peps/pep-0440/). For best practices, you can read about it [here](https://the-hitchhikers-guide-to-packaging.readthedocs.io/en/latest/specification.html#sequence-based-scheme).
 
-To simplify this, we use [`changelog-cli`](https://github.com/mc706/changelog-cli) to generate versions for us. This can be done ... **FIGURE THIS OUT**.
+To simplify this, we use [`changelog-cli`](https://github.com/mc706/changelog-cli) to generate versions for us. This can be done using the `./docs/release.sh` script.
 
 ### Code Style
 
@@ -72,13 +68,15 @@ This gives us both a flexible way to describe dependencies while still achieving
 
 ## Continuous Integration / Continuous Deployment
 
-Planning to use Github actions for this, but nothing is setup yet. Every step of CI/CD can be run locally.
+We use Github actions to run our CI/CD pipeline on every pull request, but every step of CI/CD can also be run locally. 
 
 ### Buildin'
 
 _TL;DR: To run tests, run `./cicd/build.sh`._
 
 This builds the three relevant docker images, `dev`, `notebook`, and `app`.
+
+To get docker cacheing to work in the Github Actions cloud environment, we use the `cache` Github Action to cache an exported `docker buildx` cache for each run. The Github Action for this step uses the `--cache` option to use `docker buildx` and look in the relevant local directory.
 
 ### Testin'
 
@@ -106,7 +104,7 @@ Planning to use Vercel for free hosting, but nothing is setup yet.
 
 ### Pull Requests
 
-The `main` branch has [branch protections](https://help.github.com/en/github/administering-a-repository/about-protected-branches) turned on in Github, requiring one reviewer to approve a PR before merging. We also use the code owners feature to specify who can approve certain PRs. As well, merging a PR requires status checks to complete successfully, but those **haven't been defined yet.**
+The `main` branch has [branch protections](https://help.github.com/en/github/administering-a-repository/about-protected-branches) turned on in Github, requiring one reviewer to approve a PR before merging. We also use the code owners feature to specify who can approve certain PRs. As well, merging a PR requires status checks to complete successfully. 
 
 When naming a branch, please use the syntax `firstname/branch-name-here`. If you plan to collaborate with others on that branch, use `team/branch-name-here`.
 
