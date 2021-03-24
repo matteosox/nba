@@ -2,7 +2,8 @@ name: Build and Test
 
 on:
   pull_request:
-    branches: [ $default-branch ]
+    branches: 
+      - $default-branch
 
 jobs:
   build:
