@@ -1,3 +1,5 @@
 PyYaml
 pip-tools
 changelog-cli
+black
+pylint

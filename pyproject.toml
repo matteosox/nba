@@ -1,0 +1,15 @@
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+
+(
+  /(
+      \.git         # exclude a few common directories in the
+    | \.github      # root of the project
+    | notebooks
+    | app
+  )/
+)
+'''

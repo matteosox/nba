@@ -9,9 +9,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
 
 docker run \
     --rm \
-    --workdir /nba \
     -v "$DIR"/../:/home/dev/nba \
     -e "LC_ALL=C.UTF-8" \
     -e "LANG=C.UTF-8" \
     dev:$TAG \
-    /home/dev/nba/requirements/update_requirements.sh
+    ./nba/requirements/update_requirements.sh

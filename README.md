@@ -7,29 +7,39 @@
 - Author: Matt Fay
 - Email: matt.e.fay@gmail.com
 - [Repo](https://github.com/matteosox/nba)
+- [Site](https://nba.mattefay.com)
 
 ### Description
 
 This repo has three main parts:
 1) `pynba`: a Python package of stuff to analyze nba data.
 2) `notebooks`: a collection of Jupyter notebooks analyzing nba data using `pynba`.
-3) `app`: a Next.js web app hosted at [nba.mattefay.com], displaying the latest stats.
+3) `app`: a Next.js web app hosted at [nba.mattefay.com](https://nba.mattefay.com), displaying the latest stats.
 
 ## User Notes
 
 TBD
 
+## MVP TODO
+
+- Document notebooks environment.
+- Web app build, test, and deploy steps.
+- Setup mounted data volume for notebooks environment.
+- Debug Github Actions & status checks
+
 ## Developer Notes
 
 ### Getting started
+
+Run `developer_setup.sh`. Right now, all this does is setup the `pre-commit` git hook to build and test code before you commit it.
 
 We use Docker for a clean environment within which to build/test/release. The `build.sh` script in the `cicd` directory will build the relevant images for you. Running the CI/CD workflow natively isn't a supported/maintained thing.
 
 ### Documenting changes
 
-_TL;DR: Run `changelog (added|changed|deprecated|removed|fixed|security) "<message>"` before committing your changes to document them._
+_TL;DR: Run `./docs/changelog.sh (added|changed|deprecated|removed|fixed|security) "<message>"` before committing your changes to document them._
 
-We use [`changelog-cli`](https://github.com/mc706/changelog-cli) to document changes from version to version in the `CHANGELOG.md` file. Before committing changes that impact users of the `pynba` package, use the command-line tool to document features added, changed, deprecated, removed, fixed, or security-related changes. **TBD on what dev environment to do this in!**
+We use [`changelog-cli`](https://github.com/mc706/changelog-cli) to document changes from version to version in the `CHANGELOG.md` file. Before committing changes that impact users of the `pynba` package, use the command-line tool to document features added, changed, deprecated, removed, fixed, or security-related changes.
 
 ### Versioning
 
@@ -37,11 +47,11 @@ _TL;DR: Run `./docs/release.sh` to summarize unreleased changes in `CHANGELOG.md
 
 We version this package, using the syntax defined in [PEP440](https://www.python.org/dev/peps/pep-0440/). For best practices, you can read about it [here](https://the-hitchhikers-guide-to-packaging.readthedocs.io/en/latest/specification.html#sequence-based-scheme).
 
-To simplify this, we use [`changelog-cli`](https://github.com/mc706/changelog-cli) to generate versions for us. This can be done ... **FIGURE THIS OUT**.
+To simplify this, we use [`changelog-cli`](https://github.com/mc706/changelog-cli) to generate versions for us. This can be done using the `./docs/release.sh` script.
 
 ### Code Style
 
-Planning to implement a Black pre-commit hook, but **haven't done that yet.**
+We use PEP8 for Python, but don't trip, just run `./test/black_lint.sh` to get all your spaces in a row.
 
 ### Updating the dev & notebook python requirements
 
@@ -57,19 +67,27 @@ The `.in` files are where we collect immediate dependencies, described in PyPI f
 
 This gives us both a flexible way to describe dependencies while still achieving reproducible builds. Inspired by [this](https://hynek.me/articles/python-app-deps-2018/) and [this](https://pythonspeed.com/articles/pipenv-docker/).
 
-### Continuous Integration / Continuous Deployment TBD
+## Continuous Integration / Continuous Deployment
 
-Planning to use Github actions for this, but nothing is setup yet.
+We use Github actions to run our CI/CD pipeline on every pull request, but every step of CI/CD can also be run locally. 
 
-### Buildin Stuff
+### Buildin'
 
 _TL;DR: To run tests, run `./cicd/build.sh`._
 
 This builds the three relevant docker images, `dev`, `notebook`, and `app`.
 
-### Runnin Tests
+To get docker cacheing to work in the Github Actions cloud environment, we use the `cache` Github Action to cache an exported `docker buildx` cache for each run. The Github Action for this step uses the `--cache` option to use `docker buildx` and look in the relevant local directory.
+
+### Testin'
 
 _TL;DR: To run tests, run `./cicd/test.sh`._
+
+#### Python Linting
+
+We both [`Black`](https://black.readthedocs.io/en/stable/index.html) for formatting, and [`pylint`](https://www.pylint.org/) for more general linting. To format your code using Black, simply run `./test/black_lint.sh`.
+
+#### Python Unit Tests
 
 We use the built-in Python module `unittest`'s [test discovery](https://docs.python.org/3/library/unittest.html#test-discovery) functionality. This requires that all of the test files must be modules or packages importable from the root of the repo. As well, they must match the pattern `test*.py`. Our practice is to put tests for a module in a test folder in the same directory, which can then also contain data and other files needed to run those tests.
 
@@ -77,14 +95,20 @@ The package is installed using `setuptools`'s [`find_packages` function](https:/
 
 Thus, to run tests, we mount the root of the repo to the location in the container it's been installed. All of this is handled nicely by running `test.sh`, which uses the `dev` container.
 
-**Web app tests to be determined.**
+#### Web App Tests
 
-### Depolyin
+**TBD**
+
+### Depolyin'
 
 Planning to use Vercel for free hosting, but nothing is setup yet.
 
 ### Pull Requests
 
-The `main` branch has [branch protections](https://help.github.com/en/github/administering-a-repository/about-protected-branches) turned on in Github, requiring one reviewer to approve a PR before merging. We also use the code owners feature to specify who can approve certain PRs. As well, merging a PR requires status checks to complete successfully, but those **haven't been defined yet.**
+The `main` branch has [branch protections](https://help.github.com/en/github/administering-a-repository/about-protected-branches) turned on in Github, requiring one reviewer to approve a PR before merging. We also use the code owners feature to specify who can approve certain PRs. As well, merging a PR requires status checks to complete successfully. 
 
 When naming a branch, please use the syntax `firstname/branch-name-here`. If you plan to collaborate with others on that branch, use `team/branch-name-here`.
+
+### Committing Code
+
+We use the `pre-commit` git hook to run the buildin' and testin' phases of our CI/CD pipeline locally.
