@@ -17,19 +17,10 @@ def get_version():
         return version_file.read().strip()
 
 
-def get_long_description():
-    """Get README.md of this package."""
-    readme_path = os.path.join(dir_path(), "README.md")
-    with open(readme_path, encoding="utf-8") as file_obj:
-        long_description = file_obj.read()
-    return long_description
-
-
 setup(
     name="pynba",
     version=get_version(),
     description="NBA python package",
-    long_description=get_long_description(),
     author="Matt Fay",
     author_email="matt.e.fay@gmail.com",
     url="https://github.com/matteosox/nba",

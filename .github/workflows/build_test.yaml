@@ -2,10 +2,11 @@ name: Build and Test
 
 on:
   pull_request:
-    branches: [ $default-branch ]
+    branches: 
+      - main
 
 jobs:
-  build:
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:

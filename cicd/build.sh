@@ -21,9 +21,9 @@ while [ "$1" != "" ]; do
             CACHE_DIR="$1"
             echo "Using local docker build cache at $CACHE_DIR"
             TMP_CACHE=$(mktemp -d -t)
-            DEV_BUILD_ARGS="--cache-from type=local,src=$CACHE_DIR/dev --cache-to type=local,mode=max,dest=$TMP_CACHE/dev"
-            NTBK_BUILD_ARGS="--cache-from type=local,src=$CACHE_DIR/notebook --cache-to type=local,mode=max,dest=$TMP_CACHE/notebook"
-            APP_BUILD_ARGS="--cache-from type=local,src=$CACHE_DIR/app --cache-to type=local,mode=max,dest=$TMP_CACHE/app"
+            DEV_BUILD_ARGS="--cache-from type=local,src=$CACHE_DIR/dev --cache-to type=local,mode=max,dest=$TMP_CACHE/dev --load"
+            NTBK_BUILD_ARGS="--cache-from type=local,src=$CACHE_DIR/notebook --cache-to type=local,mode=max,dest=$TMP_CACHE/notebook --load"
+            APP_BUILD_ARGS="--cache-from type=local,src=$CACHE_DIR/app --cache-to type=local,mode=max,dest=$TMP_CACHE/app --load"
             BUILDX_BUILDER=$(docker buildx create --use)
             docker buildx install
             cleanup() {

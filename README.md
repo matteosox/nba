@@ -25,7 +25,6 @@ TBD
 - Document notebooks environment.
 - Web app build, test, and deploy steps.
 - Setup mounted data volume for notebooks environment.
-- Debug Github Actions & status checks
 
 ## Developer Notes
 
