@@ -220,9 +220,9 @@ jupyter-client==6.1.12 \
     #   nbclient
     #   notebook
     #   qtconsole
-jupyter-console==6.3.0 \
-    --hash=sha256:092283ba2c9b5ceb53f32d95891ecc59ed4bfeb69e36fe017db176213daa5b0e \
-    --hash=sha256:947f66bbdeee2221b4fb3a6b78225d337b8f10832f14cecf7932183635abe1d9
+jupyter-console==6.4.0 \
+    --hash=sha256:242248e1685039cd8bff2c2ecb7ce6c1546eb50ee3b08519729e6e881aec19c7 \
+    --hash=sha256:7799c4ea951e0e96ba8260575423cb323ea5a03fcf5503560fa3e15748869e27
     # via jupyter
 jupyter-core==4.7.1 \
     --hash=sha256:79025cb3225efcd36847d0840f3fc672c0abd7afd0de83ba8a1d3837619122b4 \
@@ -430,9 +430,9 @@ netcdf4==1.5.6 \
     --hash=sha256:fea789b2c2ae6bf64e8e917ca232654c4af60be2ef1153d73ddf90fa8f911a64 \
     --hash=sha256:ff27c422fd45c7a482bedb643d1be0ff0c58c6f0b2888e6fe0e3da059050f779
     # via arviz
-notebook==6.2.0 \
-    --hash=sha256:0464b28e18e7a06cec37e6177546c2322739be07962dd13bf712bcb88361f013 \
-    --hash=sha256:25ad93c982b623441b491e693ef400598d1a46cdf11b8c9c0b3be6c61ebbb6cd
+notebook==6.3.0 \
+    --hash=sha256:cb271af1e8134e3d6fc6d458bdc79c40cbfc84c1eb036a493f216d58f0880e92 \
+    --hash=sha256:cbc9398d6c81473e9cdb891d2cae9c0d3718fca289dda6d26df5cb660fcadc7d
     # via
     #   jupyter
     #   widgetsnbextension
@@ -565,15 +565,16 @@ pillow==8.1.2 \
     --hash=sha256:f36c3ff63d6fc509ce599a2f5b0d0732189eed653420e7294c039d342c6e204a \
     --hash=sha256:f91b50ad88048d795c0ad004abbe1390aa1882073b1dca10bfd55d0b8cf18ec5
     # via
+    #   -r /home/dev/nba/requirements/notebook_requirements.in
     #   bokeh
     #   matplotlib
 prometheus-client==0.9.0 \
     --hash=sha256:9da7b32f02439d8c04f7777021c304ed51d9ec180604700c1ba72a4d44dceb03 \
     --hash=sha256:b08c34c328e1bf5961f0b4352668e6c8f145b4a087e09b7296ef62cbe4693d35
     # via notebook
-prompt-toolkit==3.0.17 \
-    --hash=sha256:4cea7d09e46723885cb8bc54678175453e5071e9449821dce6f017b1d1fbfc1a \
-    --hash=sha256:9397a7162cf45449147ad6042fa37983a081b8a73363a5253dd4072666333137
+prompt-toolkit==3.0.18 \
+    --hash=sha256:bf00f22079f5fadc949f42ae8ff7f05702826a97059ffcc6281036ad40ac6f04 \
+    --hash=sha256:e1b4f11b9336a28fa11810bc623c357420f69dfdb6d2dac41ca2c21a55c033bc
     # via
     #   ipython
     #   jupyter-console
@@ -877,9 +878,9 @@ xarray==0.17.0 \
     # via arviz
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==54.1.2 \
-    --hash=sha256:dd20743f36b93cbb8724f4d2ccd970dce8b6e6e823a13aa7e5751bb4e674c20b \
-    --hash=sha256:ebd0148faf627b569c8d2a1b20f5d3b09c873f12739d71c7ee88f037d5be82ff
+setuptools==54.2.0 \
+    --hash=sha256:aa9c24fb83a9116b8d425e53bec24c7bfdbffc313c2159f9ed036d4a6dd32d7d \
+    --hash=sha256:b726461910b9ba30f077880c228bea22121aec50b172edf39eb7ff026c054a11
     # via
     #   arviz
     #   ipython

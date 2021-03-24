@@ -3,3 +3,8 @@ pip-tools
 changelog-cli
 black
 pylint
+pbpstats
+pandas
+Pillow
+numpy
+setuptools

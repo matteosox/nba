@@ -22,7 +22,6 @@ RUN pip install --upgrade pip wheel setuptools && pip install -r dev_requirement
 RUN mkdir nba
 COPY pynba nba/pynba
 COPY setup.py nba/setup.py
-COPY README.md nba/README.md
 
 # Install package using pip config to pickup dependencies
 RUN pip install --editable nba/.
