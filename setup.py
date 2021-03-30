@@ -39,5 +39,7 @@ setup(
         "Pillow",
         "numpy",
         "setuptools",
+        "pyarrow",
+        "matplotlib",
     ],
 )

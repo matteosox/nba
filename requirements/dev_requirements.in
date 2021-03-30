@@ -8,3 +8,5 @@ pandas
 Pillow
 numpy
 setuptools
+pyarrow
+matplotlib
