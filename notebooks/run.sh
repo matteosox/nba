@@ -15,21 +15,26 @@ usage()
 }
 
 while [ "$1" != "" ]; do
-    case $1 in
-        -t | --tag )            shift
-                                TAG=$1
-                                ;;
-        -i | --ip )             shift
-                                IP=$1
-                                ;;
-        -p | --port )           shift
-                                PORT=$1
-                                ;;
-        -h | --help )           usage
-                                exit
-                                ;;
-        * )                     usage
-                                exit 1
+    case "$1" in
+        -t | --tag )
+            shift
+            TAG="$1"
+            ;;
+        -i | --ip )
+            shift
+            IP="$1"
+            ;;
+        -p | --port )
+            shift
+            PORT="$1"
+            ;;
+        -h | --help )
+            usage
+            exit
+            ;;
+        * )
+        usage
+        exit 1
     esac
     shift
 done

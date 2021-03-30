@@ -15,7 +15,7 @@ usage()
 
 # Parse inputs
 while [ "$1" != "" ]; do
-    case $1 in
+    case "$1" in
         -c | --cache )
             shift
             CACHE_DIR="$1"
