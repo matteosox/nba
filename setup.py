@@ -30,6 +30,7 @@ setup(
             "VERSION",
             "logos/*",
             "teams.json",
+            "blackontrans.mplstyle",
         ],
     },
     install_requires=[
@@ -38,5 +39,7 @@ setup(
         "Pillow",
         "numpy",
         "setuptools",
+        "pyarrow",
+        "matplotlib",
     ],
 )

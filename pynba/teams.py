@@ -5,6 +5,9 @@ from pkg_resources import resource_filename
 import pandas as pd
 
 
+__all__ = ["team_info", "team_id_to_team_abb"]
+
+
 DATA_PATH = resource_filename("pynba", "teams.json")
 
 team_info = pd.read_json(DATA_PATH)
