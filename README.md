@@ -18,13 +18,15 @@ This repo has three main parts:
 
 ## User Notes
 
-TBD
+### Jupyter Notebook Environment
+
+_TL;DR: To start up the notebook environment, run `./notebooks/run.sh`, which will open up a browser tab for you._
+
+We use a Dockerized Jupyter notebook environment for data analysis. The `./notebooks/run.sh` bash script starts this container and opens up a web browser to the Jupyter server for you, with the repo mounted to `/home/jupyter/nba`. This allows you to edit the `pynba` package without needing to restart the container, since it is installed in [editable mode](https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs). The Jupyter notebook directory is the repo's `notebooks` directory, which contains version controller notebooks, along with a `data` directory ignored by Git. The version controlled notebooks rely on a combination of [pbpstats data](https://pbpstats.readthedocs.io/en/latest/quickstart.html#download-data) and possession data parsed from it, stored in Parquet, produced by the `parse_and_store_pbpstats.ipynb` notebook.
 
 ## MVP TODO
 
-- Document notebooks environment.
 - Web app build, test, and deploy steps.
-- Setup mounted data volume for notebooks environment.
 
 ## Developer Notes
 

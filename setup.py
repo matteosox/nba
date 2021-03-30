@@ -30,6 +30,7 @@ setup(
             "VERSION",
             "logos/*",
             "teams.json",
+            "blackontrans.mplstyle",
         ],
     },
     install_requires=[
