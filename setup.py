@@ -41,5 +41,6 @@ setup(
         "setuptools",
         "pyarrow",
         "matplotlib",
+        "pymc3",
     ],
 )
