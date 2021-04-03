@@ -5,7 +5,7 @@ import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 const name = 'Matt E Fay'
-export const siteTitle = 'Next.js Sample Website'
+export const siteTitle = 'NBA by mattefay'
 
 export default function Layout({
   children,
@@ -20,16 +20,25 @@ export default function Layout({
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
-          content="Learn how to build a personal website using Next.js"
+          content="NBA Stats & Analysis, powered by Python & NextJS"
         />
         <meta
-          property="og:image"
-          content={`https://og-image.vercel.app/${encodeURI(
-            siteTitle
-          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
         />
-        <meta name="og:title" content={siteTitle} />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          property="og:site_name"
+          content="NBA by mattefay"
+        />
+        {/*
+        Page specific stuff to add later
+        <meta property="og:title" content="European Travel Destinations"/>
+        <meta property="og:description" content="Offering tour packages for individuals or groups."/>
+        <meta property="og:image" content="http://euro-travel-example.com/thumbnail.jpg"/>
+        <meta property="og:url" content="http://euro-travel-example.com/index.htm"/>
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:image:alt" content="Alt text for image"/>
+        */}
       </Head>
       <header className={styles.header}>
         {home ? (
