@@ -12,26 +12,32 @@ export default function Season({
     seasonData: {
     season: string
     stats: Array<Array<number | string>>
-    ratings_image: string
-    paces_image: string
+    ratingsImage: string
+    pacesImage: string
   }
 }) {
+  const title = `NBA ${seasonData.season} Regular Season`
+  const domain = "https://nba.mattefay.com"
   return (
     <Layout>
       <Head>
-        <title>{seasonData.season}</title>
+        <title>{title}</title>
+        <meta property="og:title" content={title}/>
+        <meta property="og:description" content={`NBA ${seasonData.season} Regular Season Team Stats`}/>
+        <meta property="og:url" content={domain + seasonData.ratingsImage}/>
+        <meta name="twitter:card" content="summary_large_image"/>
       </Head>
-      <h1 className={utilStyles.headingXl}>{seasonData.season}</h1>
+      <h1 className={utilStyles.headingXl}>NBA {seasonData.season} Regular Season Team Stats</h1>
       <div className={utilStyles.centeredImage}>
         <Image
-          src={seasonData.ratings_image}
+          src={seasonData.ratingsImage}
           height={800}
           width={800}
         />
       </div>
       <div className={utilStyles.centeredImage}>
         <Image
-          src={seasonData.paces_image}
+          src={seasonData.pacesImage}
           height={800}
           width={800}
         />

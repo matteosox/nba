@@ -27,7 +27,7 @@ export function getSeasonData(season: string) {
   return {
     season,
     stats,
-    ratings_image: `/seasons/${season}/team_ratings_nba_${season}_Regular Season.png`,
-    paces_image: `/seasons/${season}/team_paces_nba_${season}_Regular Season.png`
+    ratingsImage: `/seasons/${season}/team_ratings_nba_${season}_Regular Season.png`,
+    pacesImage: `/seasons/${season}/team_paces_nba_${season}_Regular Season.png`
   }
 }
