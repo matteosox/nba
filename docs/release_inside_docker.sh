@@ -10,5 +10,5 @@ docker run \
     --rm \
     --name changelog_updates \
     -v "$DIR"/../:/home/dev/nba \
-    dev:$TAG \
+    matteosox/nba:dev-$TAG \
     nba/docs/release.sh

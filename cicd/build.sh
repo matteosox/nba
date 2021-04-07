@@ -6,37 +6,24 @@ set -ef -o pipefail
 TAG=$(git rev-parse --short HEAD)
 echo "Building for tag $TAG"
 DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
+PUSH=false
 
 # Simple usage instructions for this script
 usage()
 {
-    echo "usage: $DIR/build.sh [--cache -c cache_dir] [--no-cache -n] [--help -h]"
+    echo "usage: $DIR/build.sh [--no-cache -n] [--push -p] [--help -h]"
 }
 
 # Parse inputs
 while [ "$1" != "" ]; do
     case "$1" in
-        -c | --cache )
-            shift
-            CACHE_DIR="$1"
-            echo "Using local docker build cache at $CACHE_DIR"
-            TMP_CACHE=$(mktemp -d -t)
-            DEV_BUILD_ARGS="--cache-from type=local,src=$CACHE_DIR/dev --cache-to type=local,mode=max,dest=$TMP_CACHE/dev --load"
-            NTBK_BUILD_ARGS="--cache-from type=local,src=$CACHE_DIR/notebook --cache-to type=local,mode=max,dest=$TMP_CACHE/notebook --load"
-            APP_BUILD_ARGS="--cache-from type=local,src=$CACHE_DIR/app --cache-to type=local,mode=max,dest=$TMP_CACHE/app --load"
-            BUILDX_BUILDER=$(docker buildx create --use)
-            docker buildx install
-            cleanup() {
-                docker buildx rm "$BUILDX_BUILDER"
-                docker buildx uninstall
-                rm -rf $CACHE_DIR
-                mv $TMP_CACHE $CACHE_DIR
-            }
-            trap cleanup EXIT
-            ;;
         -n | --no-cache )
             echo "Building without any docker cache"
             BUILD_ARGS="--pull --no-cache"
+            ;;
+        -p | --push )
+            echo "Pushing images upon build completion"
+            PUSH=true
             ;;
         -h | --help )
             usage
@@ -52,21 +39,37 @@ done
 export DOCKER_BUILDKIT=1
 
 echo "Building dev Docker image"
-docker build $DEV_BUILD_ARGS \
-    -t dev:$TAG \
+docker build $BUILD_ARGS \
+    --progress=plain \
+    -t matteosox/nba:dev-$TAG \
+    --cache-from matteosox/nba:dev-$TAG \
+    --build-arg BUILDKIT_INLINE_CACHE=1 \
     -f "$DIR"/../build/dev.Dockerfile \
     "$DIR"/../
 
 echo "Building notebook Docker image"
-docker build $NTBK_BUILD_ARGS \
-    -t notebook:$TAG \
+docker build $BUILD_ARGS \
+    --progress=plain \
+    -t matteosox/nba:notebook-$TAG \
+    --cache-from matteosox/nba:notebook-$TAG \
+    --build-arg BUILDKIT_INLINE_CACHE=1 \
     -f "$DIR"/../build/notebook.Dockerfile \
     "$DIR"/../
 
 echo "Building app Docker image"
-docker build $APP_BUILD_ARGS \
-    -t app:$TAG \
+docker build $BUILD_ARGS \
+    --progress=plain \
+    -t matteosox/nba:app-$TAG \
+    --cache-from matteosox/nba:app-$TAG \
+    --build-arg BUILDKIT_INLINE_CACHE=1 \
     -f "$DIR"/../build/app.Dockerfile \
     "$DIR"/../
+
+if [ "$PUSH" = true ]; then
+    echo "Pushing images"
+    docker push matteosox/nba:dev-$TAG
+    docker push matteosox/nba:notebook-$TAG
+    docker push matteosox/nba:app-$TAG
+fi
 
 echo "All done!"

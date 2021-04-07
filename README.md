@@ -24,9 +24,21 @@ _TL;DR: To start up the notebook environment, run `./notebooks/run.sh`, which wi
 
 We use a Dockerized Jupyter notebook environment for data analysis. The `./notebooks/run.sh` bash script starts this container and opens up a web browser to the Jupyter server for you, with the repo mounted to `/home/jupyter/nba`. This allows you to edit the `pynba` package without needing to restart the container, since it is installed in [editable mode](https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs). The Jupyter notebook directory is the repo's `notebooks` directory, which contains version controller notebooks, along with a `data` directory ignored by Git. The version controlled notebooks rely on a combination of [pbpstats data](https://pbpstats.readthedocs.io/en/latest/quickstart.html#download-data) and possession data parsed from it, stored in Parquet, produced by the `parse_and_store_pbpstats.ipynb` notebook.
 
-## MVP TODO
+## TODO
 
-- Web app build, test, and deploy steps.
+- Analysis
+    - Travel and rest adjustments
+    - Add 2021 season
+    - Automate updates
+    - Re-evaluate priors
+    - Confirm reduction in home court advantage
+    - Fix 2020 bubble games
+    - Playoffs?!
+- App
+    - Theme/style
+    - Replace images with interactives
+    - Improve tables (sortable, hover for definition, colorize for z-scores)
+    - [Incremental static regeneration](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration)
 
 ## Developer Notes
 
@@ -54,9 +66,19 @@ To simplify this, we use [`changelog-cli`](https://github.com/mc706/changelog-cl
 
 We use PEP8 for Python, but don't trip, just run `./test/black_lint.sh` to get all your spaces in a row.
 
+### Committing Code
+
+We use the `pre-commit` git hook to run the buildin' and testin' phases of our CI/CD pipeline locally.
+
+### Pull Requests
+
+The `main` branch has [branch protections](https://help.github.com/en/github/administering-a-repository/about-protected-branches) turned on in Github, requiring one reviewer to approve a PR before merging. We also use the code owners feature to specify who can approve certain PRs. As well, merging a PR requires status checks to complete successfully.
+
+When naming a branch, please use the syntax `firstname/branch-name-here`. If you plan to collaborate with others on that branch, use `team/branch-name-here`.
+
 ### Updating the dev & notebook python requirements
 
-_TL;DR: Run `./requirements/update_requirements_in_docker.sh` after building the build environment, i.e. `./cicd/build.sh`._
+_TL;DR: Run `./requirements/update_requirements_in_docker.sh` after building, i.e. `./cicd/build.sh`._
 
 There are four requirements files checked into this directory:
 1) `dev_requirements.in`
@@ -68,6 +90,18 @@ The `.in` files are where we collect immediate dependencies, described in PyPI f
 
 This gives us both a flexible way to describe dependencies while still achieving reproducible builds. Inspired by [this](https://hynek.me/articles/python-app-deps-2018/) and [this](https://pythonspeed.com/articles/pipenv-docker/).
 
+### DNS
+
+I own the domain mattefay.com through hover.com. I host my blog there, using format.com. This repo's site is hosted at the nba.mattefay.com subdomain. Since [Vercel](https://vercel.com/) is hosting this site, I have a CNAME DNS record in Hover to alias that subdomain to them, i.e. `CNAME nba cname.vercel-dns.com`.
+
+### Developing the NextJS App
+
+_TL;DR: Run `./app/run.sh` after building, i.e. `./cicd/build.sh`._
+
+To ease developing the NextJS web app, we use `npm run dev` in a Docker container with the app mounted. This starts the app in [development mode](https://nextjs.org/docs/api-reference/cli#development), which takes advantage of NextJS's [fast refresh](https://nextjs.org/docs/basic-features/fast-refresh) functionality, which catches exceptions and loads code updates near-instantaneously.
+
+Additionally, if you'd like to run a different command, e.g. to update the npm packages installed using `npm install`, you can use the same `./app/run.sh` script with a `-c "YOUR CMD HERE"` option.
+
 ## Continuous Integration / Continuous Deployment
 
 We use Github actions to run our CI/CD pipeline on every pull request, but every step of CI/CD can also be run locally. 
@@ -78,7 +112,11 @@ _TL;DR: To run tests, run `./cicd/build.sh`._
 
 This builds the three relevant docker images, `dev`, `notebook`, and `app`.
 
-To get docker cacheing to work in the Github Actions cloud environment, we use the `cache` Github Action to cache an exported `docker buildx` cache for each run. The Github Action for this step uses the `--cache` option to use `docker buildx` and look in the relevant local directory.
+We do a couple of neat cacheing tricks to speed things up. First off, in the `Dockerfile`s themselves, we use the `RUN --mount=type=cache` functionality of Docker BuildKit to cache Python packages stored in `~/.cache/pip`. This keeps you local machine from re-downloading new Python packages each time. We don't use this for OS-level packages, i.e. those installed using `apt`, to reduce the size of the images. I tried and failed to get this to work for `npm install` and the `node_modules` directory, with mysteriously useless results. This was inspired by [this blog post](https://pythonspeed.com/articles/docker-cache-pip-downloads/)
+
+Second, we use the new `BUILDKIT_INLINE_CACHE` feature to cache our images using Docker Hub. This is configured in the `docker build` command, and is smart enough to only download the layers you need. This was inspired by [this blog post](https://pythonspeed.com/articles/speeding-up-docker-ci/). This DOES work in Github Actions, while the prior functionality does not.
+
+In Github Actions, we use the `--push` flag of the build script to push the images to Docker Hub. Note that you'll need to be logged in to be able to do that locally. We use the `docker/login-action@v1` build action to login, and it uses a personal access token named `github-actions` from my Docker Hub account to do that, with the username and token stored as secrets.
 
 ### Testin'
 
@@ -102,14 +140,4 @@ Thus, to run tests, we mount the root of the repo to the location in the contain
 
 ### Depolyin'
 
-Planning to use Vercel for free hosting, but nothing is setup yet.
-
-### Pull Requests
-
-The `main` branch has [branch protections](https://help.github.com/en/github/administering-a-repository/about-protected-branches) turned on in Github, requiring one reviewer to approve a PR before merging. We also use the code owners feature to specify who can approve certain PRs. As well, merging a PR requires status checks to complete successfully. 
-
-When naming a branch, please use the syntax `firstname/branch-name-here`. If you plan to collaborate with others on that branch, use `team/branch-name-here`.
-
-### Committing Code
-
-We use the `pre-commit` git hook to run the buildin' and testin' phases of our CI/CD pipeline locally.
+The Python package `pynba` is strictly for code refactoring in this repo's Jupyter notebook environment, so it isn't packaged up and released to PyPI.org. The NextJS app is deployed to nba.mattefay.com by [Vercel](https://vercel.com/), the company behind NextJS. The deployment process is integrated with Github, so that any commit to the `main` branch results in a new deploy. Conveniently, Vercel also builds and deploys a "staging" site for every commit that changes the `app` directory, making them available through comments in your pull request for example.

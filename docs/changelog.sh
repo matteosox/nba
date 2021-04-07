@@ -11,5 +11,5 @@ docker run \
     --workdir /home/dev/nba \
     --name changelog_updates \
     -v "$DIR"/../:/home/dev/nba \
-    dev:$TAG \
+    matteosox/nba:dev-$TAG \
     changelog "$@"

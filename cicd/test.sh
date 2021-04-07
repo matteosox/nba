@@ -10,7 +10,7 @@ docker run \
     --rm \
     --name black_linting \
     -v "$DIR"/../:/home/dev/nba \
-    dev:$TAG \
+    matteosox/nba:dev-$TAG \
     black --check nba
 
 echo "Running pylint"
@@ -18,7 +18,7 @@ docker run \
     --rm \
     --name black_linting \
     -v "$DIR"/../:/home/dev/nba \
-    dev:$TAG \
+    matteosox/nba:dev-$TAG \
     pylint --rcfile nba/pylintrc nba
 
 echo "Running Python unit tests"
@@ -26,5 +26,5 @@ docker run \
     --rm \
     --name python_unit_test \
     -v "$DIR"/../:/home/dev/nba \
-    dev:$TAG \
+    matteosox/nba:dev-$TAG \
     python -m unittest discover -v

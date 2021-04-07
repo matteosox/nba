@@ -3,11 +3,10 @@ set -ef -o pipefail
 
 TAG=$(git rev-parse --short HEAD)
 DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
-CMD="npm run dev"
 
 usage()
 {
-    echo "usage: ./run.sh [--tag -t sha=$TAG] [--command -c cmd=$CMD"
+    echo "usage: ./run.sh [--tag -t sha=$TAG] [--command -c cmd=$CMD]"
 }
 
 while [ "$1" != "" ]; do
@@ -33,4 +32,10 @@ done
 
 echo "Running app for tag $TAG"
 
-docker run -p 3000:3000 -v "$DIR":/home/app app:"$TAG" $CMD
+open_browser() {
+    sleep 2
+    python -m webbrowser http://localhost:3000
+}
+
+open_browser &
+docker run -it --rm -p 3000:3000 -v "$DIR":/home/app -v /home/app/node_modules -v /home/app/.next matteosox/nba:app-"$TAG" $CMD
