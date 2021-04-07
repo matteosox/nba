@@ -13,17 +13,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cache
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-            ${{ runner.os }}-
-
       - name: Build
-        run: ./cicd/build.sh --cache /tmp/.buildx-cache
+        run: ./cicd/build.sh --push
 
       - name: Test
         run: ./cicd/test.sh

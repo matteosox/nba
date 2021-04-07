@@ -51,7 +51,7 @@ docker run --rm \
     -p $PORT:$PORT \
     --name notebook \
     -v $DIR/../:/home/jupyter/nba \
-    notebook:$TAG \
+    matteosox/nba:notebook-$TAG \
     jupyter notebook \
     --ip=$IP \
     --no-browser \

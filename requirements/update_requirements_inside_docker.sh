@@ -12,5 +12,5 @@ docker run \
     -v "$DIR"/../:/home/dev/nba \
     -e "LC_ALL=C.UTF-8" \
     -e "LANG=C.UTF-8" \
-    dev:$TAG \
+    matteosox/nba:dev-$TAG \
     ./nba/requirements/update_requirements.sh
