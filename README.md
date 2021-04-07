@@ -112,7 +112,11 @@ _TL;DR: To run tests, run `./cicd/build.sh`._
 
 This builds the three relevant docker images, `dev`, `notebook`, and `app`.
 
-To get docker cacheing to work in the Github Actions cloud environment, we use the `cache` Github Action to cache an exported `docker buildx` cache for each run. The Github Action for this step uses the `--cache` option to use `docker buildx` and look in the relevant local directory.
+We do a couple of neat cacheing tricks to speed things up. First off, in the `Dockerfile`s themselves, we use the `RUN --mount=type=cache` functionality of Docker BuildKit to cache Python packages stored in `~/.cache/pip`. This keeps you local machine from re-downloading new Python packages each time. We don't use this for OS-level packages, i.e. those installed using `apt`, to reduce the size of the images. I tried and failed to get this to work for `npm install` and the `node_modules` directory, with mysteriously useless results. This was inspired by [this blog post](https://pythonspeed.com/articles/docker-cache-pip-downloads/)
+
+Second, we use the new `BUILDKIT_INLINE_CACHE` feature to cache our images using Docker Hub. This is configured in the `docker build` command, and is smart enough to only download the layers you need. This was inspired by [this blog post](https://pythonspeed.com/articles/speeding-up-docker-ci/). This DOES work in Github Actions, while the prior functionality does not.
+
+In Github Actions, we use the `--push` flag of the build script to push the images to Docker Hub. Note that you'll need to be logged in to be able to do that locally. We use the `docker/login-action@v1` build action to login, and it uses a personal access token named `github-actions` from my Docker Hub account to do that, with the username and token stored as secrets.
 
 ### Testin'
 
