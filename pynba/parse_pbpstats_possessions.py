@@ -1,74 +1,11 @@
 """Functions to parse pbpstats data"""
 
-import pandas as pd
-
 from pbpstats.resources.enhanced_pbp import FieldGoal, FreeThrow, Rebound, Turnover
 
 
-def parse_season(client, league, year, season_type):
-    """Parse a season's worth of pbpstats data
-
-    Parameters
-    ----------
-    client : pbpstats client
-    league : str
-        e.g. "nba", "wnba"
-    year : str
-        e.g. "2018-19"
-    season_type : str
-        e.g. "Regular Season", "Playoffs"
-
-    Returns
-    -------
-    pd.DataFrame
-    """
-    season = client.Season(league, year, season_type)
-    return pd.concat(
-        [
-            parse_game(client, game_data, league, year, season_type)
-            for game_data in season.games.final_games
-        ],
-        ignore_index=True,
-    )
-
-
-def parse_game(client, game_data, league, year, season_type):
-    """Parse a game's worth of pbpstats data
-
-    Parameters
-    ----------
-    client : pbpstats client
-    game_data : dict
-        usually gotten from season.games.final_games
-    league : str
-        e.g. "nba", "wnba"
-    year : str
-        e.g. "2018-19"
-    season_type : str
-        e.g. "Regular Season", "Playoffs"
-
-    Returns
-    -------
-    pd.DataFrame
-    """
-    game = client.Game(game_data["game_id"])
-    possessions_data = pd.DataFrame(
-        parse_possession(possession) for possession in game.possessions.items
-    )
-    possessions_data["possession_num"] = possessions_data.index
-    possessions_data["game_id"] = game_data["game_id"]
-    possessions_data["date"] = game_data["date"]
-    possessions_data["home_team_id"] = game_data["home_team_id"]
-    possessions_data["visitor_team_id"] = game_data["visitor_team_id"]
-    possessions_data["status"] = game_data["status"]
-    possessions_data["league"] = league
-    possessions_data["year"] = int(year[:4]) + 1
-    possessions_data["season_type"] = season_type
-    return possessions_data
-
-
 def parse_possession(possession):
-    """Parse a possession's worth of pbpstats data
+    """
+    Parse a possession's worth of pbpstats data
 
     Parameters
     ----------
@@ -107,7 +44,8 @@ def parse_possession(possession):
 
 
 def parse_events(events):
-    """Parse the events associated with a pbpstats possession
+    """
+    Parse the events associated with a pbpstats possession
 
     Parameters
     ----------
@@ -178,4 +116,4 @@ def _process_to(event, subrow):
 def clock_to_seconds_remaining(clock_str):
     """Translates a clock string to a number of seconds remaining"""
     minutes, seconds = clock_str.split(":")
-    return int(minutes) * 60 + int(seconds)
+    return float(minutes) * 60 + float(seconds)

@@ -1,0 +1,28 @@
+version: 1
+formatters:
+  standard:
+    format: "%(asctime)s | %(pathname)s:%(funcName)s@%(lineno)d | %(levelname)s | %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S %Z"
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: standard
+    stream: ext://sys.stdout
+loggers:
+  pynba:
+    level: DEBUG
+    handlers: []
+    propagate: True
+  __main__:
+    level: DEBUG
+    handlers: []
+    propagate: True
+  pymc3:
+    level: INFO
+    handlers: []
+    propagate: True
+disable_existing_loggers: False
+root:
+    level: WARNING
+    handlers: [console]

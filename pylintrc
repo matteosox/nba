@@ -22,7 +22,7 @@ ignore-patterns=
 
 # Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
 # number of processors available to use.
-jobs=1
+jobs=0
 
 # Control the amount of potential inferred values when inferring a single
 # object. This can help the performance when dealing with large functions or
@@ -43,6 +43,9 @@ suggestion-mode=yes
 # Allow loading of arbitrary C extensions. Extensions are imported into the
 # active Python interpreter and may run arbitrary code.
 unsafe-load-any-extension=no
+
+# In verbose mode, extra non-checker-related info will be displayed.
+verbose=yes
 
 
 [MESSAGES CONTROL]
@@ -140,7 +143,8 @@ disable=print-statement,
         exception-escape,
         comprehension-escape,
         attribute-defined-outside-init,
-        unsubscriptable-object
+        unsubscriptable-object,
+        logging-fstring-interpolation
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -378,12 +382,7 @@ function-naming-style=snake_case
 #function-rgx=
 
 # Good variable names which should always be accepted, separated by a comma.
-good-names=i,
-           j,
-           k,
-           ex,
-           Run,
-           _
+good-names=_
 
 # Good variable names regexes, separated by a comma. If names match any regex,
 # they will always be accepted

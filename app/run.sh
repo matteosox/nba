@@ -6,7 +6,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
 
 usage()
 {
-    echo "usage: ./run.sh [--tag -t sha=$TAG] [--command -c cmd=$CMD]"
+    echo "usage: ./run.sh [--tag -t sha=$TAG] [--command -c cmd]"
 }
 
 while [ "$1" != "" ]; do
@@ -38,4 +38,10 @@ open_browser() {
 }
 
 open_browser &
-docker run -it --rm -p 3000:3000 -v "$DIR":/home/app -v /home/app/node_modules -v /home/app/.next matteosox/nba:app-"$TAG" $CMD
+docker run -it --rm \
+    -p 3000:3000 \
+    -v "$DIR":/home/app \
+    -v /home/app/node_modules \
+    -v /home/app/.next \
+    matteosox/nba:app-"$TAG" \
+    $CMD

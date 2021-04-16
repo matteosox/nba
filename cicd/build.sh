@@ -8,7 +8,7 @@ echo "Building for tag $TAG"
 DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
 PUSH=false
 
-# Simple usage instructions for this script
+# Usage instructions for this script
 usage()
 {
     echo "usage: $DIR/build.sh [--no-cache -n] [--push -p] [--help -h]"
@@ -38,15 +38,6 @@ done
 
 export DOCKER_BUILDKIT=1
 
-echo "Building dev Docker image"
-docker build $BUILD_ARGS \
-    --progress=plain \
-    -t matteosox/nba:dev-$TAG \
-    --cache-from matteosox/nba:dev-$TAG \
-    --build-arg BUILDKIT_INLINE_CACHE=1 \
-    -f "$DIR"/../build/dev.Dockerfile \
-    "$DIR"/../
-
 echo "Building notebook Docker image"
 docker build $BUILD_ARGS \
     --progress=plain \
@@ -67,7 +58,6 @@ docker build $BUILD_ARGS \
 
 if [ "$PUSH" = true ]; then
     echo "Pushing images"
-    docker push matteosox/nba:dev-$TAG
     docker push matteosox/nba:notebook-$TAG
     docker push matteosox/nba:app-$TAG
 fi

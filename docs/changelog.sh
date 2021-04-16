@@ -8,8 +8,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
 
 docker run \
     --rm \
-    --workdir /home/dev/nba \
+    --workdir /home/jupyter/nba \
     --name changelog_updates \
-    -v "$DIR"/../:/home/dev/nba \
-    matteosox/nba:dev-$TAG \
+    -v "$DIR"/../:/home/jupyter/nba \
+    matteosox/nba:notebook-$TAG \
     changelog "$@"

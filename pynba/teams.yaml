@@ -1,0 +1,3536 @@
+gleague:
+  2017:
+    1612709889:
+      abbreviation: OKL
+      city: Oklahoma City
+      nickname: Blue
+    1612709890:
+      abbreviation: AUS
+      city: Austin
+      nickname: Spurs
+    1612709893:
+      abbreviation: CTN
+      city: Canton
+      nickname: Charge
+    1612709900:
+      abbreviation: NAS
+      city: Northern Arizona
+      nickname: Suns
+    1612709902:
+      abbreviation: SCW
+      city: Santa Cruz
+      nickname: Warriors
+    1612709903:
+      abbreviation: SLC
+      city: Salt Lake City
+      nickname: Stars
+    1612709904:
+      abbreviation: SXF
+      city: Sioux Falls
+      nickname: Skyforce
+    1612709905:
+      abbreviation: LAD
+      city: Los Angeles
+      nickname: D-Fenders
+    1612709908:
+      abbreviation: RGV
+      city: Rio Grande Valley
+      nickname: Vipers
+    1612709909:
+      abbreviation: DEL
+      city: Delaware
+      nickname: 87ers
+    1612709910:
+      abbreviation: FWN
+      city: Fort Wayne
+      nickname: Mad Ants
+    1612709911:
+      abbreviation: IWA
+      city: Iowa
+      nickname: Energy
+    1612709913:
+      abbreviation: ERI
+      city: Erie
+      nickname: BayHawks
+    1612709914:
+      abbreviation: RNO
+      city: Reno
+      nickname: Bighorns
+    1612709915:
+      abbreviation: MNE
+      city: Maine
+      nickname: Red Claws
+    1612709917:
+      abbreviation: GRD
+      city: Grand Rapids
+      nickname: Drive
+    1612709918:
+      abbreviation: TEX
+      city: Texas
+      nickname: Legends
+    1612709919:
+      abbreviation: WES
+      city: Westchester
+      nickname: Knicks
+    1612709920:
+      abbreviation: RAP
+      city: Raptors
+      nickname: '905'
+    1612709921:
+      abbreviation: LIN
+      city: Long Island
+      nickname: Nets
+    1612709922:
+      abbreviation: GBO
+      city: Greensboro
+      nickname: Swarm
+    1612709923:
+      abbreviation: WCB
+      city: Windy City
+      nickname: Bulls
+  2018:
+    1612709889:
+      abbreviation: OKL
+      city: Oklahoma City
+      nickname: Blue
+    1612709890:
+      abbreviation: AUS
+      city: Austin
+      nickname: Spurs
+    1612709893:
+      abbreviation: CTN
+      city: Canton
+      nickname: Charge
+    1612709900:
+      abbreviation: NAS
+      city: Northern Arizona
+      nickname: Suns
+    1612709902:
+      abbreviation: SCW
+      city: Santa Cruz
+      nickname: Warriors
+    1612709903:
+      abbreviation: SLC
+      city: Salt Lake City
+      nickname: Stars
+    1612709904:
+      abbreviation: SXF
+      city: Sioux Falls
+      nickname: Skyforce
+    1612709905:
+      abbreviation: SBL
+      city: South Bay
+      nickname: Lakers
+    1612709908:
+      abbreviation: RGV
+      city: Rio Grande Valley
+      nickname: Vipers
+    1612709909:
+      abbreviation: DEL
+      city: Delaware
+      nickname: 87ers
+    1612709910:
+      abbreviation: FWN
+      city: Fort Wayne
+      nickname: Mad Ants
+    1612709911:
+      abbreviation: IWA
+      city: Iowa
+      nickname: Wolves
+    1612709913:
+      abbreviation: ERI
+      city: Erie
+      nickname: BayHawks
+    1612709914:
+      abbreviation: RNO
+      city: Reno
+      nickname: Bighorns
+    1612709915:
+      abbreviation: MNE
+      city: Maine
+      nickname: Red Claws
+    1612709917:
+      abbreviation: GRD
+      city: Grand Rapids
+      nickname: Drive
+    1612709918:
+      abbreviation: TEX
+      city: Texas
+      nickname: Legends
+    1612709919:
+      abbreviation: WES
+      city: Westchester
+      nickname: Knicks
+    1612709920:
+      abbreviation: RAP
+      city: Raptors
+      nickname: '905'
+    1612709921:
+      abbreviation: LIN
+      city: Long Island
+      nickname: Nets
+    1612709922:
+      abbreviation: GBO
+      city: Greensboro
+      nickname: Swarm
+    1612709923:
+      abbreviation: WCB
+      city: Windy City
+      nickname: Bulls
+    1612709924:
+      abbreviation: ACC
+      city: Agua Caliente
+      nickname: Clippers
+    1612709925:
+      abbreviation: LAK
+      city: Lakeland
+      nickname: Magic
+    1612709926:
+      abbreviation: MHU
+      city: Memphis
+      nickname: Hustle
+    1612709927:
+      abbreviation: WIS
+      city: Wisconsin
+      nickname: Herd
+  2019:
+    1612709889:
+      abbreviation: OKL
+      city: Oklahoma City
+      nickname: Blue
+    1612709890:
+      abbreviation: AUS
+      city: Austin
+      nickname: Spurs
+    1612709893:
+      abbreviation: CTN
+      city: Canton
+      nickname: Charge
+    1612709900:
+      abbreviation: NAS
+      city: Northern Arizona
+      nickname: Suns
+    1612709902:
+      abbreviation: SCW
+      city: Santa Cruz
+      nickname: Warriors
+    1612709903:
+      abbreviation: SLC
+      city: Salt Lake City
+      nickname: Stars
+    1612709904:
+      abbreviation: SXF
+      city: Sioux Falls
+      nickname: Skyforce
+    1612709905:
+      abbreviation: SBL
+      city: South Bay
+      nickname: Lakers
+    1612709908:
+      abbreviation: RGV
+      city: Rio Grande Valley
+      nickname: Vipers
+    1612709909:
+      abbreviation: DEL
+      city: Delaware
+      nickname: Blue Coats
+    1612709910:
+      abbreviation: FWN
+      city: Fort Wayne
+      nickname: Mad Ants
+    1612709911:
+      abbreviation: IWA
+      city: Iowa
+      nickname: Wolves
+    1612709913:
+      abbreviation: ERI
+      city: Erie
+      nickname: BayHawks
+    1612709914:
+      abbreviation: STO
+      city: Stockton
+      nickname: Kings
+    1612709915:
+      abbreviation: MNE
+      city: Maine
+      nickname: Red Claws
+    1612709917:
+      abbreviation: GRD
+      city: Grand Rapids
+      nickname: Drive
+    1612709918:
+      abbreviation: TEX
+      city: Texas
+      nickname: Legends
+    1612709919:
+      abbreviation: WES
+      city: Westchester
+      nickname: Knicks
+    1612709920:
+      abbreviation: RAP
+      city: Raptors
+      nickname: '905'
+    1612709921:
+      abbreviation: LIN
+      city: Long Island
+      nickname: Nets
+    1612709922:
+      abbreviation: GBO
+      city: Greensboro
+      nickname: Swarm
+    1612709923:
+      abbreviation: WCB
+      city: Windy City
+      nickname: Bulls
+    1612709924:
+      abbreviation: ACC
+      city: Agua Caliente
+      nickname: Clippers
+    1612709925:
+      abbreviation: LAK
+      city: Lakeland
+      nickname: Magic
+    1612709926:
+      abbreviation: MHU
+      city: Memphis
+      nickname: Hustle
+    1612709927:
+      abbreviation: WIS
+      city: Wisconsin
+      nickname: Herd
+    1612709928:
+      abbreviation: CAP
+      city: Capital City
+      nickname: Go-Go
+  2020:
+    1612709889:
+      abbreviation: OKL
+      city: Oklahoma City
+      nickname: Blue
+    1612709890:
+      abbreviation: AUS
+      city: Austin
+      nickname: Spurs
+    1612709893:
+      abbreviation: CTN
+      city: Canton
+      nickname: Charge
+    1612709900:
+      abbreviation: NAS
+      city: Northern Arizona
+      nickname: Suns
+    1612709902:
+      abbreviation: SCW
+      city: Santa Cruz
+      nickname: Warriors
+    1612709903:
+      abbreviation: SLC
+      city: Salt Lake City
+      nickname: Stars
+    1612709904:
+      abbreviation: SXF
+      city: Sioux Falls
+      nickname: Skyforce
+    1612709905:
+      abbreviation: SBL
+      city: South Bay
+      nickname: Lakers
+    1612709908:
+      abbreviation: RGV
+      city: Rio Grande Valley
+      nickname: Vipers
+    1612709909:
+      abbreviation: DEL
+      city: Delaware
+      nickname: Blue Coats
+    1612709910:
+      abbreviation: FWN
+      city: Fort Wayne
+      nickname: Mad Ants
+    1612709911:
+      abbreviation: IWA
+      city: Iowa
+      nickname: Wolves
+    1612709913:
+      abbreviation: ERI
+      city: Erie
+      nickname: BayHawks
+    1612709914:
+      abbreviation: STO
+      city: Stockton
+      nickname: Kings
+    1612709915:
+      abbreviation: MNE
+      city: Maine
+      nickname: Red Claws
+    1612709917:
+      abbreviation: GRD
+      city: Grand Rapids
+      nickname: Drive
+    1612709918:
+      abbreviation: TEX
+      city: Texas
+      nickname: Legends
+    1612709919:
+      abbreviation: WES
+      city: Westchester
+      nickname: Knicks
+    1612709920:
+      abbreviation: RAP
+      city: Raptors
+      nickname: '905'
+    1612709921:
+      abbreviation: LIN
+      city: Long Island
+      nickname: Nets
+    1612709922:
+      abbreviation: GBO
+      city: Greensboro
+      nickname: Swarm
+    1612709923:
+      abbreviation: WCB
+      city: Windy City
+      nickname: Bulls
+    1612709924:
+      abbreviation: ACC
+      city: Agua Caliente
+      nickname: Clippers
+    1612709925:
+      abbreviation: LAK
+      city: Lakeland
+      nickname: Magic
+    1612709926:
+      abbreviation: MHU
+      city: Memphis
+      nickname: Hustle
+    1612709927:
+      abbreviation: WIS
+      city: Wisconsin
+      nickname: Herd
+    1612709928:
+      abbreviation: CCG
+      city: Capital City
+      nickname: Go-Go
+    1612709929:
+      abbreviation: CPS
+      city: College Park
+      nickname: Skyhawks
+nba:
+  2001:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: NJN
+      city: New Jersey
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: SEA
+      city: Seattle
+      nickname: SuperSonics
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: VAN
+      city: Vancouver
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHH
+      city: Charlotte
+      nickname: Hornets
+  2002:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: NJN
+      city: New Jersey
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: SEA
+      city: Seattle
+      nickname: SuperSonics
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHH
+      city: Charlotte
+      nickname: Hornets
+  2003:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOH
+      city: New Orleans
+      nickname: Hornets
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: NJN
+      city: New Jersey
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: SEA
+      city: Seattle
+      nickname: SuperSonics
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+  2004:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOH
+      city: New Orleans
+      nickname: Hornets
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: NJN
+      city: New Jersey
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: SEA
+      city: Seattle
+      nickname: SuperSonics
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+  2005:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOH
+      city: New Orleans
+      nickname: Hornets
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: NJN
+      city: New Jersey
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: SEA
+      city: Seattle
+      nickname: SuperSonics
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Bobcats
+  2006:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOK
+      city: New Orleans/Oklahoma City
+      nickname: Hornets
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: NJN
+      city: New Jersey
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: SEA
+      city: Seattle
+      nickname: SuperSonics
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Bobcats
+  2007:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOK
+      city: New Orleans/Oklahoma City
+      nickname: Hornets
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: NJN
+      city: New Jersey
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: SEA
+      city: Seattle
+      nickname: SuperSonics
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Bobcats
+  2008:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOH
+      city: New Orleans
+      nickname: Hornets
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: NJN
+      city: New Jersey
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: SEA
+      city: Seattle
+      nickname: SuperSonics
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Bobcats
+  2009:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOH
+      city: New Orleans
+      nickname: Hornets
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: NJN
+      city: New Jersey
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Bobcats
+  2010:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOH
+      city: New Orleans
+      nickname: Hornets
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: NJN
+      city: New Jersey
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Bobcats
+  2011:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOH
+      city: New Orleans
+      nickname: Hornets
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: NJN
+      city: New Jersey
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Bobcats
+  2012:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOH
+      city: New Orleans
+      nickname: Hornets
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: NJN
+      city: New Jersey
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Bobcats
+  2013:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOH
+      city: New Orleans
+      nickname: Hornets
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: BKN
+      city: Brooklyn
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Bobcats
+  2014:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOP
+      city: New Orleans
+      nickname: Pelicans
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: BKN
+      city: Brooklyn
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Bobcats
+  2015:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOP
+      city: New Orleans
+      nickname: Pelicans
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: Los Angeles
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: BKN
+      city: Brooklyn
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Hornets
+  2016:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOP
+      city: New Orleans
+      nickname: Pelicans
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: LA
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: BKN
+      city: Brooklyn
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Hornets
+  2017:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOP
+      city: New Orleans
+      nickname: Pelicans
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: LA
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: BKN
+      city: Brooklyn
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Hornets
+  2018:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOP
+      city: New Orleans
+      nickname: Pelicans
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: LA
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: BKN
+      city: Brooklyn
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Hornets
+  2019:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOP
+      city: New Orleans
+      nickname: Pelicans
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: LA
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: BKN
+      city: Brooklyn
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Hornets
+  2020:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOP
+      city: New Orleans
+      nickname: Pelicans
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: LA
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: BKN
+      city: Brooklyn
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Hornets
+  2021:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOP
+      city: New Orleans
+      nickname: Pelicans
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: LA
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: BKN
+      city: Brooklyn
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Hornets
+wnba:
+  2009:
+    1611661313:
+      abbreviation: NYL
+      city: New York
+      nickname: Liberty
+    1611661317:
+      abbreviation: PHO
+      city: Phoenix
+      nickname: Mercury
+    1611661318:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Monarchs
+    1611661319:
+      abbreviation: SAN
+      city: San Antonio
+      nickname: Silver Stars
+    1611661320:
+      abbreviation: LAS
+      city: Los Angeles
+      nickname: Sparks
+    1611661321:
+      abbreviation: DET
+      city: Detroit
+      nickname: Shock
+    1611661322:
+      abbreviation: WAS
+      city: Washington
+      nickname: Mystics
+    1611661323:
+      abbreviation: CON
+      city: Connecticut
+      nickname: Sun
+    1611661324:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Lynx
+    1611661325:
+      abbreviation: IND
+      city: Indiana
+      nickname: Fever
+    1611661328:
+      abbreviation: SEA
+      city: Seattle
+      nickname: Storm
+    1611661329:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Sky
+    1611661330:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Dream
+  2010:
+    1611661313:
+      abbreviation: NYL
+      city: New York
+      nickname: Liberty
+    1611661317:
+      abbreviation: PHO
+      city: Phoenix
+      nickname: Mercury
+    1611661319:
+      abbreviation: SAN
+      city: San Antonio
+      nickname: Silver Stars
+    1611661320:
+      abbreviation: LAS
+      city: Los Angeles
+      nickname: Sparks
+    1611661321:
+      abbreviation: TUL
+      city: Tulsa
+      nickname: Shock
+    1611661322:
+      abbreviation: WAS
+      city: Washington
+      nickname: Mystics
+    1611661323:
+      abbreviation: CON
+      city: Connecticut
+      nickname: Sun
+    1611661324:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Lynx
+    1611661325:
+      abbreviation: IND
+      city: Indiana
+      nickname: Fever
+    1611661328:
+      abbreviation: SEA
+      city: Seattle
+      nickname: Storm
+    1611661329:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Sky
+    1611661330:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Dream
+  2011:
+    1611661313:
+      abbreviation: NYL
+      city: New York
+      nickname: Liberty
+    1611661317:
+      abbreviation: PHO
+      city: Phoenix
+      nickname: Mercury
+    1611661319:
+      abbreviation: SAN
+      city: San Antonio
+      nickname: Silver Stars
+    1611661320:
+      abbreviation: LAS
+      city: Los Angeles
+      nickname: Sparks
+    1611661321:
+      abbreviation: TUL
+      city: Tulsa
+      nickname: Shock
+    1611661322:
+      abbreviation: WAS
+      city: Washington
+      nickname: Mystics
+    1611661323:
+      abbreviation: CON
+      city: Connecticut
+      nickname: Sun
+    1611661324:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Lynx
+    1611661325:
+      abbreviation: IND
+      city: Indiana
+      nickname: Fever
+    1611661328:
+      abbreviation: SEA
+      city: Seattle
+      nickname: Storm
+    1611661329:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Sky
+    1611661330:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Dream
+  2012:
+    1611661313:
+      abbreviation: NYL
+      city: New York
+      nickname: Liberty
+    1611661317:
+      abbreviation: PHO
+      city: Phoenix
+      nickname: Mercury
+    1611661319:
+      abbreviation: SAN
+      city: San Antonio
+      nickname: Silver Stars
+    1611661320:
+      abbreviation: LAS
+      city: Los Angeles
+      nickname: Sparks
+    1611661321:
+      abbreviation: TUL
+      city: Tulsa
+      nickname: Shock
+    1611661322:
+      abbreviation: WAS
+      city: Washington
+      nickname: Mystics
+    1611661323:
+      abbreviation: CON
+      city: Connecticut
+      nickname: Sun
+    1611661324:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Lynx
+    1611661325:
+      abbreviation: IND
+      city: Indiana
+      nickname: Fever
+    1611661328:
+      abbreviation: SEA
+      city: Seattle
+      nickname: Storm
+    1611661329:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Sky
+    1611661330:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Dream
+  2013:
+    1611661313:
+      abbreviation: NYL
+      city: New York
+      nickname: Liberty
+    1611661317:
+      abbreviation: PHO
+      city: Phoenix
+      nickname: Mercury
+    1611661319:
+      abbreviation: SAN
+      city: San Antonio
+      nickname: Silver Stars
+    1611661320:
+      abbreviation: LAS
+      city: Los Angeles
+      nickname: Sparks
+    1611661321:
+      abbreviation: TUL
+      city: Tulsa
+      nickname: Shock
+    1611661322:
+      abbreviation: WAS
+      city: Washington
+      nickname: Mystics
+    1611661323:
+      abbreviation: CON
+      city: Connecticut
+      nickname: Sun
+    1611661324:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Lynx
+    1611661325:
+      abbreviation: IND
+      city: Indiana
+      nickname: Fever
+    1611661328:
+      abbreviation: SEA
+      city: Seattle
+      nickname: Storm
+    1611661329:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Sky
+    1611661330:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Dream
+  2014:
+    1611661313:
+      abbreviation: NYL
+      city: New York
+      nickname: Liberty
+    1611661317:
+      abbreviation: PHO
+      city: Phoenix
+      nickname: Mercury
+    1611661319:
+      abbreviation: SAN
+      city: San Antonio
+      nickname: Stars
+    1611661320:
+      abbreviation: LAS
+      city: Los Angeles
+      nickname: Sparks
+    1611661321:
+      abbreviation: TUL
+      city: Tulsa
+      nickname: Shock
+    1611661322:
+      abbreviation: WAS
+      city: Washington
+      nickname: Mystics
+    1611661323:
+      abbreviation: CON
+      city: Connecticut
+      nickname: Sun
+    1611661324:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Lynx
+    1611661325:
+      abbreviation: IND
+      city: Indiana
+      nickname: Fever
+    1611661328:
+      abbreviation: SEA
+      city: Seattle
+      nickname: Storm
+    1611661329:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Sky
+    1611661330:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Dream
+  2015:
+    1611661313:
+      abbreviation: NYL
+      city: New York
+      nickname: Liberty
+    1611661317:
+      abbreviation: PHO
+      city: Phoenix
+      nickname: Mercury
+    1611661319:
+      abbreviation: SAN
+      city: San Antonio
+      nickname: Stars
+    1611661320:
+      abbreviation: LAS
+      city: Los Angeles
+      nickname: Sparks
+    1611661321:
+      abbreviation: TUL
+      city: Tulsa
+      nickname: Shock
+    1611661322:
+      abbreviation: WAS
+      city: Washington
+      nickname: Mystics
+    1611661323:
+      abbreviation: CON
+      city: Connecticut
+      nickname: Sun
+    1611661324:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Lynx
+    1611661325:
+      abbreviation: IND
+      city: Indiana
+      nickname: Fever
+    1611661328:
+      abbreviation: SEA
+      city: Seattle
+      nickname: Storm
+    1611661329:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Sky
+    1611661330:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Dream
+  2016:
+    1611661313:
+      abbreviation: NYL
+      city: New York
+      nickname: Liberty
+    1611661317:
+      abbreviation: PHO
+      city: Phoenix
+      nickname: Mercury
+    1611661319:
+      abbreviation: SAN
+      city: San Antonio
+      nickname: Stars
+    1611661320:
+      abbreviation: LAS
+      city: Los Angeles
+      nickname: Sparks
+    1611661321:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Wings
+    1611661322:
+      abbreviation: WAS
+      city: Washington
+      nickname: Mystics
+    1611661323:
+      abbreviation: CON
+      city: Connecticut
+      nickname: Sun
+    1611661324:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Lynx
+    1611661325:
+      abbreviation: IND
+      city: Indiana
+      nickname: Fever
+    1611661328:
+      abbreviation: SEA
+      city: Seattle
+      nickname: Storm
+    1611661329:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Sky
+    1611661330:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Dream
+  2017:
+    1611661313:
+      abbreviation: NYL
+      city: New York
+      nickname: Liberty
+    1611661317:
+      abbreviation: PHO
+      city: Phoenix
+      nickname: Mercury
+    1611661319:
+      abbreviation: SAN
+      city: San Antonio
+      nickname: Stars
+    1611661320:
+      abbreviation: LAS
+      city: Los Angeles
+      nickname: Sparks
+    1611661321:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Wings
+    1611661322:
+      abbreviation: WAS
+      city: Washington
+      nickname: Mystics
+    1611661323:
+      abbreviation: CON
+      city: Connecticut
+      nickname: Sun
+    1611661324:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Lynx
+    1611661325:
+      abbreviation: IND
+      city: Indiana
+      nickname: Fever
+    1611661328:
+      abbreviation: SEA
+      city: Seattle
+      nickname: Storm
+    1611661329:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Sky
+    1611661330:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Dream
+  2018:
+    1611661313:
+      abbreviation: NYL
+      city: New York
+      nickname: Liberty
+    1611661317:
+      abbreviation: PHO
+      city: Phoenix
+      nickname: Mercury
+    1611661319:
+      abbreviation: LVA
+      city: Las Vegas
+      nickname: Aces
+    1611661320:
+      abbreviation: LAS
+      city: Los Angeles
+      nickname: Sparks
+    1611661321:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Wings
+    1611661322:
+      abbreviation: WAS
+      city: Washington
+      nickname: Mystics
+    1611661323:
+      abbreviation: CON
+      city: Connecticut
+      nickname: Sun
+    1611661324:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Lynx
+    1611661325:
+      abbreviation: IND
+      city: Indiana
+      nickname: Fever
+    1611661328:
+      abbreviation: SEA
+      city: Seattle
+      nickname: Storm
+    1611661329:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Sky
+    1611661330:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Dream
+  2019:
+    1611661313:
+      abbreviation: NYL
+      city: New York
+      nickname: Liberty
+    1611661317:
+      abbreviation: PHO
+      city: Phoenix
+      nickname: Mercury
+    1611661319:
+      abbreviation: LVA
+      city: Las Vegas
+      nickname: Aces
+    1611661320:
+      abbreviation: LAS
+      city: Los Angeles
+      nickname: Sparks
+    1611661321:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Wings
+    1611661322:
+      abbreviation: WAS
+      city: Washington
+      nickname: Mystics
+    1611661323:
+      abbreviation: CON
+      city: Connecticut
+      nickname: Sun
+    1611661324:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Lynx
+    1611661325:
+      abbreviation: IND
+      city: Indiana
+      nickname: Fever
+    1611661328:
+      abbreviation: SEA
+      city: Seattle
+      nickname: Storm
+    1611661329:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Sky
+    1611661330:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Dream
+  2020:
+    1611661313:
+      abbreviation: NYL
+      city: New York
+      nickname: Liberty
+    1611661317:
+      abbreviation: PHO
+      city: Phoenix
+      nickname: Mercury
+    1611661319:
+      abbreviation: LVA
+      city: Las Vegas
+      nickname: Aces
+    1611661320:
+      abbreviation: LAS
+      city: Los Angeles
+      nickname: Sparks
+    1611661321:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Wings
+    1611661322:
+      abbreviation: WAS
+      city: Washington
+      nickname: Mystics
+    1611661323:
+      abbreviation: CON
+      city: Connecticut
+      nickname: Sun
+    1611661324:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Lynx
+    1611661325:
+      abbreviation: IND
+      city: Indiana
+      nickname: Fever
+    1611661328:
+      abbreviation: SEA
+      city: Seattle
+      nickname: Storm
+    1611661329:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Sky
+    1611661330:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Dream

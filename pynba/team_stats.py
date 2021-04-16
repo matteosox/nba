@@ -3,12 +3,13 @@
 import pandas as pd
 import pymc3 as pm
 
-from pynba import plot_logos, team_id_to_team_abb
-from pynba.load_parsed_data import (
-    estimate_shot_rate,
-    estimate_attempt_rate,
+from pynba import team_id_to_abb
+from pynba.halfgames import (
+    estimate_shots_per_opp,
+    estimate_shots_per_poss,
     calc_scoring_rate,
 )
+from pynba.config import Config
 
 
 DEFAULT_PRIORS = {
@@ -49,9 +50,9 @@ DEFAULT_PRIORS = {
 class TeamsModel:
     """Class wrapper for teams PyMC3 model"""
 
-    def __init__(self, games, priors=None):
+    def __init__(self, halfgames, priors=None):
         self.priors = self._process_priors(priors)
-        self._assign_games(games)
+        self._assign_halfgames(halfgames)
         self._assign_model()
 
     @staticmethod
@@ -64,53 +65,74 @@ class TeamsModel:
             default_priors.update(priors)
         return default_priors
 
-    def _assign_games(self, games):
-        self.games = games
-        self.n_teams = self.games["off_team_id"].unique().shape[0]
+    def _assign_halfgames(self, halfgames):
+        self.halfgames = halfgames
+        self.n_teams = self.halfgames["off_team_id"].unique().shape[0]
         self.team_id_to_team_ind = {
             team_id: team_ind
-            for team_ind, team_id in enumerate(self.games["off_team_id"].unique())
+            for team_ind, team_id in enumerate(self.halfgames["off_team_id"].unique())
         }
-        self.team_ind_to_team_id = {
-            team_ind: team_id for team_id, team_ind in self.team_id_to_team_ind.items()
+
+        self.league = self.halfgames["league"].iloc[0]
+        self.year = self.halfgames["year"].iloc[0]
+        self.season_type = "+".join(
+            sorted(self.halfgames["season_type"].unique(), reverse=True)
+        )
+        team_id_to_team_abb = team_id_to_abb(self.league, self.year)
+        self.team_ind_to_team_abb = {
+            team_ind: team_id_to_team_abb[team_id]
+            for team_id, team_ind in self.team_id_to_team_ind.items()
         }
 
         self.mu_three_make_rate = (
-            games["threes_made"].sum() / games["threes_attempted"].sum()
+            self.halfgames["threes_made"].sum()
+            / self.halfgames["threes_attempted"].sum()
         )
-        self.mu_two_make_rate = games["twos_made"].sum() / games["twos_attempted"].sum()
-        self.mu_three_attempt_rate = games["threes_attempted"].sum() / (
-            games["twos_attempted"].sum() + games["threes_attempted"].sum()
+        self.mu_two_make_rate = (
+            self.halfgames["twos_made"].sum() / self.halfgames["twos_attempted"].sum()
+        )
+        self.mu_three_attempt_rate = self.halfgames["threes_attempted"].sum() / (
+            self.halfgames["twos_attempted"].sum()
+            + self.halfgames["threes_attempted"].sum()
         )
         self.mu_ft_attempt_rate = (
-            games["ft_attempted"].sum() / games["possession_num"].sum()
+            self.halfgames["ft_attempted"].sum()
+            / self.halfgames["possession_num"].sum()
         )
-        self.mu_ft_make_rate = games["ft_made"].sum() / games["ft_attempted"].sum()
-        self.mu_off_reb_rate = games["off_rebs"].sum() / (
-            games["off_rebs"].sum() + games["def_rebs"].sum()
+        self.mu_ft_make_rate = (
+            self.halfgames["ft_made"].sum() / self.halfgames["ft_attempted"].sum()
         )
-        self.mu_turnover_rate = games["turnovers"].sum() / games["possession_num"].sum()
-        self.mu_pace = games["duration"].sum() / games["possession_num"].sum()
-        self.mu_shot_rate = (games["threes_attempted"] + games["twos_attempted"]) / (
-            games["off_rebs"] + games["possession_num"]
+        self.mu_off_reb_rate = self.halfgames["off_rebs"].sum() / (
+            self.halfgames["off_rebs"].sum() + self.halfgames["def_rebs"].sum()
         )
-        self.mu_attempt_rate = (
-            games["twos_attempted"] + games["threes_attempted"]
-        ) / games["possession_num"]
-        self.mu_scoring_rate = games["points_scored"] / games["possession_num"]
-        self.mu_shot_rate_est = estimate_shot_rate(
+        self.mu_turnover_rate = (
+            self.halfgames["turnovers"].sum() / self.halfgames["possession_num"].sum()
+        )
+        self.mu_pace = (
+            self.halfgames["duration"].sum() / self.halfgames["possession_num"].sum()
+        )
+        self.mu_shots_per_opp = (
+            self.halfgames["threes_attempted"] + self.halfgames["twos_attempted"]
+        ) / (self.halfgames["off_rebs"] + self.halfgames["possession_num"])
+        self.mu_shots_per_poss = (
+            self.halfgames["twos_attempted"] + self.halfgames["threes_attempted"]
+        ) / self.halfgames["possession_num"]
+        self.mu_scoring_rate = (
+            self.halfgames["points_scored"] / self.halfgames["possession_num"]
+        )
+        self.mu_shots_per_opp_est = estimate_shots_per_opp(
             self.mu_turnover_rate,
             self.mu_ft_attempt_rate,
         )
-        self.mu_attempt_rate_est = estimate_attempt_rate(
-            self.mu_shot_rate_est,
+        self.mu_shots_per_poss_est = estimate_shots_per_poss(
+            self.mu_shots_per_opp_est,
             self.mu_three_attempt_rate,
             self.mu_three_make_rate,
             self.mu_two_make_rate,
             self.mu_off_reb_rate,
         )
         self.mu_scoring_rate_est = calc_scoring_rate(
-            self.mu_attempt_rate_est,
+            self.mu_shots_per_poss_est,
             self.mu_three_make_rate,
             self.mu_two_make_rate,
             self.mu_three_attempt_rate,
@@ -119,10 +141,10 @@ class TeamsModel:
         )
 
     def _assign_model(self):
-        off_index = self.games["off_team_id"].map(self.team_id_to_team_ind).values
-        def_index = self.games["def_team_id"].map(self.team_id_to_team_ind).values
+        off_index = self.halfgames["off_team_id"].map(self.team_id_to_team_ind).values
+        def_index = self.halfgames["def_team_id"].map(self.team_id_to_team_ind).values
         home_index = (
-            self.games["off_team_id"] != self.games["home_team_id"]
+            self.halfgames["off_team_id"] != self.halfgames["home_team_id"]
         ).values.astype(int)
         with pm.Model() as self.model:
             self._model_threes_made(off_index, def_index, home_index)
@@ -153,7 +175,7 @@ class TeamsModel:
             sigma=self.priors["home_three_make_rate_sigma"],
         )
         away_three_make_rate = 2 * self.mu_three_make_rate - home_three_make_rate
-        games_three_make_rate = log5(
+        halfgames_three_make_rate = log5(
             self.mu_three_make_rate,
             off_three_make_rate[off_index],
             def_three_make_rate[def_index],
@@ -161,9 +183,9 @@ class TeamsModel:
         )
         pm.Binomial(
             "threes_made",
-            n=self.games["threes_attempted"].values,
-            p=games_three_make_rate,
-            observed=self.games["threes_made"].values,
+            n=self.halfgames["threes_attempted"].values,
+            p=halfgames_three_make_rate,
+            observed=self.halfgames["threes_made"].values,
         )
 
     def _model_twos_made(self, off_index, def_index, home_index):
@@ -185,7 +207,7 @@ class TeamsModel:
             sigma=self.priors["home_two_make_rate_sigma"],
         )
         away_two_make_rate = 2 * self.mu_two_make_rate - home_two_make_rate
-        games_two_make_rate = log5(
+        halfgames_two_make_rate = log5(
             self.mu_two_make_rate,
             off_two_make_rate[off_index],
             def_two_make_rate[def_index],
@@ -193,9 +215,9 @@ class TeamsModel:
         )
         pm.Binomial(
             "twos_made",
-            n=self.games["twos_attempted"].values,
-            p=games_two_make_rate,
-            observed=self.games["twos_made"].values,
+            n=self.halfgames["twos_attempted"].values,
+            p=halfgames_two_make_rate,
+            observed=self.halfgames["twos_made"].values,
         )
 
     def _model_threes_attempted(self, off_index, def_index):
@@ -211,17 +233,17 @@ class TeamsModel:
             sigma=self.priors["def_three_attempt_rate_sigma"],
             shape=self.n_teams,
         )
-        games_three_attempt_rate = log5(
+        halfgames_three_attempt_rate = log5(
             self.mu_three_attempt_rate,
             off_three_attempt_rate[off_index],
             def_three_attempt_rate[def_index],
         )
         pm.Binomial(
             "threes_attempted",
-            n=self.games["twos_attempted"].values
-            + self.games["threes_attempted"].values,
-            p=games_three_attempt_rate,
-            observed=self.games["threes_attempted"].values,
+            n=self.halfgames["twos_attempted"].values
+            + self.halfgames["threes_attempted"].values,
+            p=halfgames_three_attempt_rate,
+            observed=self.halfgames["threes_attempted"].values,
         )
 
     def _model_off_rebs(self, off_index, def_index, home_index):
@@ -243,7 +265,7 @@ class TeamsModel:
             sigma=self.priors["home_off_reb_rate_sigma"],
         )
         away_off_reb_rate = 2 * self.mu_off_reb_rate - home_off_reb_rate
-        games_off_reb_rate = log5(
+        halfgames_off_reb_rate = log5(
             self.mu_off_reb_rate,
             off_off_reb_rate[off_index],
             def_off_reb_rate[def_index],
@@ -251,9 +273,9 @@ class TeamsModel:
         )
         pm.Binomial(
             "off_rebs",
-            n=self.games["off_rebs"].values + self.games["def_rebs"].values,
-            p=games_off_reb_rate,
-            observed=self.games["off_rebs"].values,
+            n=self.halfgames["off_rebs"].values + self.halfgames["def_rebs"].values,
+            p=halfgames_off_reb_rate,
+            observed=self.halfgames["off_rebs"].values,
         )
 
     def _model_turnovers(self, off_index, def_index, home_index):
@@ -275,7 +297,7 @@ class TeamsModel:
             sigma=self.priors["home_turnover_rate_sigma"],
         )
         away_turnover_rate = 2 * self.mu_turnover_rate - home_turnover_rate
-        games_turnover_rate = log5(
+        halfgames_turnover_rate = log5(
             self.mu_turnover_rate,
             off_turnover_rate[off_index],
             def_turnover_rate[def_index],
@@ -283,9 +305,9 @@ class TeamsModel:
         )
         pm.Binomial(
             "turnovers",
-            n=self.games["possession_num"].values,
-            p=games_turnover_rate,
-            observed=self.games["turnovers"].values,
+            n=self.halfgames["possession_num"].values,
+            p=halfgames_turnover_rate,
+            observed=self.halfgames["turnovers"].values,
         )
 
     def _model_ft_attempt_rate(self, off_index, def_index, home_index):
@@ -307,7 +329,7 @@ class TeamsModel:
             sigma=self.priors["home_ft_attempt_rate_sigma"],
         )
         away_ft_attempt_rate = 2 * self.mu_ft_attempt_rate - home_ft_attempt_rate
-        games_ft_attempt_rate = log5(
+        halfgames_ft_attempt_rate = log5(
             self.mu_ft_attempt_rate,
             off_ft_attempt_rate[off_index],
             def_ft_attempt_rate[def_index],
@@ -320,9 +342,9 @@ class TeamsModel:
         )
         pm.Normal(
             "ft_attempt_rate",
-            mu=games_ft_attempt_rate,
+            mu=halfgames_ft_attempt_rate,
             sigma=sigma_ft_attempt_rate,
-            observed=self.games["ft_attempt_rate"].values,
+            observed=self.halfgames["ft_attempt_rate"].values,
         )
 
     def _model_pace(self, off_index, def_index):
@@ -338,7 +360,7 @@ class TeamsModel:
             sigma=self.priors["def_pace_sigma"],
             shape=self.n_teams,
         )
-        games_pace = log5(
+        halfgames_pace = log5(
             self.mu_pace,
             off_pace[off_index],
             def_pace[def_index],
@@ -350,9 +372,9 @@ class TeamsModel:
         )
         pm.Gamma(
             "pace",
-            mu=games_pace,
+            mu=halfgames_pace,
             sigma=sigma_pace,
-            observed=self.games["pace"].values,
+            observed=self.halfgames["pace"].values,
         )
 
     def _model_ft_made(self, off_index, home_index):
@@ -368,16 +390,16 @@ class TeamsModel:
             sigma=self.priors["home_ft_make_rate_sigma"],
         )
         away_ft_make_rate = 2 * self.mu_ft_make_rate - home_ft_make_rate
-        games_ft_make_rate = log5(
+        halfgames_ft_make_rate = log5(
             self.mu_ft_make_rate,
             off_ft_make_rate[off_index],
             pm.math.stack([home_ft_make_rate, away_ft_make_rate])[home_index],
         )
         pm.Binomial(
             "ft_made",
-            n=self.games["ft_attempted"].values,
-            p=games_ft_make_rate,
-            observed=self.games["ft_made"].values,
+            n=self.halfgames["ft_attempted"].values,
+            p=halfgames_ft_make_rate,
+            observed=self.halfgames["ft_made"].values,
         )
 
     def fit(self, steps=5000, init="adapt_diag", **kwargs):
@@ -386,7 +408,13 @@ class TeamsModel:
         pm.sample with some defaults.
         """
         with self.model:
-            self._trace = pm.sample(steps, init=init, **kwargs)
+            self._trace = pm.sample(
+                steps,
+                init=init,
+                random_seed=Config.pymc3_random_seed,
+                return_inferencedata=False,
+                **kwargs,
+            )
             self._results = self._calc_results()
 
     @property
@@ -410,19 +438,19 @@ class TeamsModel:
             ) from exc
 
     def _calc_results(self):
-        off_shot_rate_est = estimate_shot_rate(
+        off_shots_per_opp_est = estimate_shots_per_opp(
             self.trace["off_turnover_rate"],
             self.trace["off_ft_attempt_rate"],
         )
-        off_attempt_rate_est = estimate_attempt_rate(
-            off_shot_rate_est,
+        off_shots_per_poss_est = estimate_shots_per_poss(
+            off_shots_per_opp_est,
             self.trace["off_three_attempt_rate"],
             self.trace["off_three_make_rate"],
             self.trace["off_two_make_rate"],
             self.trace["off_off_reb_rate"],
         )
         off_scoring_rate_est = calc_scoring_rate(
-            off_attempt_rate_est,
+            off_shots_per_poss_est,
             self.trace["off_three_make_rate"],
             self.trace["off_two_make_rate"],
             self.trace["off_three_attempt_rate"],
@@ -430,19 +458,19 @@ class TeamsModel:
             self.trace["off_ft_make_rate"],
         )
 
-        def_shot_rate_est = estimate_shot_rate(
+        def_shots_per_opp_est = estimate_shots_per_opp(
             self.trace["def_turnover_rate"],
             self.trace["def_ft_attempt_rate"],
         )
-        def_attempt_rate_est = estimate_attempt_rate(
-            def_shot_rate_est,
+        def_shots_per_poss_est = estimate_shots_per_poss(
+            def_shots_per_opp_est,
             self.trace["def_three_attempt_rate"],
             self.trace["def_three_make_rate"],
             self.trace["def_two_make_rate"],
             self.trace["def_off_reb_rate"],
         )
         def_scoring_rate_est = calc_scoring_rate(
-            def_attempt_rate_est,
+            def_shots_per_poss_est,
             self.trace["def_three_make_rate"],
             self.trace["def_two_make_rate"],
             self.trace["def_three_attempt_rate"],
@@ -452,7 +480,7 @@ class TeamsModel:
 
         results = pd.DataFrame()
         results["team"] = [
-            team_id_to_team_abb[self.team_ind_to_team_id[ind]]
+            self.team_ind_to_team_abb[ind]
             for ind in range(self.trace["off_pace"].shape[1])
         ]
         results["off_three_attempt_rate"] = (
@@ -474,11 +502,23 @@ class TeamsModel:
         results["def_ft_attempt_rate"] = self.trace["def_ft_attempt_rate"].mean(0) * 100
         results["off_scoring_rate"] = off_scoring_rate_est.mean(0) * 100
         results["def_scoring_rate"] = def_scoring_rate_est.mean(0) * 100
+        results["off_scoring_above_average"] = (
+            results["off_scoring_rate"] - self.mu_scoring_rate_est * 100
+        )
+        results["def_scoring_above_average"] = (
+            self.mu_scoring_rate_est * 100 - results["def_scoring_rate"]
+        )
         results["net_scoring_rate"] = (
             results["off_scoring_rate"] - results["def_scoring_rate"]
         )
         results["off_pace"] = (12 * 4 * 60 / self.trace["off_pace"] / 2).mean(0)
         results["def_pace"] = (12 * 4 * 60 / self.trace["def_pace"] / 2).mean(0)
+        results["off_pace_above_average"] = (
+            results["off_pace"] - results["off_pace"].mean()
+        )
+        results["def_pace_above_average"] = (
+            results["def_pace"] - results["def_pace"].mean()
+        )
         results["total_pace"] = (
             12 * 4 * 60 / (self.trace["off_pace"] + self.trace["def_pace"])
         ).mean(0)
@@ -486,32 +526,14 @@ class TeamsModel:
             results["net_scoring_rate"] * results["total_pace"] / 100
         )
         results = results.sort_values("scoring_margin", ascending=False)
+        results["league"] = self.league
+        results["year"] = self.year
+        results["season_type"] = self.season_type
         return results
 
     def traceplot(self):
-        """Simple wrapper for pm.traceplot"""
+        """Wrapper for pm.traceplot"""
         pm.traceplot(self.trace)
-
-    def plot_ratings(self, axis):
-        """Plot team off/def ratings on the provided axis"""
-        off_rating = self.results["off_scoring_rate"] - self.mu_scoring_rate_est * 100
-        def_rating = self.mu_scoring_rate_est * 100 - self.results["def_scoring_rate"]
-
-        plot_logos(off_rating, def_rating, self.results["team"], axis, size=30)
-        axis.set_xlabel("Offensive Rating (pts/poss)")
-        axis.set_ylabel("Defensive Rating (pts/poss)")
-
-    def plot_paces(self, axis):
-        """Plot team off/def pace on the provided axis"""
-        plot_logos(
-            self.results["off_pace"],
-            self.results["def_pace"],
-            self.results["team"],
-            axis,
-            size=30,
-        )
-        axis.set_xlabel("Offensive Pace (poss/48)")
-        axis.set_ylabel("Defensive Pace (poss/48)")
 
 
 def log5(mean, *args):

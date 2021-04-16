@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 set -euf -o pipefail
 
-# A simple utility for installing apt-get packages
+# Utility for installing apt-get packages
 # tidily and minimally by cleaning them up. Inspired by 
 # https://pythonspeed.com/articles/system-packages-docker/
 

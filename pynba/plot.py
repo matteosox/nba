@@ -1,13 +1,19 @@
-"""Module for plotting images, and specifically NBA logos"""
+"""Module for plotting NBA stuff"""
 
 import os
 from pkg_resources import resource_filename
 
 from PIL import Image as pilimg
 import numpy as np
+from matplotlib import pyplot as plt
 
 
 LOGO_DIR_PATH = resource_filename("pynba", "logos")
+
+
+def use_blackontrans_style():
+    """Use blackontrans matplotlib style"""
+    plt.style.use(resource_filename("pynba", "blackontrans.mplstyle"))
 
 
 def plot_images(x_vals, y_vals, image_paths, axis, alpha=None, size=None):
@@ -69,7 +75,7 @@ def plot_images(x_vals, y_vals, image_paths, axis, alpha=None, size=None):
             )
 
 
-def plot_logos(x_vals, y_vals, teams, axis, alpha=None, size=None):
+def plot_logos(x_vals, y_vals, teams, league, axis, alpha=None, size=None):
     """Plots NBA logos on a matplotlib axis
 
     Parameters
@@ -80,6 +86,8 @@ def plot_logos(x_vals, y_vals, teams, axis, alpha=None, size=None):
         y axis values for plotting.
     teams : Iterable of str
         three letter abbreviations for each team.
+    league : str
+        e.g. "wnba" or "nba"
     ax : matplotlib axis object
         axis on which images are plotted.
     alpha : number
@@ -87,10 +95,67 @@ def plot_logos(x_vals, y_vals, teams, axis, alpha=None, size=None):
     size : number
         size of images in marker size units.
 
-
     Returns
     -------
     None
     """
-    image_paths = [os.path.join(LOGO_DIR_PATH, f"{team}.png") for team in teams]
+    image_paths = [
+        os.path.join(LOGO_DIR_PATH, f"{league}_{team}.png") for team in teams
+    ]
     plot_images(x_vals, y_vals, image_paths, axis, alpha=alpha, size=size)
+
+
+def plot_ratings(team_stats, axis):
+    """Plot team off/def ratings on the provided axis"""
+    league = team_stats["league"].iloc[0]
+    year = team_stats["year"].iloc[0]
+    season_type = team_stats["season_type"].iloc[0]
+    x_vals = team_stats["off_scoring_above_average"]
+    y_vals = team_stats["def_scoring_above_average"]
+    size = 30
+    _center_axis(x_vals, y_vals, axis, size)
+    plot_logos(
+        x_vals,
+        y_vals,
+        team_stats["team"],
+        league,
+        axis,
+        size=size,
+    )
+    axis.set_xlabel("Offensive Rating (pts/poss)")
+    axis.set_ylabel("Defensive Rating (pts/poss)")
+    axis.set_title(f"{league} {year} {season_type}")
+
+
+def plot_paces(team_stats, axis):
+    """Plot team off/def pace on the provided axis"""
+    league = team_stats["league"].iloc[0]
+    year = team_stats["year"].iloc[0]
+    season_type = team_stats["season_type"].iloc[0]
+    x_vals = team_stats["off_pace_above_average"]
+    y_vals = team_stats["def_pace_above_average"]
+    size = 30
+    _center_axis(x_vals, y_vals, axis, size)
+    plot_logos(
+        x_vals,
+        y_vals,
+        team_stats["team"],
+        league,
+        axis,
+        size=size,
+    )
+    axis.set_xlabel("Offensive Pace (poss/48)")
+    axis.set_ylabel("Defensive Pace (poss/48)")
+    axis.set_title(f"{league} {year} {season_type}")
+
+
+def _center_axis(x_vals, y_vals, axis, size=None):
+    axis.plot(
+        np.hstack([x_vals, x_vals, -x_vals, -x_vals, y_vals, -y_vals, y_vals, -y_vals]),
+        np.hstack([y_vals, -y_vals, y_vals, -y_vals, x_vals, x_vals, -x_vals, -x_vals]),
+        "o",
+        mfc="None",
+        mec="None",
+        markersize=size,
+    )
+    axis.axis(axis.axis("equal"))
