@@ -9,6 +9,6 @@ echo "Running Black Python linting"
 docker run \
     --rm \
     --name black_linting \
-    -v "$DIR"/../:/home/dev/nba \
-    matteosox/nba:dev-$TAG \
-    black nba
+    -v "$DIR"/../:/home/jupyter/nba \
+    matteosox/nba:notebook-$TAG \
+    black --verbose nba

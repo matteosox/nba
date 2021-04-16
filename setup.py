@@ -29,8 +29,9 @@ setup(
         "pynba": [
             "VERSION",
             "logos/*",
-            "teams.json",
+            "teams.yaml",
             "blackontrans.mplstyle",
+            "logging.yaml",
         ],
     },
     install_requires=[
@@ -42,5 +43,13 @@ setup(
         "pyarrow",
         "matplotlib",
         "pymc3",
+        "PyYaml",
     ],
+    entry_points={
+        "console_scripts": [
+            "create_seasons = pynba.scripts.create_seasons:main",
+            "create_possessions = pynba.scripts.create_possessions:main",
+            "create_teams = pynba.scripts.create_teams:main",
+        ],
+    },
 )

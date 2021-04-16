@@ -9,6 +9,6 @@ DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
 docker run \
     --rm \
     --name changelog_updates \
-    -v "$DIR"/../:/home/dev/nba \
-    matteosox/nba:dev-$TAG \
+    -v "$DIR"/../:/home/jupyter/nba \
+    matteosox/nba:notebook-$TAG \
     nba/docs/release.sh
