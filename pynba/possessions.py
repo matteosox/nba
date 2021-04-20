@@ -30,7 +30,6 @@ def save_possessions(possessions):
     Saves possessions data
     in the appropriate place and with proper partitioning
     """
-    os.makedirs(_possessions_dir(), exist_ok=True)
     save_df_to_pq(
         possessions,
         _possessions_dir(),

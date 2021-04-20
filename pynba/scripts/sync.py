@@ -15,7 +15,7 @@ def main():
     dest = f"s3://{config.aws_s3_bucket}/{config.aws_s3_key_prefix}"
     logger.info(f"Syncing local data directory {source} to {dest}")
     subprocess.run(
-        ["aws", "s3", "sync", source, dest],
+        ["aws", "s3", "sync", source, dest, "--exclude", "*.gitignore"],
         check=True,
     )
     logger.info("Sync complete!")

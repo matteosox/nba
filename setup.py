@@ -39,6 +39,7 @@ setup(
         "PyYaml",
         "dynaconf",
         "awswrangler",
+        "boto3",
     ],
     entry_points={
         "console_scripts": [

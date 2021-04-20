@@ -178,9 +178,6 @@ def save_team_plots(teams):
     year = teams["year"].iloc[0]
     season_type = teams["season_type"].iloc[0]
 
-    plots_path = os.path.join(config.local_data_directory, config.plots_directory)
-    os.makedirs(plots_path, exist_ok=True)
-
     fig = plt.figure(figsize=(8, 8))
     axis = fig.add_subplot(1, 1, 1)
     plot_ratings(teams, axis)

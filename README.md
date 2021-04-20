@@ -151,6 +151,10 @@ The first step of the data pipeline runs the `pynba_update` Python console scrip
 
 The second (and final) step of the data pipeline runs the `pynba_sync` Python console script using the same environment/mechanism as before. This local data — pbpstats files, season parquet files, incremental possessions parquet files, team ratings & plots — is then synced to s3, where it can be accessed by the site.
 
+### Github Actions Artifacts
+
+We store an artifact of the local data directory at the completion of each run of the data pipeline, both for historical data, and ease of debugging.
+
 ## Continuous Deployment
 
 The Python package `pynba` is strictly for code refactoring in this repo's Jupyter notebook environment, so it isn't packaged up and released to PyPI.org. The NextJS app is deployed to nba.mattefay.com by [Vercel](https://vercel.com/), the company behind NextJS. The deployment process is integrated with Github, so that any commit to the `main` branch results in a new deploy. Conveniently, Vercel also builds and deploys a "staging" site for every commit that changes the `app` directory, making them available through comments in your pull request for example.

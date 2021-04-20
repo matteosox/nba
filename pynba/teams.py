@@ -26,7 +26,6 @@ def save_teams(teams):
     year = teams["year"].iloc[0]
     season_type = teams["season_type"].iloc[0]
 
-    os.makedirs(_teams_dir(), exist_ok=True)
     teams.to_csv(_teams_filepath(league, year, season_type), index=False)
 
 

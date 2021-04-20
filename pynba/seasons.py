@@ -28,8 +28,6 @@ def save_season(season):
     year = season["year"].iloc[0]
     season_type = season["season_type"].iloc[0]
 
-    os.makedirs(_seasons_dir(), exist_ok=True)
-
     save_df_to_pq(season, _season_filepath(league, year, season_type))
 
 
