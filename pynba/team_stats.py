@@ -9,7 +9,7 @@ from pynba.halfgames import (
     estimate_shots_per_poss,
     calc_scoring_rate,
 )
-from pynba.config import Config
+from pynba.config import config
 
 
 DEFAULT_PRIORS = {
@@ -113,12 +113,13 @@ class TeamsModel:
         )
         self.mu_shots_per_opp = (
             self.halfgames["threes_attempted"] + self.halfgames["twos_attempted"]
-        ) / (self.halfgames["off_rebs"] + self.halfgames["possession_num"])
+        ).sum() / (self.halfgames["off_rebs"] + self.halfgames["possession_num"]).sum()
         self.mu_shots_per_poss = (
             self.halfgames["twos_attempted"] + self.halfgames["threes_attempted"]
-        ) / self.halfgames["possession_num"]
+        ).sum() / self.halfgames["possession_num"].sum()
         self.mu_scoring_rate = (
-            self.halfgames["points_scored"] / self.halfgames["possession_num"]
+            self.halfgames["points_scored"].sum()
+            / self.halfgames["possession_num"].sum()
         )
         self.mu_shots_per_opp_est = estimate_shots_per_opp(
             self.mu_turnover_rate,
@@ -141,11 +142,17 @@ class TeamsModel:
         )
 
     def _assign_model(self):
-        off_index = self.halfgames["off_team_id"].map(self.team_id_to_team_ind).values
-        def_index = self.halfgames["def_team_id"].map(self.team_id_to_team_ind).values
+        off_index = (
+            self.halfgames["off_team_id"].map(self.team_id_to_team_ind).to_numpy()
+        )
+        def_index = (
+            self.halfgames["def_team_id"].map(self.team_id_to_team_ind).to_numpy()
+        )
         home_index = (
-            self.halfgames["off_team_id"] != self.halfgames["home_team_id"]
-        ).values.astype(int)
+            (self.halfgames["off_team_id"] != self.halfgames["home_team_id"])
+            .to_numpy()
+            .astype(int)
+        )
         with pm.Model() as self.model:
             self._model_threes_made(off_index, def_index, home_index)
             self._model_twos_made(off_index, def_index, home_index)
@@ -183,9 +190,9 @@ class TeamsModel:
         )
         pm.Binomial(
             "threes_made",
-            n=self.halfgames["threes_attempted"].values,
+            n=self.halfgames["threes_attempted"].to_numpy(),
             p=halfgames_three_make_rate,
-            observed=self.halfgames["threes_made"].values,
+            observed=self.halfgames["threes_made"].to_numpy(),
         )
 
     def _model_twos_made(self, off_index, def_index, home_index):
@@ -215,9 +222,9 @@ class TeamsModel:
         )
         pm.Binomial(
             "twos_made",
-            n=self.halfgames["twos_attempted"].values,
+            n=self.halfgames["twos_attempted"].to_numpy(),
             p=halfgames_two_make_rate,
-            observed=self.halfgames["twos_made"].values,
+            observed=self.halfgames["twos_made"].to_numpy(),
         )
 
     def _model_threes_attempted(self, off_index, def_index):
@@ -240,10 +247,11 @@ class TeamsModel:
         )
         pm.Binomial(
             "threes_attempted",
-            n=self.halfgames["twos_attempted"].values
-            + self.halfgames["threes_attempted"].values,
+            n=(
+                self.halfgames["twos_attempted"] + self.halfgames["threes_attempted"]
+            ).to_numpy(),
             p=halfgames_three_attempt_rate,
-            observed=self.halfgames["threes_attempted"].values,
+            observed=self.halfgames["threes_attempted"].to_numpy(),
         )
 
     def _model_off_rebs(self, off_index, def_index, home_index):
@@ -273,9 +281,9 @@ class TeamsModel:
         )
         pm.Binomial(
             "off_rebs",
-            n=self.halfgames["off_rebs"].values + self.halfgames["def_rebs"].values,
+            n=(self.halfgames["off_rebs"] + self.halfgames["def_rebs"]).to_numpy(),
             p=halfgames_off_reb_rate,
-            observed=self.halfgames["off_rebs"].values,
+            observed=self.halfgames["off_rebs"].to_numpy(),
         )
 
     def _model_turnovers(self, off_index, def_index, home_index):
@@ -305,9 +313,9 @@ class TeamsModel:
         )
         pm.Binomial(
             "turnovers",
-            n=self.halfgames["possession_num"].values,
+            n=self.halfgames["possession_num"].to_numpy(),
             p=halfgames_turnover_rate,
-            observed=self.halfgames["turnovers"].values,
+            observed=self.halfgames["turnovers"].to_numpy(),
         )
 
     def _model_ft_attempt_rate(self, off_index, def_index, home_index):
@@ -344,7 +352,7 @@ class TeamsModel:
             "ft_attempt_rate",
             mu=halfgames_ft_attempt_rate,
             sigma=sigma_ft_attempt_rate,
-            observed=self.halfgames["ft_attempt_rate"].values,
+            observed=self.halfgames["ft_attempt_rate"].to_numpy(),
         )
 
     def _model_pace(self, off_index, def_index):
@@ -374,7 +382,7 @@ class TeamsModel:
             "pace",
             mu=halfgames_pace,
             sigma=sigma_pace,
-            observed=self.halfgames["pace"].values,
+            observed=self.halfgames["pace"].to_numpy(),
         )
 
     def _model_ft_made(self, off_index, home_index):
@@ -397,9 +405,9 @@ class TeamsModel:
         )
         pm.Binomial(
             "ft_made",
-            n=self.halfgames["ft_attempted"].values,
+            n=self.halfgames["ft_attempted"].to_numpy(),
             p=halfgames_ft_make_rate,
-            observed=self.halfgames["ft_made"].values,
+            observed=self.halfgames["ft_made"].to_numpy(),
         )
 
     def fit(self, steps=5000, init="adapt_diag", **kwargs):
@@ -411,7 +419,7 @@ class TeamsModel:
             self._trace = pm.sample(
                 steps,
                 init=init,
-                random_seed=Config.pymc3_random_seed,
+                random_seed=config.pymc3_random_seed,
                 return_inferencedata=False,
                 **kwargs,
             )

@@ -12,7 +12,7 @@
 ### Description
 
 This repo has three main parts:
-1) `pynba`: a Python package of stuff to analyze nba data.
+1) `pynba`: a Python package of stuff — utilities, data loaders/serializers, scripts — to analyze nba data.
 2) `notebooks`: a collection of Jupyter notebooks analyzing nba data using `pynba`.
 3) `app`: a Next.js web app hosted at [nba.mattefay.com](https://nba.mattefay.com), displaying the latest stats.
 
@@ -28,7 +28,6 @@ We use a Dockerized Jupyter notebook environment for data analysis. The `./noteb
 
 - Analysis
     - Travel and rest adjustments
-    - Automate updates
     - Re-evaluate priors
     - Confirm reduction in home court advantage
     - Fix 2020 bubble games
@@ -38,6 +37,11 @@ We use a Dockerized Jupyter notebook environment for data analysis. The `./noteb
     - Replace images with interactives
     - Improve tables (sortable, hover for definition, colorize for z-scores)
     - [Incremental static regeneration](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration)
+- General
+    - Separate out setup and build
+        - setup: build two containers (app container no longer builds NextJS app)
+        - test: run various lightweight tests in those containers
+        - build: build NextJS app (to test building the app locally, but we use Vercel for this in CICD)
 
 ## Developer Notes
 
@@ -46,20 +50,6 @@ We use a Dockerized Jupyter notebook environment for data analysis. The `./noteb
 Run `developer_setup.sh`. Right now, all this does is setup the `pre-commit` git hook to build and test code before you commit it.
 
 We use Docker for a clean environment within which to build/test/release. The `build.sh` script in the `cicd` directory will build the relevant images for you. Running the CI/CD workflow natively isn't a supported/maintained thing.
-
-### Documenting changes
-
-_TL;DR: Run `./docs/changelog.sh (added|changed|deprecated|removed|fixed|security) "<message>"` before committing your changes to document them._
-
-We use [`changelog-cli`](https://github.com/mc706/changelog-cli) to document changes from version to version in the `CHANGELOG.md` file. Before committing changes that impact users of the `pynba` package, use the command-line tool to document features added, changed, deprecated, removed, fixed, or security-related changes.
-
-### Versioning
-
-_TL;DR: Run `./docs/release.sh` to summarize unreleased changes in `CHANGELOG.md` and update the package's version._
-
-We version this package, using the syntax defined in [PEP440](https://www.python.org/dev/peps/pep-0440/). For best practices, you can read about it [here](https://the-hitchhikers-guide-to-packaging.readthedocs.io/en/latest/specification.html#sequence-based-scheme).
-
-To simplify this, we use [`changelog-cli`](https://github.com/mc706/changelog-cli) to generate versions for us. This can be done using the `./docs/release.sh` script.
 
 ### Code Style
 
@@ -87,6 +77,16 @@ The `.in` files are where we collect immediate dependencies, described in PyPI f
 
 This gives us both a flexible way to describe dependencies while still achieving reproducible builds. Inspired by [this](https://hynek.me/articles/python-app-deps-2018/) and [this](https://pythonspeed.com/articles/pipenv-docker/).
 
+### Handling Config
+
+While the `constants.py` module contains values that don't change with each run, the `config.py` module makes configuration values available in the Python runtime that DO change. This uses [dynaconf](https://www.dynaconf.com/) to inject and load dynamic configuration from 1) `settings.toml` for defaults for each envionment, and 2) environment variables, prefixed with `PYNBA` and registered in `settings.toml`. The `meta_config.py` module provides a convenient syntax for creating a config dataclass with typed values that loads each parameter dynamically from `dynaconf`. You can see an example of this in the `config.py` module. The `dynaconf` environment is determined by the `ENV_FOR_DYNACONF` environment variable.
+
+To pass environment variables into the Docker runtime, either for `dynaconf` or other purposes, you have two options:
+1) export them in your development environment, then register them in the `notebook.env`. For example, to select a `dynaconf` environment other than `default`, you'll need to export it as `ENV_FOR_DYNACONF`. Note that this variable is already registered in `notebook.env` to be passed in.
+2) add them to your `notebook.local.env` file, which is in the `.gitignore` so it won't be committed. This is where we keep developer credentials for example.
+
+Inspired by the [12-factor application guide](https://12factor.net/config).
+
 ### DNS
 
 I own the domain mattefay.com through hover.com. I host my blog there, using format.com. This repo's site is hosted at the nba.mattefay.com subdomain. Since [Vercel](https://vercel.com/) is hosting this site, I have a CNAME DNS record in Hover to alias that subdomain to them, i.e. `CNAME nba cname.vercel-dns.com`.
@@ -99,9 +99,9 @@ To ease developing the NextJS web app, we use `npm run dev` in a Docker containe
 
 Additionally, if you'd like to run a different command, e.g. to update the npm packages installed using `npm install`, you can use the same `./app/run.sh` script with a `-c "YOUR CMD HERE"` option.
 
-## Continuous Integration / Continuous Deployment
+## Continuous Integration
 
-We use Github actions to run our CI/CD pipeline on every pull request, but every step of CI/CD can also be run locally. 
+We use Github actions to run our CI pipeline on every pull request. The configuration can be found in `.github/workflows/build_test.yaml`. That said, every step of CI can also be run locally.
 
 ### Buildin'
 
@@ -135,6 +135,22 @@ Thus, to run tests, we mount the root of the repo to the location in the contain
 
 **TBD**
 
-### Depolyin'
+### Pushin'
+
+_TL;DR: To push docker images to Docker Hub, run `./cicd/push.sh`._
+
+## Data Pipeline
+
+We run a nightly data pipeline job using Github Actions to update the data hosted on the site. This is configured in `.github/workflows/data_pipeline.yaml`. Again, each step of the process can be run locally.
+
+### Update Data
+
+The first step of the data pipeline runs the `pynba_update` Python console script inside of the notebook Docker image using the `./cicd/etl.sh` bash script. This queries for data for each league in the current year, saving any updates to the local data directory (mounted to the container). For seasons with new games found, we also calculate updated team ratings and generate updated plots.
+
+### Sync Data to S3
+
+The second (and final) step of the data pipeline runs the `pynba_sync` Python console script using the same environment/mechanism as before. This local data — pbpstats files, season parquet files, incremental possessions parquet files, team ratings & plots — is then synced to s3, where it can be accessed by the site.
+
+## Continuous Deployment
 
 The Python package `pynba` is strictly for code refactoring in this repo's Jupyter notebook environment, so it isn't packaged up and released to PyPI.org. The NextJS app is deployed to nba.mattefay.com by [Vercel](https://vercel.com/), the company behind NextJS. The deployment process is integrated with Github, so that any commit to the `main` branch results in a new deploy. Conveniently, Vercel also builds and deploys a "staging" site for every commit that changes the `app` directory, making them available through comments in your pull request for example.

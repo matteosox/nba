@@ -3,6 +3,12 @@
 from pynba import possessions_from_file
 
 
+__all__ = [
+    "halfgames_from_file",
+    "halfgames_from_possessions",
+]
+
+
 def halfgames_from_file(league, year, season_type):
     """Load NBA halfgame data
 

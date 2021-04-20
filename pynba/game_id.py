@@ -1,8 +1,7 @@
 """Module for parsing game_ids to get relevant information"""
 
-NBA = "nba"
-WNBA = "wnba"
-G_LEAGUE = "gleague"
+from pynba.constants import NBA, WNBA, G_LEAGUE
+
 GAME_ID_PREFIXES = {
     "00": NBA,
     "10": WNBA,

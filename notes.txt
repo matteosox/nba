@@ -1,0 +1,63 @@
+- Cache the directory
+- Build the notebook container
+- Run the script
+    - Compare avaiable games from stats.nba via pbpstats to s3 data
+    - Download the new games, process them, and save them to s3
+    - For seasons with new data, update the team statistics, save them to s3
+
+What's in s3?
+- pbpstats data directory
+- Parquet files of processed pbpstats data
+    - Should be stored by league/year/season type
+- 
+- Team statistics results
+- Updated on day?
+- Index of games?
+
+/prod
+    pbpstats
+        ...
+    possessions
+        league
+            year
+                season type
+                    ... .parquet
+    seasons
+        {league}_{year}_{season_type}_games.parquet
+    teams
+        {league}_{year}_{season_type}_teams.csv
+    plots
+        ...
+    latest.json
+        "start_time": unix_timestamp,
+        "tag": tag,
+
+store model outputs (teams) in GitHub actions as an artifact
+use aws s3 sync to transfer files
+
+What does main do?
+- Determine current year
+- For league and season_type
+    - Load season from s3
+    - Query stats.nba for season
+    - If no games missing, continue
+    - For missing games
+        - Save updated seasons file to local seasons dir
+        - Load possessions for relevant league/year/season_type
+        - Parse pbpstats, and save it to local possessions dir, append it to loaded possessions from season
+        - Run teams model, save result to local teams dir, along with plots to plots dir
+- Write latest.json locally
+- AWS S3 sync files
+
+With config, I'd like to set:
+- the local "data" dir
+- the s3 bucket & top-level key
+- the name of the pbpstats, seasons, possessions, teams, & plots dirs
+- whether to use local or s3 for seasons, possessions, & teams (pbpstats and plots always go local)
+- 
+
+How to inject config?
+- ENV_FOR_DYNACONF to tell it which defaults to use
+- for config used in Python beyond defaults, set using PYNBA_XXX
+- all secrets are injected using env parameters. Locally, we use a `.env` file. 
+- can set env parameters for container, but must be configured, i.e. you don't just throw them in there

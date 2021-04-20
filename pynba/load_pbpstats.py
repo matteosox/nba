@@ -1,28 +1,25 @@
 """Module of functions to load pbpstats data"""
 
 import logging
+import os
 
 from requests import ReadTimeout, HTTPError
 
 from pynba.pbpstats_client import pbpstats_client
 from pynba.game_id import league_from_game_id, year_from_game_id
+from pynba.constants import NBA, WNBA, G_LEAGUE, FILE, WEB, STATS_NBA, DATA_NBA
+from pynba.config import config
 
 
 logger = logging.getLogger(__name__)
 
-FILE = "file"
-WEB = "web"
-STATS_NBA = "stats_nba"
-DATA_NBA = "data_nba"
-NBA = "nba"
-WNBA = "wnba"
-G_LEAGUE = "gleague"
 LEAGUE_SEASON_PROVIDERS = {
     NBA: STATS_NBA,
     WNBA: DATA_NBA,
     G_LEAGUE: DATA_NBA,
 }
 STATS_NBA_CUTOFF_YEAR = 2020
+PBPSTATS_SUBDIRS = ["game_details", "overrides", "pbp", "schedule"]
 
 
 class StatsNotFound(Exception):
@@ -176,3 +173,12 @@ def _game_stats_provider(game_id):
         if league == NBA:
             return DATA_NBA
     return STATS_NBA
+
+
+def _initialize_pbpstats_dir():
+    pbpstats_dir = os.path.join(config.local_data_directory, config.pbpstats_directory)
+    for subdir in PBPSTATS_SUBDIRS:
+        os.makedirs(os.path.join(pbpstats_dir, subdir), exist_ok=True)
+
+
+_initialize_pbpstats_dir()

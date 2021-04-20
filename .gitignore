@@ -1,7 +1,11 @@
-# Python Files
+# Python files
 __pycache__/
 .ipynb_checkpoints
 
-# VS Code Files
+# VS Code files
 .vscode
 *.code-workspace
+
+# Repo specific files
+data/*
+*.local.env
