@@ -15,3 +15,6 @@ requests
 bokeh
 pbpstats
 Pillow
+dynaconf
+boto3
+awswrangler

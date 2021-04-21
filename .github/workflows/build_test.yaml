@@ -23,7 +23,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build
-        run: ./cicd/build.sh --push
+        run: ./cicd/build.sh
 
       - name: Test
         run: ./cicd/test.sh
+
+      - name: Push
+        run: ./cicd/push.sh

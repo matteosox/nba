@@ -1,5 +1,6 @@
 .github
 notebooks
+data
 app/.config
 app/.next
 app/.npm

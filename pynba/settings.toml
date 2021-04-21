@@ -1,0 +1,20 @@
+[default]
+aws_s3_bucket = "nba-mattefay"
+aws_s3_key_prefix = "dev"
+local_data_directory = "/home/jupyter/nba/data"
+pbpstats_directory = "pbpstats"
+seasons_directory = "seasons"
+possessions_directory = "possessions"
+teams_directory = "teams"
+plots_directory = "plots"
+seasons_source = "local"
+possessions_source = "local"
+teams_source = "local"
+pymc3_random_seed = 42
+git_sha = ""
+
+[prod]
+aws_s3_key_prefix = "prod"
+seasons_source = "s3"
+possessions_source = "s3"
+teams_source = "s3"

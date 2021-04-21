@@ -1,0 +1,9 @@
+# Ignore everything in this directory
+*
+# Except these files/directories
+!.gitignore
+!pbpstats
+!plots
+!possessions
+!seasons
+!teams

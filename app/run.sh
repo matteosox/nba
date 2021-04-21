@@ -1,36 +1,37 @@
 #! /usr/bin/env bash
-set -ef -o pipefail
+set -euf -o pipefail
 
-TAG=$(git rev-parse --short HEAD)
+GIT_SHA=$(git rev-parse --short HEAD)
 DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
 
 usage()
 {
-    echo "usage: ./run.sh [--tag -t sha=$TAG] [--command -c cmd]"
+    echo "usage: ./run.sh [--git-sha -g sha=$GIT_SHA] [--command -c cmd]"
 }
 
-while [ "$1" != "" ]; do
+while [[ "$#" -gt 0 ]]; do
     case "$1" in
-        -t | --tag )
-            shift
-            TAG="$1"
+        -g | --git-sha )
+            GIT_SHA="$2"
+            shift 2
             ;;
         -c | --command )
-            shift
-            CMD="$1"
+            CMD="$2"
+            echo "Using custom command $CMD"
+            shift 2
             ;;
         -h | --help )
             usage
             exit
             ;;
         * )
+        echo "Invalid inputs, see below"
         usage
         exit 1
     esac
-    shift
 done
 
-echo "Running app for tag $TAG"
+echo "Running app for git sha $GIT_SHA"
 
 open_browser() {
     sleep 2
@@ -43,5 +44,5 @@ docker run -it --rm \
     -v "$DIR":/home/app \
     -v /home/app/node_modules \
     -v /home/app/.next \
-    matteosox/nba:app-"$TAG" \
+    matteosox/nba:app-"$GIT_SHA" \
     $CMD

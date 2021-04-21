@@ -10,16 +10,9 @@ def dir_path():
     return os.path.dirname(os.path.realpath(__file__))
 
 
-def get_version():
-    """Get version of this package"""
-    version_path = os.path.join(dir_path(), "pynba", "VERSION")
-    with open(version_path) as version_file:
-        return version_file.read().strip()
-
-
 setup(
     name="pynba",
-    version=get_version(),
+    version="0.0.0",
     description="NBA python package",
     author="Matt Fay",
     author_email="matt.e.fay@gmail.com",
@@ -27,11 +20,11 @@ setup(
     packages=find_packages(exclude=["*.test", "*.test.*", "test.*", "test"]),
     package_data={
         "pynba": [
-            "VERSION",
             "logos/*",
             "teams.yaml",
             "blackontrans.mplstyle",
             "logging.yaml",
+            "settings.toml",
         ],
     },
     install_requires=[
@@ -44,12 +37,17 @@ setup(
         "matplotlib",
         "pymc3",
         "PyYaml",
+        "dynaconf",
+        "awswrangler",
+        "boto3",
     ],
     entry_points={
         "console_scripts": [
             "create_seasons = pynba.scripts.create_seasons:main",
             "create_possessions = pynba.scripts.create_possessions:main",
             "create_teams = pynba.scripts.create_teams:main",
+            "pynba_update = pynba.scripts.update:main",
+            "pynba_sync = pynba.scripts.sync:main",
         ],
     },
 )

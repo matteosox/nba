@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 set -euf -o pipefail
 
-TAG=$(git rev-parse --short HEAD)
-echo "Black formatting for tag $TAG"
+GIT_SHA=$(git rev-parse --short HEAD)
+echo "Black formatting for git sha $GIT_SHA"
 DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
 
 echo "Running Black Python linting"
@@ -10,5 +10,5 @@ docker run \
     --rm \
     --name black_linting \
     -v "$DIR"/../:/home/jupyter/nba \
-    matteosox/nba:notebook-$TAG \
+    matteosox/nba:notebook-$GIT_SHA \
     black --verbose nba

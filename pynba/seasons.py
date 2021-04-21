@@ -5,14 +5,21 @@ import logging
 
 import pandas as pd
 
-from pynba.config import Config
+from pynba.config import config
+from pynba.constants import WNBA, LOCAL, S3
 from pynba import load_pbpstats
+from pynba.parquet import load_pq_to_df, save_df_to_pq
+from pynba.aws_s3 import list_objects
 
+
+__all__ = [
+    "season_from_file",
+    "season_from_pbpstats",
+    "seasons_on_file",
+    "save_season",
+]
 
 logger = logging.getLogger(__name__)
-
-SEASONS_DIR = os.path.join(Config.local_data_directory, Config.seasons_directory)
-WNBA = "wnba"
 
 
 def save_season(season):
@@ -20,16 +27,35 @@ def save_season(season):
     league = season["league"].iloc[0]
     year = season["year"].iloc[0]
     season_type = season["season_type"].iloc[0]
-    season.to_parquet(_season_filepath(league, year, season_type), index=False)
+
+    save_df_to_pq(season, _season_filepath(league, year, season_type))
+
+
+def _season_filename(league, year, season_type):
+    return f"{league}_{year}_{season_type}_games.parquet"
+
+
+def _seasons_dir():
+    return os.path.join(config.local_data_directory, config.seasons_directory)
 
 
 def _season_filepath(league, year, season_type):
-    return os.path.join(SEASONS_DIR, f"{league}_{year}_{season_type}_games.parquet")
+    return os.path.join(_seasons_dir(), _season_filename(league, year, season_type))
 
 
 def seasons_on_file():
     """Produces a Pandas DataFrame with info on the seasons on file"""
-    filenames = os.listdir(SEASONS_DIR)
+    if config.seasons_source == LOCAL:
+        filenames = os.listdir(_seasons_dir())
+    elif config.seasons_source == S3:
+        prefix = f"{config.aws_s3_key_prefix}/{config.seasons_directory}/"
+        objects = list_objects(config.aws_s3_bucket, Prefix=prefix)
+        filenames = [obj["Key"][len(prefix) :] for obj in objects]
+    else:
+        raise ValueError(
+            f"Incompatible config for season source data: {config.seasons_source}"
+        )
+
     leagues, years, season_types = zip(
         *[fn.split(".")[0].split("_")[:3] for fn in filenames]
     )
@@ -59,8 +85,19 @@ def season_from_file(league, year, season_type):
     -------
     pd.DataFrame
     """
-    filepath = _season_filepath(league, year, season_type)
-    return pd.read_parquet(filepath)
+    if config.seasons_source == LOCAL:
+        source = _season_filepath(league, year, season_type)
+    elif config.seasons_source == S3:
+        filename = _season_filename(league, year, season_type)
+        source = (
+            f"s3://{config.aws_s3_bucket}/{config.aws_s3_key_prefix}/"
+            f"{config.seasons_directory}/{filename}"
+        )
+    else:
+        raise ValueError(
+            f"Incompatible config for season source data: {config.seasons_source}"
+        )
+    return load_pq_to_df(source)
 
 
 def season_from_pbpstats(league, year, season_type):

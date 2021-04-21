@@ -26,3 +26,10 @@ COPY --chown=jupyter setup.py nba/setup.py
 
 # Install package using pip config to pickup dependencies
 RUN pip install --editable nba/.
+
+# Create local data directory
+RUN mkdir nba/data
+
+# Pass Git SHA in
+ARG GIT_SHA
+ENV PYNBA_GIT_SHA=$GIT_SHA

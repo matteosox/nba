@@ -6,17 +6,17 @@ DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
 echo "Setting up git pre-commit hook"
 ln -s $DIR/test/pre-commit $DIR/.git/hooks/pre-commit
 
-echo "First off, we'll build and test the repo"
+echo "Before going further, you'll need a build/notebook.local.env file."
+echo "We'll create an empty one for you now, but in the future, you'll need to add your local config options (usually secrets) to it"
+touch $DIR/build/notebook.local.env
+
+echo "With that out of the way, let's build and test the repo"
 $DIR/cicd/build.sh
 $DIR/cicd/test.sh
 
 echo "All done building and running tests, now time to try updating the requirements."
 echo "NOTE: This will edit the repo, but no need to keep those edits."
 $DIR/requirements/update_requirements_inside_docker.sh
-
-echo "OK, that seems to have worked. Now let's see if you can update the CHANGELOG.md and VERSION files."
-echo "NOTE: Again, this will change some files, but no need to keep the changes."
-$DIR/docs/release_inside_docker.sh
 
 echo "Next up, we'll run the app locally."
 echo "Once you're happy with the result, hit ctrl-c to continue to the next step."
