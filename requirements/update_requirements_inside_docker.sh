@@ -5,12 +5,12 @@ set -euf -o pipefail
 
 GIT_SHA=$(git rev-parse --short HEAD)
 echo "Updating requirements for git sha $GIT_SHA"
-DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 docker run \
     --rm \
     -v "$DIR"/../:/home/jupyter/nba \
     -e "LC_ALL=C.UTF-8" \
     -e "LANG=C.UTF-8" \
-    matteosox/nba:notebook-$GIT_SHA \
+    matteosox/nba:notebook-"$GIT_SHA" \
     ./nba/requirements/update_requirements.sh

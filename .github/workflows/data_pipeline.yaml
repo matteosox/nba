@@ -3,6 +3,7 @@ name: Data Pipeline
 on:
   schedule:
     - cron: "0 9 * * *"
+  workflow_dispatch:
 
 jobs:
   data_pipeline:
@@ -29,7 +30,7 @@ jobs:
         run: sudo ./build/install_packages.sh openvpn
 
       - name: Connect to ProtonVPN
-        run: sudo ./vpn/connect.sh ./vpn/config.ovpn
+        run: ./vpn/connect.sh vpn/config.ovpn
         env:
             VPN_USERNAME: ${{  secrets.PROTONVPN_USERNAME }}
             VPN_PASSWORD: ${{  secrets.PROTONVPN_PASSWORD }}

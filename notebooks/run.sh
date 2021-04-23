@@ -4,7 +4,7 @@ set -euf -o pipefail
 # Opens up a Jupyter notebook in a Docker container
 
 GIT_SHA=$(git rev-parse --short HEAD)
-DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PORT=8888
 IP=0.0.0.0
 
@@ -47,20 +47,20 @@ echo "Opening up a Jupyter notebook in your browser at http://$IP:$PORT for git 
 
 open_browser() {
     sleep 2
-    python -m webbrowser http://$IP:$PORT
+    python -m webbrowser http://"$IP":"$PORT"
 }
 
 open_browser &
 docker run --rm \
-    -p $PORT:$PORT \
+    -p "$PORT":"$PORT" \
     --name notebook \
-    --env-file $DIR/../build/notebook.env \
-    --env-file $DIR/../build/notebook.local.env \
-    -v $DIR/../:/home/jupyter/nba \
-    matteosox/nba:notebook-$GIT_SHA \
+    --env-file "$DIR"/../build/notebook.env \
+    --env-file "$DIR"/../build/notebook.local.env \
+    -v "$DIR"/../:/home/jupyter/nba \
+    matteosox/nba:notebook-"$GIT_SHA" \
     jupyter notebook \
-    --ip=$IP \
+    --ip="$IP" \
     --no-browser \
     --NotebookApp.token='' \
     --NotebookApp.notebook_dir=/home/jupyter/nba/notebooks \
-    --port=$PORT
+    --port="$PORT"
