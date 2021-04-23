@@ -3,12 +3,27 @@ set -euf -o pipefail
 
 # Connects to an OpenVPN server
 
-usage()
-{
-    echo "usage: ./connect.sh [--username -u \$VPN_USERNAME] [--password -p \$VPN_PASSWORD] [--cert-authority -c \$VPN_ROOT_CERT] [--tls-auth-key -t \$VPN_TLS_AUTH_KEY] CONFIG_PATH"
+usage() {
+    echo "usage: ./connect.sh
+        [--username -u username=\$VPN_USERNAME]
+        [--password -p password=\$VPN_PASSWORD]
+        [--cert-authority -c cert_auth=\$VPN_ROOT_CERT]
+        [--tls-auth-key -t tls_auth_key=\$VPN_TLS_AUTH_KEY]
+        CONFIG_PATH"
 }
 
-while [[ $# -gt 1 ]]; do
+cleanup() {
+    rm -f .credentials ca.crt ta.key
+}
+trap cleanup EXIT
+
+if [[ $# -eq 0 ]]; then
+    echo "No config path provided, see below"
+    usage
+    exit 2
+fi
+
+while [[ $# -gt 0 ]]; do
     case "$1" in
         -u | --username )
             VPN_USERNAME="$2"
@@ -30,17 +45,20 @@ while [[ $# -gt 1 ]]; do
             usage
             exit
             ;;
-        * )
+        -* )
+            echo "Invalid option provided, see below"
             usage
             exit 2
+            ;;
+        * )
+            CONFIG_PATH="$1"
+            echo "----Using config file found at $CONFIG_PATH----"
+            shift
             ;;
     esac
 done
 
-CONFIG_PATH="$1"
-echo "Setting config path to $CONFIG_PATH"
-
-echo "Setting up credentials, certificate authority, and TLS auth files"
+echo "----Setting up credentials, certificate authority, and TLS auth files----"
 echo -e "$VPN_USERNAME\n$VPN_PASSWORD" >> .credentials
 chmod 600 .credentials
 echo -e "$VPN_ROOT_CERT" >> ca.crt
@@ -49,8 +67,8 @@ echo -e "$VPN_TLS_AUTH_KEY" >> ta.key
 chmod 600 ta.key
 
 echo "----Initiating openvpn connection----"
-sudo openvpn --config $CONFIG_PATH --auth-user-pass .credentials --ca ca.crt --tls-auth ta.key 1 --daemon --log openvpn.log
-
+touch openvpn.log
+sudo openvpn --config "$CONFIG_PATH" --auth-user-pass .credentials --ca ca.crt --tls-auth ta.key 1 --log-append openvpn.log --daemon
 timeout 15 tail -F openvpn.log & timeout 15 bash -c 'tail -F openvpn.log | grep -q -m 1 "Initialization Sequence Completed"'
 
 echo "----All done!----"

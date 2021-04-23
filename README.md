@@ -1,4 +1,36 @@
-# matteosox/nba
+<h1 align="center">matteosox/nba</h1>
+
+## [Badges? We ain't got no badges! We don't need no badges! I don't have to show you any stinking badges!](https://www.youtube.com/watch?v=VqomZQMZQCQ)
+
+<h3 align="center">
+Status<br>
+<a href="https://github.com/matteosox/nba/actions/workflows/data_pipeline.yaml"><img alt="Data Pipeline" src="https://github.com/matteosox/nba/actions/workflows/data_pipeline.yaml/badge.svg"></a>
+<a href="https://github.com/matteosox/nba/actions/workflows/build_test.yaml"><img alt="Build and Test" src="https://github.com/matteosox/nba/actions/workflows/build_test.yaml/badge.svg"></a>
+<a href="https://nba.mattefay.com"><img alt="Website Status" src="https://img.shields.io/website?down_color=red&down_message=offline&label=nba.mattefay.com&up_color=brightgreen&up_message=online&url=https%3A%2F%2Fnba.mattefay.com"></a>
+<br>Languages<br>
+<a href="https://docs.python.org/3.8/"><img alt="Python: 3.8" src="https://img.shields.io/static/v1?label=Python&message=3%2C8&logo=python&color=%233776AB"></a>
+<a href="https://www.gnu.org/software/bash/"><img alt="Bash: 5.1" src="https://img.shields.io/static/v1?label=Bash&message=5%2C1&logo=GNU-bash&color=%234EAA25"></a>
+<a href="https://www.typescriptlang.org/"><img alt="Typescript: " src="https://img.shields.io/github/package-json/dependency-version/matteosox/nba/dev/typescript?filename=app%2Fpackage.json&logo=typescript&color=%233178C6&label=Typescript"></a>
+<br>Services<br>
+<a href="https://github.com/matteosox/nba"><img alt="VCS: Github" src="https://img.shields.io/static/v1?label=VCS&message=Github&logo=github&color=%23181717"></a>
+<a href="https://github.com/matteosox/nba/actions"><img alt="CI: Github Actions" src="https://img.shields.io/static/v1?label=CI&message=Github%20Actions&logo=Github-Actions&color=%232088FF"></a>
+<a href="https://hub.docker.com/repository/docker/matteosox/nba"><img alt="Container Repo: Docker Hub" src="https://img.shields.io/static/v1?label=Container%20Repo&message=Docker%20Hub&logo=Docker&color=%232496ED"></a>
+<a href="https://protonvpn.com/"><img alt="VPN: ProtonVPN" src="https://img.shields.io/static/v1?label=VPN&message=ProtonVPN&logo=ProtonVPN&color=%2356B366"></a>
+<a href="https://aws.amazon.com/s3/"><img alt="Storage: AWS S3" src="https://img.shields.io/static/v1?label=Storage&message=AWS%20S3&logo=Amazon-S3&color=%23569A31"></a>
+<a href="https://vercel.com/matteosox/nba"><img alt="CD & Hosting: Vercel" src="https://img.shields.io/static/v1?label=CD%20%26%20Hosting&message=Vercel&logo=Vercel&color=%23000000"></a>
+<a href="https://www.hover.com/"><img alt="Domain: Hover" src="https://img.shields.io/static/v1?label=Domain&message=Hover"></a>
+<br>Dependencies<br>
+<a href="https://jupyter.org/try"><img alt="Analysis environment: Jupyter" src="https://img.shields.io/static/v1?label=Analysis%20environment&message=Jupyter&logo=Jupyter&color=%23F37626"></a>
+<a href="https://www.dynaconf.com/"><img alt="Config: Dynaconf" src="https://img.shields.io/static/v1?label=Config&message=Dynaconf"></a>
+<a href="https://nextjs.org/"><img alt="Web framework: Next.js" src="https://img.shields.io/static/v1?label=Web%20framework&message=Next%2Cjs&logo=Next.js&color=%23000000"></a>
+<a href="https://reactjs.org/"><img alt="UI: React" src="https://img.shields.io/static/v1?label=UI&message=React&logo=React&color=%2361DAFB"></a>
+<a href="https://pbpstats.readthedocs.io/en/latest/"><img alt="NBA stats: pbpstats" src="https://img.shields.io/static/v1?label=NBA%20stats&message=pbpstats"></a>
+<a href="https://docs.pymc.io/"><img alt="Models: pymc3" src="https://img.shields.io/static/v1?label=Models&message=pymc3"></a>
+<br>Testing<br>
+<a href="https://github.com/psf/black"><img alt="Python style: Black" src="https://img.shields.io/static/v1?label=Python%20style&message=Black&color=%23000000"></a>
+<a href="https://www.pylint.org/"><img alt="Python quality: Pylint" src="https://img.shields.io/static/v1?label=Python%20quality&message=Pylint"></a>
+<a href="https://www.shellcheck.net/"><img alt="Bash quality: ShellCheck" src="https://img.shields.io/static/v1?label=Bash%20quality&message=ShellCheck"></a>
+</p>
 
 ## Info
 
@@ -131,6 +163,10 @@ The package is installed using `setuptools`'s [`find_packages` function](https:/
 
 Thus, to run tests, we mount the root of the repo to the location in the container it's been installed. All of this is handled nicely by running `test.sh`, which uses the `notebook` container.
 
+#### Bash Script Tests
+
+We use [ShellCheck](https://github.com/koalaman/shellcheck) to test all the bash scripts in the repo. This helps us avoid some of the many sharp corners of bash, improving quality, readability, and style. This is run in `./test/shellcheck.sh`.
+
 #### Web App Tests
 
 **TBD**
@@ -142,6 +178,10 @@ _TL;DR: To push docker images to Docker Hub, run `./cicd/push.sh`._
 ## Data Pipeline
 
 We run a nightly data pipeline job using Github Actions to update the data hosted on the site. This is configured in `.github/workflows/data_pipeline.yaml`. Again, each step of the process can be run locally.
+
+### VPN
+
+Unfortunately, the NBA blocks API traffic from many cloud hosting providers, e.g. AWS. In our case, [Github Actions runs on Azure](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#cloud-hosts-for-github-hosted-runners). To get around this issue, I've setup a free ProtonVPN account. The various secrets needed to get that to work (a base certificate, TLS authentication key, and openvpn username & password) are stored as secrets in Github and injected as environment variables in the relevant step. An openvpn config file — `config.ovpn` — can be found in the `vpn` directory, along with a `connect.sh` bash script used by the workflow to set things up.
 
 ### Update Data
 

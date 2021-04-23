@@ -71,16 +71,16 @@ bleach==3.3.0 \
 bokeh==2.3.1 \
     --hash=sha256:2f2fb8bab8ca8fa039f48b1f0bed56d3a847c75694ece1d206ffab645ff5beec
     # via -r /home/jupyter/nba/requirements/requirements.in
-boto3==1.17.53 \
-    --hash=sha256:1d26f6e7ae3c940cb07119077ac42485dcf99164350da0ab50d0f5ad345800cd \
-    --hash=sha256:3bf3305571f3c8b738a53e9e7dcff59137dffe94670046c084a17f9fa4599ff3
+boto3==1.17.56 \
+    --hash=sha256:9caec835fdf9c3336068a28004bb6a6ffab14a75d2466dfe6e279946f409fe8f \
+    --hash=sha256:ccbc640b6c7b27626f87fbd6d73872ec697290065e8f473b6a3def472dd9253f
     # via
     #   -r /home/jupyter/nba/requirements/requirements.in
     #   awswrangler
     #   redshift-connector
-botocore==1.20.53 \
-    --hash=sha256:d5e70d17b91c9b5867be7d6de0caa7dde9ed789bed62f03ea9b60718dc9350bf \
-    --hash=sha256:e303500c4e80f6a706602da53daa6f751cfa8f491665c99a24ee732ab6321573
+botocore==1.20.56 \
+    --hash=sha256:134a7b1d21030b6323b6094226d0cc898a8f2a2b5d27e1e5c0a0071372eab68d \
+    --hash=sha256:367a7eaee80fdf7718f50461432ac2c4bd73363835a1ad011f99fdc592ba775d
     # via
     #   awswrangler
     #   boto3
@@ -171,10 +171,6 @@ cftime==1.4.1 \
     --hash=sha256:e2919d68bebed66f102f861d7f2fb396487d44f5f54b1ac19f1e74be3f67b02c \
     --hash=sha256:fee0af10a85c03b4d3512eed04ffb2f80a0f2e8fe712df30bde2f1fe8fe37cf7
     # via netcdf4
-changelog-cli==0.7.1 \
-    --hash=sha256:332090b98c958e06486632a7967cdd6edf3896ade4171a21f83b768eac519170 \
-    --hash=sha256:aaae0cfeb3681a4d7b10993f945dedf19c761b7582625f75a7abdd7272808f73
-    # via -r /home/jupyter/nba/requirements/requirements.in
 chardet==4.0.0 \
     --hash=sha256:0d6f53a15db4120f2b08c94f11e7d93d2c911ee118b6b30a04ec3ee8310179fa \
     --hash=sha256:f864054d66fd9118f2e67044ac8981a54775ec5b67aed0441892edb553d21da5
@@ -184,7 +180,6 @@ click==7.1.2 \
     --hash=sha256:dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc
     # via
     #   black
-    #   changelog-cli
     #   pip-tools
 cycler==0.10.0 \
     --hash=sha256:1d8a5ae1ff6c5cf9b93e8811e581232ad8920aeec647c37316ceac982b08cb2d \
@@ -889,8 +884,8 @@ qtpy==1.9.0 \
     --hash=sha256:2db72c44b55d0fe1407be8fba35c838ad0d6d3bb81f23007886dc1fc0f459c8d \
     --hash=sha256:fa0b8363b363e89b2a6f49eddc162a04c0699ae95e109a6be3bb145a913190ea
     # via qtconsole
-redshift-connector==2.0.877 \
-    --hash=sha256:b4e587715ae62d9bab53ea89fb3348811d2dacee4ec59a9d8a2be5b108a84542
+redshift-connector==2.0.878 \
+    --hash=sha256:52725509a38e3115841b27c32255a3f1beb134dfdf6c408c6b6fd963f66d41f5
     # via awswrangler
 regex==2021.4.4 \
     --hash=sha256:01afaf2ec48e196ba91b37451aa353cb7eda77efe518e481707e0515025f0cd5 \
@@ -942,9 +937,9 @@ requests==2.25.1 \
     #   -r /home/jupyter/nba/requirements/requirements.in
     #   pbpstats
     #   redshift-connector
-s3transfer==0.3.7 \
-    --hash=sha256:35627b86af8ff97e7ac27975fe0a98a312814b46c6333d8a6b889627bcd80994 \
-    --hash=sha256:efa5bd92a897b6a8d5c1383828dca3d52d0790e0756d49740563a3fb6ed03246
+s3transfer==0.4.2 \
+    --hash=sha256:9b3752887a2880690ce628bc263d6d13a3864083aeacff4890c1c9839a5eb0bc \
+    --hash=sha256:cb022f4b16551edebbb31a377d3f09600dbada7363d8c5db7976e7f47732e1b2
     # via boto3
 scipy==1.6.2 \
     --hash=sha256:03f1fd3574d544456325dae502facdf5c9f81cbfe12808a5e67a737613b7ba8c \

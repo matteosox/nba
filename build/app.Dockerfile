@@ -22,5 +22,3 @@ RUN npm install
 # Build app
 COPY --chown=app app/. .
 RUN npm run build
-
-CMD ["npm", "run", "dev"]

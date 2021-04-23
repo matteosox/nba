@@ -16,7 +16,7 @@ apt-get update
 apt-get -y upgrade
 
 # Install packages, without unnecessary recommended packages:
-apt-get -y install --no-install-recommends $@
+apt-get -y install --no-install-recommends "$@"
 
 # Delete cached files we don't need anymore:
 apt-get clean

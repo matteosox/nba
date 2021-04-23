@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 
 # Install apt-get packages needed for the base image
 COPY build/install_packages.sh .
-RUN ./install_packages.sh python3-dev python3-pip python3-venv g++ libopenblas-dev git awscli libyaml-dev
+RUN ./install_packages.sh python3-dev python3-pip python3-venv g++ libopenblas-dev git awscli libyaml-dev shellcheck
 
 # Create Jupyter notebook user & switch to it
 RUN useradd --uid 1000 --create-home jupyter

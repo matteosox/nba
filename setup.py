@@ -1,13 +1,6 @@
 """Install pynba Python package"""
 
-import os
-
 from setuptools import setup, find_packages
-
-
-def dir_path():
-    """Get directory of this file"""
-    return os.path.dirname(os.path.realpath(__file__))
 
 
 setup(
@@ -27,6 +20,7 @@ setup(
             "settings.toml",
         ],
     },
+    python_requires=">=3.8",
     install_requires=[
         "pbpstats",
         "pandas",
