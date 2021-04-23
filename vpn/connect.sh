@@ -13,10 +13,9 @@ usage() {
 }
 
 cleanup() {
+    echo "Deleting secret files"
     rm -f .credentials ca.crt ta.key
-    if [[ -n "${TAIL_PID-}" ]]; then
-        kill "$TAIL_PID"
-    fi
+    echo "Secret files deleted"
 }
 trap cleanup EXIT
 
@@ -72,8 +71,7 @@ chmod 600 ta.key
 echo "----Initiating openvpn connection----"
 touch openvpn.log
 sudo openvpn --config "$CONFIG_PATH" --auth-user-pass .credentials --ca ca.crt --tls-auth ta.key 1 --log-append openvpn.log --daemon
-tail -F openvpn.log &
-TAIL_PID="$!"
-timeout 30 bash -c 'tail -F openvpn.log | grep -q -m 1 "Initialization Sequence Completed"' || echo "----ERROR: Timeout reached, unable to connect----"
+tail --pid "$$" -n +1 -F openvpn.log &
+timeout 30 bash -c 'tail -n +1 -F openvpn.log | grep -q -m 1 "Initialization Sequence Completed"' || (EXIT_CODE="$?" && echo "----ERROR: Timeout reached, unable to connect, eith exit code $EXIT_CODE----" && exit "$EXIT_CODE")
 
 echo "----All done!----"
