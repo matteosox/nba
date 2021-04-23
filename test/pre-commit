@@ -2,8 +2,10 @@
 set -euf -o pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$DIR"/../..
+cd "$REPO_DIR"
 
 echo "Buildin'..."
-$DIR/../../cicd/build.sh
+cicd/build.sh
 echo "Testin'..."
-$DIR/../../cicd/test.sh
+cicd/test.sh

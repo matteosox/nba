@@ -2,26 +2,27 @@
 set -euf -o pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$DIR"
 
 echo "Setting up git pre-commit hook"
-ln -s "$DIR"/test/pre-commit "$DIR"/.git/hooks/pre-commit
+ln -s test/pre-commit .git/hooks/pre-commit
 
 echo "Before going further, you'll need a build/notebook.local.env file."
 echo "We'll create an empty one for you now, but in the future, you'll need to add your local config options (usually secrets) to it"
-touch "$DIR"/build/notebook.local.env
+touch build/notebook.local.env
 
 echo "With that out of the way, let's build and test the repo"
-"$DIR"/cicd/build.sh
-"$DIR"/cicd/test.sh
+cicd/build.sh
+cicd/test.sh
 
 echo "All done building and running tests, now time to try updating the requirements."
 echo "NOTE: This will edit the repo, but no need to keep those edits."
-"$DIR"/requirements/update_requirements_inside_docker.sh
+requirements/update_requirements_inside_docker.sh
 
 echo "Next up, we'll run the app locally."
 echo "Once you're happy with the result, hit ctrl-c to continue to the next step."
-"$DIR"/app/run.sh
+app/run.sh
 
 echo "Moving on to the final step: running the Jupyter notebook environment."
 echo "Again, once you're happy with the result, hit ctrl-c."
-"$DIR"/notebooks/run.sh
+notebooks/run.sh

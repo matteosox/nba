@@ -27,10 +27,10 @@ jobs:
           aws-region: us-west-2
 
       - name: Install OpenVPN
-        run: sudo ./build/install_packages.sh openvpn
+        run: sudo build/install_packages.sh openvpn
 
       - name: Connect to ProtonVPN
-        run: ./vpn/connect.sh vpn/config.ovpn
+        run: vpn/connect.sh vpn/config.ovpn
         env:
             VPN_USERNAME: ${{  secrets.PROTONVPN_USERNAME }}
             VPN_PASSWORD: ${{  secrets.PROTONVPN_PASSWORD }}
@@ -38,13 +38,13 @@ jobs:
             VPN_TLS_AUTH_KEY: ${{  secrets.PROTONVPN_TLS_AUTH_KEY }}
 
       - name: Update Data Locally
-        run: ./cicd/etl.sh --env prod pynba_update
+        run: cicd/etl.sh --env prod pynba_update
 
       - name: Disconnect from ProtonVPN
         run: sudo killall openvpn
 
       - name: Sync to S3
-        run: ./cicd/etl.sh --env prod pynba_sync
+        run: cicd/etl.sh --env prod pynba_sync
 
       - name: Upload Artifact
         if: ${{ always() }}

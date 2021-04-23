@@ -15,9 +15,8 @@ USER app
 WORKDIR /home/app
 
 # Install npm packages
-COPY app/package.json app/package-lock.json ./
-RUN mkdir node_modules
-RUN npm install
+COPY --chown=app app/package.json app/package-lock.json ./
+RUN mkdir node_modules && npm install
 
 # Build app
 COPY --chown=app app/. .

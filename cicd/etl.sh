@@ -3,13 +3,16 @@ set -euf -o pipefail
 
 # Runs etl commands in the notebook container
 
-GIT_SHA=$(git rev-parse --short HEAD)
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$DIR"/..
+cd "$REPO_DIR"
+
+GIT_SHA=$(git rev-parse --short HEAD)
 LOCAL_ENV_OPTION=()
 
 usage()
 {
-    echo "usage: ./run.sh [--git-sha -g sha=$GIT_SHA] [--env -e env] [--local-env -l] CMD"
+    echo "usage: etl.sh [--git-sha -g sha=$GIT_SHA] [--env -e env] [--local-env -l] CMD"
 }
 
 while true; do
@@ -30,7 +33,7 @@ while true; do
             shift 2
             ;;
         -l | --local-env )
-            LOCAL_ENV_OPTION=(--env-file "$DIR"/../build/notebook.local.env)
+            LOCAL_ENV_OPTION=(--env-file build/notebook.local.env)
             echo "Loading local environment parameters"
             shift
             ;;
@@ -54,8 +57,8 @@ echo "Running ${CMD[*]} in the notebook container"
 
 docker run --rm \
     --name etl \
-    --env-file "$DIR"/../build/notebook.env \
+    --env-file build/notebook.env \
     "${LOCAL_ENV_OPTION[@]}" \
-    -v "$DIR"/../data:/home/jupyter/nba/data \
-    matteosox/nba:notebook-"$GIT_SHA" \
+    -v "$REPO_DIR"/data:/home/jupyter/nba/data \
+    matteosox/nba-notebook:"$GIT_SHA" \
     "${CMD[@]}"

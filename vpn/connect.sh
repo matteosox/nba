@@ -4,7 +4,7 @@ set -euf -o pipefail
 # Connects to an OpenVPN server
 
 usage() {
-    echo "usage: ./connect.sh
+    echo "usage: connect.sh
         [--username -u username=\$VPN_USERNAME]
         [--password -p password=\$VPN_PASSWORD]
         [--cert-authority -c cert_auth=\$VPN_ROOT_CERT]
@@ -14,6 +14,9 @@ usage() {
 
 cleanup() {
     rm -f .credentials ca.crt ta.key
+    if [[ -n "${TAIL_PID-}" ]]; then
+        kill "$TAIL_PID"
+    fi
 }
 trap cleanup EXIT
 
@@ -69,6 +72,8 @@ chmod 600 ta.key
 echo "----Initiating openvpn connection----"
 touch openvpn.log
 sudo openvpn --config "$CONFIG_PATH" --auth-user-pass .credentials --ca ca.crt --tls-auth ta.key 1 --log-append openvpn.log --daemon
-timeout 15 tail -F openvpn.log & timeout 15 bash -c 'tail -F openvpn.log | grep -q -m 1 "Initialization Sequence Completed"'
+tail -F openvpn.log &
+TAIL_PID="$!"
+timeout 30 bash -c 'tail -F openvpn.log | grep -q -m 1 "Initialization Sequence Completed"' || echo "----ERROR: Timeout reached, unable to connect----"
 
 echo "----All done!----"

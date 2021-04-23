@@ -16,7 +16,7 @@ RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install python dependencies
-COPY --chown=jupyter ./requirements/requirements.txt .
+COPY --chown=jupyter requirements/requirements.txt .
 RUN mkdir -p .cache/pip
 RUN --mount=type=cache,target=/home/jupyter/.cache/pip,uid=1000 pip install --upgrade pip wheel setuptools && pip install -r requirements.txt
 
@@ -24,11 +24,8 @@ RUN --mount=type=cache,target=/home/jupyter/.cache/pip,uid=1000 pip install --up
 COPY --chown=jupyter pynba nba/pynba
 COPY --chown=jupyter setup.py nba/setup.py
 
-# Install package using pip config to pickup dependencies
+# Install package using pip
 RUN pip install --editable nba/.
-
-# Create local data directory
-RUN mkdir nba/data
 
 # Pass Git SHA in
 ARG GIT_SHA
