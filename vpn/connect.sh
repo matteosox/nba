@@ -77,6 +77,6 @@ chmod 600 ta.key
 echo "Initiating openvpn connection"
 touch openvpn.log
 sudo openvpn --config "$CONFIG_PATH" --auth-user-pass .credentials --ca ca.crt --tls-auth ta.key 1 --log-append openvpn.log --daemon
-timeout 30 bash -c 'tail -n +1 -F openvpn.log | grep -q -m 1 "Initialization Sequence Completed"' || (EXIT_CODE="$?" && echo "ERROR: Unable to connect, eith exit code $EXIT_CODE" && exit "$EXIT_CODE")
+timeout 30 bash -c 'tail -n +1 -f openvpn.log | grep -q -m 1 "Initialization Sequence Completed"' || (EXIT_CODE="$?" && echo "ERROR: Unable to connect, eith exit code $EXIT_CODE" && exit "$EXIT_CODE")
 
 echo "Connection successfully initiated!"
