@@ -79,9 +79,16 @@ We use a Dockerized Jupyter notebook environment for data analysis. The `noteboo
 
 ### Getting started
 
-Run `developer_setup.sh`. Right now, all this does is setup the `pre-commit` git hook to build and test code before you commit it.
+_TL;DR: Run `./developer_setup.sh`._
 
-We use Docker for a clean environment within which to build/test/release. The `build.sh` script in the `cicd` directory will build the relevant images for you. Running the CI/CD workflow natively isn't a supported/maintained thing.
+We use Docker for a clean environment within which to build, test, analyze, and so on. The `build.sh` script in the `cicd` directory will build the relevant images for you. Running things natively isn't a supported/maintained thing.
+
+To get you setup, you can run `./developer_setup.sh`. This will:
+1) Symlink `test/pre-commit` to your `.git` directory, so that you'll automatically build and test code before you commit it.
+2) Create an empty `build/notebook.local.env` file in which you can place local secrets for the notebook docker container.
+3) Git only tracks a single executable bit for all files, so when setting up the repo, we need to set file permissions manually for files we need to write to from Docker. The `set_file_permissions.sh` script does this for you.
+
+With all that out of the way, it then puts your machine through its paces by building, testing, and running various other workflows locally.
 
 ### Code Style
 

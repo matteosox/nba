@@ -11,6 +11,9 @@ echo "Before going further, you'll need a build/notebook.local.env file."
 echo "We'll create an empty one for you now, but in the future, you'll need to add your local config options (usually secrets) to it"
 touch build/notebook.local.env
 
+echo "Since git only stores a single executable bit for file permissions, we'll need to configure file permissions as well."
+build/set_file_permissions.sh
+
 echo "With that out of the way, let's build and test the repo"
 cicd/build.sh
 cicd/test.sh
