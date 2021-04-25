@@ -1,9 +1,14 @@
 #! /usr/bin/env bash
 set -euf -o pipefail
 
+DIR="$(cd "$(dirname "${BASH_SOURCE[@]}")" && pwd)"
+REPO_DIR="$DIR"/..
+cd "$REPO_DIR"
+
 GIT_SHA=$(git rev-parse --short HEAD)
 echo "Running tests for git sha $GIT_SHA"
-DIR="$(cd "$(dirname "${BASH_SOURCE[@]}")" && pwd)"
+
+USER_ID=$(id -u "$USER")
 
 BLACK_STATUS="NOT STARTED"
 PYLINT_STATUS="NOT STARTED"
@@ -25,8 +30,9 @@ BLACK_STATUS=RUNNING
 if docker run \
     --rm \
     --name black_linting \
-    -v "$DIR"/../:/home/jupyter/nba \
-    matteosox/nba:notebook-"$GIT_SHA" \
+    -e LOCAL_USER_ID="$USER_ID" \
+    -v "$REPO_DIR":/home/jupyter/nba \
+    matteosox/nba-notebook:"$GIT_SHA" \
     black --verbose --check nba
 then
     BLACK_STATUS=SUCCESS
@@ -40,8 +46,8 @@ PYLINT_STATUS=RUNNING
 if docker run \
     --rm \
     --name pylint \
-    -v "$DIR"/../:/home/jupyter/nba \
-    matteosox/nba:notebook-"$GIT_SHA" \
+    -v "$REPO_DIR":/home/jupyter/nba \
+    matteosox/nba-notebook:"$GIT_SHA" \
     pylint --rcfile nba/pylintrc nba
 then
     PYLINT_STATUS=SUCCESS
@@ -55,8 +61,8 @@ PYTHON_UNIT_TESTS_STATUS=RUNNING
 if docker run \
     --rm \
     --name python_unit_test \
-    -v "$DIR"/../:/home/jupyter/nba \
-    matteosox/nba:notebook-"$GIT_SHA" \
+    -v "$REPO_DIR":/home/jupyter/nba \
+    matteosox/nba-notebook:"$GIT_SHA" \
     python -m unittest discover --verbose --start-directory nba
 then
     PYTHON_UNIT_TESTS_STATUS=SUCCESS
@@ -70,9 +76,9 @@ SHELLCHECK_STATUS=RUNNING
 if docker run \
     --rm \
     --name shellcheck \
-    -v "$DIR"/../:/home/jupyter/nba \
-    matteosox/nba:notebook-"$GIT_SHA" \
-    ./nba/test/shellcheck.sh
+    -v "$REPO_DIR":/home/jupyter/nba \
+    matteosox/nba-notebook:"$GIT_SHA" \
+    nba/test/shellcheck.sh
 then
     SHELLCHECK_STATUS=SUCCESS
 else

@@ -1,7 +1,7 @@
 version: 1
 formatters:
   standard:
-    format: "%(asctime)s | %(pathname)s:%(funcName)s@%(lineno)d | %(levelname)s | %(message)s"
+    format: "%(asctime)s | %(pathname)s:%(funcName)s @ %(lineno)d | %(levelname)s | %(message)s"
     datefmt: "%Y-%m-%d %H:%M:%S %Z"
 handlers:
   console:

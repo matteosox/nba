@@ -3,14 +3,17 @@ set -euf -o pipefail
 
 # Opens up a Jupyter notebook in a Docker container
 
-GIT_SHA=$(git rev-parse --short HEAD)
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$DIR"/..
+cd "$REPO_DIR"
+
+GIT_SHA=$(git rev-parse --short HEAD)
 PORT=8888
 IP=0.0.0.0
 
 usage()
 {
-    echo "usage: ./run.sh [--ip -i ip=$IP] [--port -p port=$PORT] [--git-sha -g sha=$GIT_SHA] [--env -e env]"
+    echo "usage: run.sh [--ip -i ip=$IP] [--port -p port=$PORT] [--git-sha -g sha=$GIT_SHA] [--env -e env]"
 }
 
 while [[ "$#" -gt 0 ]]; do
@@ -54,10 +57,10 @@ open_browser &
 docker run --rm \
     -p "$PORT":"$PORT" \
     --name notebook \
-    --env-file "$DIR"/../build/notebook.env \
-    --env-file "$DIR"/../build/notebook.local.env \
-    -v "$DIR"/../:/home/jupyter/nba \
-    matteosox/nba:notebook-"$GIT_SHA" \
+    --env-file build/notebook.env \
+    --env-file build/notebook.local.env \
+    -v "$REPO_DIR":/home/jupyter/nba \
+    matteosox/nba-notebook:"$GIT_SHA" \
     jupyter notebook \
     --ip="$IP" \
     --no-browser \

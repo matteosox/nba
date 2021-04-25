@@ -4,18 +4,13 @@ set -euf -o pipefail
 # Connects to an OpenVPN server
 
 usage() {
-    echo "usage: ./connect.sh
+    echo "usage: connect.sh
         [--username -u username=\$VPN_USERNAME]
         [--password -p password=\$VPN_PASSWORD]
         [--cert-authority -c cert_auth=\$VPN_ROOT_CERT]
         [--tls-auth-key -t tls_auth_key=\$VPN_TLS_AUTH_KEY]
         CONFIG_PATH"
 }
-
-cleanup() {
-    rm -f .credentials ca.crt ta.key
-}
-trap cleanup EXIT
 
 if [[ $# -eq 0 ]]; then
     echo "No config path provided, see below"
@@ -58,6 +53,13 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+cleanup() {
+    echo "Cleaning up"
+    rm -f .credentials ca.crt ta.key
+    echo "Cleanup complete"
+}
+trap cleanup EXIT
+
 echo "----Setting up credentials, certificate authority, and TLS auth files----"
 echo -e "$VPN_USERNAME\n$VPN_PASSWORD" >> .credentials
 chmod 600 .credentials
@@ -69,6 +71,21 @@ chmod 600 ta.key
 echo "----Initiating openvpn connection----"
 touch openvpn.log
 sudo openvpn --config "$CONFIG_PATH" --auth-user-pass .credentials --ca ca.crt --tls-auth ta.key 1 --log-append openvpn.log --daemon
-timeout 15 tail -F openvpn.log & timeout 15 bash -c 'tail -F openvpn.log | grep -q -m 1 "Initialization Sequence Completed"'
+tail --pid "$$" -n +1 -F openvpn.log &
 
-echo "----All done!----"
+LINE_NO=1
+NOW=$(date +%s)
+TIMEOUT=$((NOW + 30))
+while [[ $(date +%s) -lt $TIMEOUT ]]; do
+    LINES=$(tail -n +"$LINE_NO" openvpn.log)
+    if echo "$LINES" | grep -q "Initialization Sequence Completed"; then
+        echo "----All done!----"
+        exit 0
+    fi
+    LINE_COUNT=$(echo "$LINES" | wc -l)
+    ((LINE_NO+=LINE_COUNT))
+    sleep 1
+done
+
+echo "----ERROR: Timeout reached, unable to connect----"
+exit 124
