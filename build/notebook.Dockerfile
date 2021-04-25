@@ -9,7 +9,6 @@ RUN install_packages.sh python3-dev python3-pip python3-venv g++ libopenblas-dev
 ENV USER=jupyter
 RUN groupadd "$USER" && useradd --shell /bin/bash --uid 1024 --create-home -g "$USER" "$USER"
 USER "$USER"
-
 WORKDIR /home/"$USER"
 
 # Create and activate virtual environment

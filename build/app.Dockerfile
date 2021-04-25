@@ -21,5 +21,6 @@ RUN mkdir node_modules && npm install
 
 # Setup entrypoint for optional custom user id configuration
 COPY --chown="$USER" build/entrypoint.sh /usr/local/bin/entrypoint.sh
+USER root
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD ["bash"]

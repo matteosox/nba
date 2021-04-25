@@ -5,7 +5,7 @@ set -euf -o pipefail
 # we need to set file permissions manually for files we need to write to from Docker.
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$DIR"
+cd "$DIR"/..
 
 # Set data directory permissions to allow r/w for all users
 find data -type d -exec chmod 766 {} \;
