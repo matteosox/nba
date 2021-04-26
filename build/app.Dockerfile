@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.2
 FROM ubuntu:20.04
 
-# Install apt-get packages needed for the base image
+# Install apt-get packages
 COPY build/install_packages.sh /usr/local/bin/install_packages.sh
 RUN install_packages.sh curl ca-certificates gosu
 
@@ -11,16 +11,16 @@ RUN install_node.sh
 
 # Create app user & switch to it
 ENV USER=app
-RUN groupadd app && useradd --shell /bin/bash --uid 1024 --create-home -g app app
+RUN groupadd "$USER" && useradd --shell /bin/bash --uid 1024 --create-home -g "$USER" "$USER"
 USER "$USER"
 WORKDIR /home/"$USER"
 
 # Install npm packages
-COPY --chown="$USER" app/package.json app/package-lock.json ./
-RUN mkdir node_modules && npm install
+COPY --chown="$USER" app/package.json app/package-lock.json app/
+RUN --mount=type=cache,target=/home/app/.npm,uid=1024 npm --prefix app install
 
 # Setup entrypoint for optional custom user id configuration
-COPY --chown="$USER" build/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY build/entrypoint.sh /usr/local/bin/entrypoint.sh
 USER root
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD ["bash"]

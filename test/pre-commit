@@ -5,7 +5,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$DIR"/../..
 cd "$REPO_DIR"
 
-echo "Buildin'..."
-cicd/build.sh
+echo "Settin' up..."
+cicd/setup.sh
 echo "Testin'..."
 cicd/test.sh

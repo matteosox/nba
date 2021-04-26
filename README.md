@@ -5,7 +5,7 @@
 <h3 align="center">
 Status<br>
 <a href="https://github.com/matteosox/nba/actions/workflows/data_pipeline.yaml"><img alt="Data Pipeline" src="https://github.com/matteosox/nba/actions/workflows/data_pipeline.yaml/badge.svg"></a>
-<a href="https://github.com/matteosox/nba/actions/workflows/build_test.yaml"><img alt="Build and Test" src="https://github.com/matteosox/nba/actions/workflows/build_test.yaml/badge.svg"></a>
+<a href="https://github.com/matteosox/nba/actions/workflows/setup_test_push.yaml"><img alt="Setup, Test, & Build" src="https://github.com/matteosox/nba/actions/workflows/setup_test_push.yaml/badge.svg"></a>
 <a href="https://nba.mattefay.com"><img alt="Website Status" src="https://img.shields.io/website?down_color=red&down_message=offline&label=nba.mattefay.com&up_color=brightgreen&up_message=online&url=https%3A%2F%2Fnba.mattefay.com"></a>
 <br>Languages<br>
 <a href="https://docs.python.org/3.8/"><img alt="Python: 3.8" src="https://img.shields.io/static/v1?label=Python&message=3%2C8&logo=python&color=%233776AB"></a>
@@ -81,14 +81,14 @@ We use a Dockerized Jupyter notebook environment for data analysis. The `noteboo
 
 _TL;DR: Run `./developer_setup.sh`._
 
-We use Docker for a clean environment within which to build, test, analyze, and so on. The `build.sh` script in the `cicd` directory will build the relevant images for you. Running things natively isn't a supported/maintained thing.
+We use Docker for a clean environment within which to build, test, analyze, and so on. The `setup.sh` script in the `cicd` directory will build the relevant images for you. Running things natively isn't a supported/maintained thing.
 
 To get you setup, you can run `./developer_setup.sh`. This will:
 1) Symlink `test/pre-commit` to your `.git` directory, so that you'll automatically build and test code before you commit it.
 2) Create an empty `build/notebook.local.env` file in which you can place local secrets for the notebook docker container.
 3) Git only tracks a single executable bit for all files, so when setting up the repo, we need to set file permissions manually for files we need to write to from Docker. The `set_file_permissions.sh` script does this for you.
 
-With all that out of the way, it then puts your machine through its paces by building, testing, and running various other workflows locally.
+With all that out of the way, it then puts your machine through its paces by setting up, testing, and running various other workflows locally.
 
 ### Code Style
 
@@ -96,7 +96,7 @@ We use PEP8 for Python, but don't trip, just run `test/black_lint.sh` to get all
 
 ### Committing Code
 
-We use the `pre-commit` git hook to run the buildin' and testin' phases of our CI/CD pipeline locally.
+We use the `pre-commit` git hook to run the settin' up and testin' phases of our CI/CD pipeline locally.
 
 ### Pull Requests
 
@@ -136,15 +136,15 @@ _TL;DR: Run `app/run.sh`._
 
 To ease developing the NextJS web app, we use `npm run dev` in a Docker container with the app mounted. This starts the app in [development mode](https://nextjs.org/docs/api-reference/cli#development), which takes advantage of NextJS's [fast refresh](https://nextjs.org/docs/basic-features/fast-refresh) functionality, which catches exceptions and loads code updates near-instantaneously.
 
-Additionally, if you'd like to run a different command, e.g. to update the npm packages installed using `npm install`, you can use the same script with an optional command, e.g. `app/run.sh YOUR CMD HERE`.
+Additionally, if you'd like to run a different command, e.g. to install a new npm package using `npm install new-package`, you can use the same script with an optional command, e.g. `app/run.sh YOUR CMD HERE`.
 
 ## Continuous Integration
 
-We use Github actions to run our CI pipeline on every pull request. The configuration can be found in `.github/workflows/build_test.yaml`. That said, every step of CI can also be run locally.
+We use Github actions to run our CI pipeline on every pull request. The configuration can be found in `.github/workflows/setup_test_push.yaml`. That said, every step of CI can also be run locally.
 
-### Buildin'
+### Settin' up
 
-_TL;DR: To run tests, run `cicd/build.sh`._
+_TL;DR: To run tests, run `cicd/setup.sh`._
 
 This builds the two relevant docker images, `notebook`, and `app`.
 
@@ -191,6 +191,10 @@ In Docker Hub, we have one repository per image:
     - `app` -> `matteosox/nba-app`
 
 In addition to pushing each image with a tag as the git SHA of the code producing it, we also push an untagged (i.e. tagged as `latest`) image when pushing from the `main` branch.
+
+### Buildin'
+
+We don't build the Next.js app in the `setup_test_push.yaml` Github Actions workflow because Vercel is configured to do this for us. That said, as with all other CI workflows, we support running these locally. To build the app, use `app/build.sh`.
 
 ## Data Pipeline
 
