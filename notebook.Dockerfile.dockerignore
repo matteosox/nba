@@ -1,0 +1,10 @@
+# Exclude everything
+*
+
+# Except files we explicitly need
+!build/install_packages.sh
+!build/install_fonts.sh
+!requirements/requirements.txt
+!pynba
+!setup.py
+!build/entrypoint.sh

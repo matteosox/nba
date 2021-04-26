@@ -1,8 +1,0 @@
-.github
-notebooks
-data
-app/.config
-app/.next
-app/.npm
-app/node_modules
-app/run.sh

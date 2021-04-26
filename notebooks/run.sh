@@ -59,7 +59,9 @@ docker run --rm \
     --name notebook \
     --env-file build/notebook.env \
     --env-file build/notebook.local.env \
-    -v "$REPO_DIR":/home/jupyter/nba \
+    -v "$REPO_DIR"/pynba:/home/jupyter/nba/pynba \
+    -v "$REPO_DIR"/data:/home/jupyter/nba/data \
+    -v "$REPO_DIR"/notebooks:/home/jupyter/nba/notebooks \
     matteosox/nba-notebook:"$GIT_SHA" \
     jupyter notebook \
     --ip="$IP" \

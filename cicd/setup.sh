@@ -1,13 +1,13 @@
 #! /usr/bin/env bash
 set -ef -o pipefail
 
-# Build step for CICD
+# Setup step for CI
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$DIR"/..
 
 GIT_SHA=$(git rev-parse --short HEAD)
-echo "Building for git sha $GIT_SHA"
+echo "Setting up for git sha $GIT_SHA"
 export DOCKER_BUILDKIT=1
 
 echo "Building notebook Docker image"

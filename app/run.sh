@@ -6,11 +6,12 @@ REPO_DIR="$DIR"/..
 cd "$REPO_DIR"
 
 GIT_SHA=$(git rev-parse --short HEAD)
-CMD=(npm run dev)
+CMD=(npm --prefix app run dev)
+BROWSER=true
 
 usage()
 {
-    echo "usage: run.sh [--git-sha -g sha=$GIT_SHA] cmd=${CMD[*]}"
+    echo "usage: run.sh [--git-sha -g sha=$GIT_SHA] [--no-browser -n] cmd=${CMD[*]}"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -18,6 +19,10 @@ while [[ $# -gt 0 ]]; do
         -g | --git-sha )
             GIT_SHA="$2"
             shift 2
+            ;;
+        -n | --no-browser )
+            BROWSER=false
+            shift
             ;;
         -h | --help )
             usage
@@ -43,11 +48,13 @@ open_browser() {
     python -m webbrowser http://localhost:3000
 }
 
-open_browser &
+if "$BROWSER"; then
+    open_browser &
+fi
+
 docker run -it --rm \
     -p 3000:3000 \
-    -v "$REPO_DIR"/app:/home/app \
-    -v /home/app/node_modules \
-    -v /home/app/.next \
+    -v "$REPO_DIR"/app:/home/app/app \
+    -v /home/app/app/node_modules \
     matteosox/nba-app:"$GIT_SHA" \
     "${CMD[@]}"

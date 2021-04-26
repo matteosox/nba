@@ -14,11 +14,15 @@ touch build/notebook.local.env
 echo "Since git only stores a single executable bit for file permissions, we'll need to configure file permissions as well."
 build/set_file_permissions.sh
 
-echo "With that out of the way, let's build and test the repo"
-cicd/build.sh
+echo "With that out of the way, let's setup and test the repo"
+cicd/setup.sh
 cicd/test.sh
 
-echo "All done building and running tests, now time to try updating the requirements."
+echo "That seems to have worked. Vercel builds the Next.js app for us in CI, but we can also do that locally."
+echo "Let's test that out."
+app/build.sh
+
+echo "All done setting up and running tests, now time to try updating the requirements."
 echo "NOTE: This will edit the repo, but no need to keep those edits."
 requirements/update_requirements_inside_docker.sh
 
