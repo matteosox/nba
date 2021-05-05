@@ -52,8 +52,9 @@ if "$BROWSER"; then
     open_browser &
 fi
 
-docker run -it --rm \
+docker run --rm \
     -p 3000:3000 \
+    --env-file build/app.local.env \
     -v "$REPO_DIR"/app:/home/app/app \
     -v /home/app/app/node_modules \
     matteosox/nba-app:"$GIT_SHA" \

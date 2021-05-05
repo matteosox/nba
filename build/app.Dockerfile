@@ -17,6 +17,7 @@ WORKDIR /home/"$USER"
 
 # Install npm packages
 COPY --chown="$USER" app/package.json app/package-lock.json app/
+RUN mkdir .npm
 RUN --mount=type=cache,target=/home/app/.npm,uid=1024 npm --prefix app install
 
 # Setup entrypoint for optional custom user id configuration

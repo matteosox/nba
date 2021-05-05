@@ -1,0 +1,30 @@
+.tableCell {
+  color: white;
+  background-color: #151515;
+}
+
+.headerCell {
+  composes: tableCell;
+  top: 0;
+  position: sticky;
+  z-index: 1;
+}
+
+.firstHeaderCell {
+  composes: tableCell;
+  top: 0;
+  left: 0;
+  position: sticky;
+  z-index: 2;
+}
+
+.firstBodyCell {
+  composes: tableCell;
+  left: 0;
+  position: sticky;
+  z-index: 1;
+}
+
+.table {
+  max-height: 90vh;
+}

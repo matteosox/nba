@@ -41,6 +41,8 @@ def dump(data, *args, **kwargs):
 
 
 def _convert_to_native_types(data):
+    if data is None:
+        return data
     for native_type, subclasses in SCALAR_TYPES.items():
         if isinstance(data, subclasses):
             return native_type(data)
@@ -51,6 +53,4 @@ def _convert_to_native_types(data):
         }
     if isinstance(data, LIST_TYPES):
         return [_convert_to_native_types(val) for val in data]
-    if data is None:
-        return data
     raise TypeError(f"Data of incompatible type {type(data)} found.")
