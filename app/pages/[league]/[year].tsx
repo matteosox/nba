@@ -71,13 +71,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const league = params.league as string
+  const year = params.year as string
+  const season_type = 'Regular Season'
   const leagues = await getLeagues()
+  if (!(league in leagues) || !(leagues[league].includes(year))) {
+    return {notFound: true}
+  }
   const updateDate = await getUpdateDate()
-  const seasonData = await getSeasonData(
-    params.league as string,
-    params.year as string,
-    'Regular Season',
-  )
+  const seasonData = await getSeasonData(league, year, season_type)
   return {
     props: {
       seasonData,

@@ -68,7 +68,6 @@ We use a Dockerized Jupyter notebook environment for data analysis. The `noteboo
     - Theme/style
     - Replace images with interactives
     - Improve tables (sortable, hover for definition, colorize for z-scores)
-    - [Incremental static regeneration](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration)
 
 ## Developer Notes
 
