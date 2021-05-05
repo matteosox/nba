@@ -7,9 +7,10 @@ cd "$DIR"
 echo "Setting up git pre-commit hook"
 ln -s test/pre-commit .git/hooks/pre-commit
 
-echo "Before going further, you'll need a build/notebook.local.env file."
-echo "We'll create an empty one for you now, but in the future, you'll need to add your local config options (usually secrets) to it"
+echo "Before going further, you'll need a few local env files."
+echo "We'll create empty ones for you now, but in the future, you'll need to add your local config options (usually secrets) to it"
 touch build/notebook.local.env
+touch build/app.local.env
 
 echo "Since git only stores a single executable bit for file permissions, we'll need to configure file permissions as well."
 build/set_file_permissions.sh

@@ -68,12 +68,6 @@ We use a Dockerized Jupyter notebook environment for data analysis. The `noteboo
     - Theme/style
     - Replace images with interactives
     - Improve tables (sortable, hover for definition, colorize for z-scores)
-    - [Incremental static regeneration](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration)
-- General
-    - Separate out setup and build
-        - setup: build two containers (app container no longer builds NextJS app)
-        - test: run various lightweight tests in those containers
-        - build: build NextJS app (to test building the app locally, but we use Vercel for this in CICD)
 
 ## Developer Notes
 
@@ -218,4 +212,12 @@ We store an artifact of the local data directory at the completion of each run o
 
 ## Continuous Deployment
 
-The Python package `pynba` is strictly for code refactoring in this repo's Jupyter notebook environment, so it isn't packaged up and released to PyPI.org. The NextJS app is deployed to nba.mattefay.com by [Vercel](https://vercel.com/), the company behind NextJS. The deployment process is integrated with Github, so that any commit to the `main` branch results in a new deploy. Conveniently, Vercel also builds and deploys a "staging" site for every commit that changes the `app` directory, making them available through comments in your pull request for example.
+The Python package `pynba` is strictly for code refactoring in this repo's Jupyter notebook environment, so it isn't packaged up and released, e.g. to PyPI.org.
+
+### Vercel
+
+The NextJS app is deployed to nba.mattefay.com by [Vercel](https://vercel.com/), the company behind NextJS. The deployment process is integrated with Github, so that any commit to the `main` branch results in a new deploy. Conveniently, Vercel also builds and deploys a "staging" site for every commit that changes the `app` directory, making them available through comments in your pull request for example.
+
+Data and plots are stored in the `nba-mattefay` bucket on AWS S3. To access these files, we inject AWS credentials with environment variables. Unfortunately, Vercel [reserves the usual environment variables](https://vercel.com/docs/platform/limits#reserved-variables) for this, i.e. `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`. To get around this, we store them as the non-standard `AccessKeyId` and `SecretAccessKey` environment variables, and manually load credentials in the `aws_s3.ts` javascript library, similar to [this approach](https://vercel.com/support/articles/how-can-i-use-aws-sdk-environment-variables-on-vercel) on Vercel's website. These credentials are from the `matteosox-nba-vercel` AWS IAM user, with read-only access to this one bucket.
+
+To build the app locally (using `app/build.sh`), you should place your local AWS IAM credentials in `build/app.local.env`.
