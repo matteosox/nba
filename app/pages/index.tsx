@@ -3,7 +3,7 @@ import Layout from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
 import { GetStaticProps } from 'next'
 import { getUpdateDate, getLeagues, Leagues } from '../lib/leagues'
-import { SITE_TITLE } from '../lib/constants'
+import { SITE_TITLE, REVALIDATE_TIME } from '../lib/constants'
 
 export default function Home({
   leagues,
@@ -39,6 +39,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       leagues,
       updateDate,
-    }
+    },
+    revalidate: REVALIDATE_TIME
   }
 }

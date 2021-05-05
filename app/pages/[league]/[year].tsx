@@ -4,6 +4,7 @@ import Layout from '../../components/layout'
 import MyTable from '../../components/table'
 import S3Image from '../../components/s3image'
 import { getUpdateDate, getLeagues, getSeasonData, Leagues } from '../../lib/leagues'
+import { REVALIDATE_TIME } from '../../lib/constants'
 import utilStyles from '../../styles/utils.module.css'
 
 export default function Season({
@@ -65,7 +66,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   })
   return {
     paths,
-    fallback: false
+    fallback: 'blocking'
   }
 }
 
@@ -82,6 +83,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       seasonData,
       updateDate,
       leagues,
-    }
+    },
+    revalidate: REVALIDATE_TIME
   }
 }
