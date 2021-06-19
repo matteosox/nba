@@ -1,7 +1,5 @@
 """Hodge podge of NBA stats and analysis utilities"""
 
-from pkg_resources import resource_stream as __resource_stream
-
 from pynba import logging as __logging
 from pynba.team_info import *
 from pynba.seasons import *

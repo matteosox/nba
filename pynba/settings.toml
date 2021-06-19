@@ -11,6 +11,9 @@ seasons_source = "local"
 possessions_source = "local"
 teams_source = "local"
 pymc3_random_seed = 42
+pymc3_draws = 5000
+pymc3_chains = 4
+pymc3_init = "adapt_diag"
 git_sha = ""
 
 [prod]

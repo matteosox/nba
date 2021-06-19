@@ -1,5 +1,5 @@
 .container {
-  width: clamp(36rem, 100vw, 72rem);
+  width: clamp(20rem, 100vw, 72rem);
   padding: 0 1rem;
   margin: 0 auto 0;
 }

@@ -25,6 +25,9 @@ class Config(AbstractConfig):  # pylint: disable=too-few-public-methods
     possessions_source: str
     teams_source: str
     pymc3_random_seed: int
+    pymc3_draws: int
+    pymc3_chains: int
+    pymc3_init: str
     git_sha: str
 
 

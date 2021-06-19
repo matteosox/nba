@@ -3534,3 +3534,52 @@ wnba:
       abbreviation: ATL
       city: Atlanta
       nickname: Dream
+  2021:
+    1611661313:
+      abbreviation: NYL
+      city: New York
+      nickname: Liberty
+    1611661317:
+      abbreviation: PHO
+      city: Phoenix
+      nickname: Mercury
+    1611661319:
+      abbreviation: LVA
+      city: Las Vegas
+      nickname: Aces
+    1611661320:
+      abbreviation: LAS
+      city: Los Angeles
+      nickname: Sparks
+    1611661321:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Wings
+    1611661322:
+      abbreviation: WAS
+      city: Washington
+      nickname: Mystics
+    1611661323:
+      abbreviation: CON
+      city: Connecticut
+      nickname: Sun
+    1611661324:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Lynx
+    1611661325:
+      abbreviation: IND
+      city: Indiana
+      nickname: Fever
+    1611661328:
+      abbreviation: SEA
+      city: Seattle
+      nickname: Storm
+    1611661329:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Sky
+    1611661330:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Dream
