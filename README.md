@@ -152,7 +152,7 @@ _TL;DR: To run tests, run `cicd/test.sh`._
 
 #### Python Autoformatting
 
-We use [`Black`](https://black.readthedocs.io/en/stable/index.html) for to check our Python code for proper formatting. If it doesn't pass, you can autoformat your code using Black by running `test/black_lint.sh`. The settings for this can be found in `pyproject.toml`.
+We use [`Black`](https://black.readthedocs.io/en/stable/index.html) to check our Python code for proper formatting. If it doesn't pass, you can autoformat your code using Black by running `test/black_lint.sh`. The settings for this can be found in `pyproject.toml`.
 
 #### Python Linting
 

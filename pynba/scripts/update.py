@@ -39,10 +39,10 @@ def update_season(league, year, season_type):
         2) Loads season data from file.
         3) If there are no missing games, quits.
         4) Saves updated season data to file.
-        5) Loads halfgame data from file.
-        6) Loads possession data for the missing games from pbpstats.
-        7) Saves the missing possession data to file.
-        8) Calculates halfgame data from the missing possessions.
+        5) Loads possession data for the missing games from pbpstats.
+        6) Saves the missing possession data to file.
+        7) Calculates halfgame data from the missing possessions.
+        8) Loads halfgame data from file for existing games.
         9) Calculates team data from the joined halfgame data.
         10) Saves updated team data to file.
         11) Saves updated team plots to file.
@@ -76,11 +76,6 @@ def update_season(league, year, season_type):
     save_season(updated_season)
 
     logger.info(
-        f"Loading halfgame data for the {league} {year} {season_type} from file"
-    )
-    halfgames = halfgames_from_file(league, year, season_type)
-
-    logger.info(
         f"Loading possessions data for {len(missing_games)} missing games "
         f"for the {league} {year} {season_type} from pbpstats"
     )
@@ -98,7 +93,22 @@ def update_season(league, year, season_type):
         f"for the {league} {year} {season_type}"
     )
     missing_halfgames = halfgames_from_possessions(missing_possessions)
-    updated_halfgames = pd.concat([halfgames, missing_halfgames], ignore_index=True)
+
+    logger.info(
+        f"Loading halfgame data for the {league} {year} {season_type} from file"
+    )
+    try:
+        halfgames = halfgames_from_file(league, year, season_type)
+    except (NoFilesFound, FileNotFoundError):
+        if missing_games != set(updated_season["game_id"]):
+            raise
+        logger.info(
+            f"No halfgame data for the {league} {year} {season_type} found from file, "
+            "but this is alright since saved season contained no games."
+        )
+        updated_halfgames = missing_halfgames
+    else:
+        updated_halfgames = pd.concat([halfgames, missing_halfgames], ignore_index=True)
 
     logger.info(
         "Calculating team statistics "

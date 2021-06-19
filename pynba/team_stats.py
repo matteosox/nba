@@ -410,20 +410,29 @@ class TeamsModel:
             observed=self.halfgames["ft_made"].to_numpy(),
         )
 
-    def fit(self, steps=5000, init="adapt_diag", **kwargs):
+    def fit(
+        self,
+        draws=config.pymc3_draws,
+        init=config.pymc3_init,
+        chains=config.pymc3_chains,
+        random_seed=config.pymc3_random_seed,
+        return_inferencedata=False,
+        **kwargs,
+    ):
         """
         Fit PyMC3 model to provided data. This is a wrapper of
         pm.sample with some defaults.
         """
         with self.model:
             self._trace = pm.sample(
-                steps,
+                draws=draws,
                 init=init,
-                random_seed=config.pymc3_random_seed,
-                return_inferencedata=False,
+                chains=chains,
+                random_seed=random_seed,
+                return_inferencedata=return_inferencedata,
                 **kwargs,
             )
-            self._results = self._calc_results()
+        self._results = self._calc_results()
 
     @property
     def trace(self):
