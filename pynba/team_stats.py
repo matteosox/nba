@@ -142,6 +142,7 @@ class TeamsModel:
         )
 
     def _assign_model(self):
+        self.model = pm.Model()
         off_index = (
             self.halfgames["off_team_id"].map(self.team_id_to_team_ind).to_numpy()
         )
@@ -153,7 +154,7 @@ class TeamsModel:
             .to_numpy()
             .astype(int)
         )
-        with pm.Model() as self.model:
+        with self.model:
             self._model_threes_made(off_index, def_index, home_index)
             self._model_twos_made(off_index, def_index, home_index)
             self._model_threes_attempted(off_index, def_index)

@@ -77,12 +77,15 @@ _TL;DR: Run `./developer_setup.sh`._
 
 We use Docker for a clean environment within which to build, test, analyze, and so on. The `setup.sh` script in the `cicd` directory will build the relevant images for you. Running things natively isn't a supported/maintained thing.
 
+In addition to docker, you'll need some developer secrets, in `build/notebook.local.env` and `build/app.local.env`. Those files are git ignored for obvious reasons, so you'll need to ask around to get those credentials.
+
 To get you setup, you can run `./developer_setup.sh`. This will:
 1) Symlink `test/pre-commit` to your `.git` directory, so that you'll automatically build and test code before you commit it.
-2) Create an empty `build/notebook.local.env` file in which you can place local secrets for the notebook docker container.
-3) Git only tracks a single executable bit for all files, so when setting up the repo, we need to set file permissions manually for files we need to write to from Docker. The `set_file_permissions.sh` script does this for you.
+2) Git only tracks a single executable bit for all files, so when setting up the repo, we need to set file permissions manually for files we need to write to from Docker. The `set_file_permissions.sh` script does this for you.
 
 With all that out of the way, it then puts your machine through its paces by setting up, testing, and running various other workflows locally.
+
+Finally, while you don't need it to do most workflows, it's probably a good idea to setup docker so you have push access to the Docker hub registry. That'll require a personal access token, which you can then use in combination with your Docker ID to login using `docker login`.
 
 ### Code Style
 
@@ -120,17 +123,17 @@ To pass environment variables into the Docker runtime, either for `dynaconf` or 
 
 Inspired by the [12-factor application guide](https://12factor.net/config).
 
-### DNS
-
-I own the domain mattefay.com through hover.com. I host my blog there, using format.com. This repo's site is hosted at the nba.mattefay.com subdomain. Since [Vercel](https://vercel.com/) is hosting this site, I have a CNAME DNS record in Hover to alias that subdomain to them, i.e. `CNAME nba cname.vercel-dns.com`.
-
 ### Developing the NextJS App
 
 _TL;DR: Run `app/run.sh`._
 
-To ease developing the NextJS web app, we use `npm run dev` in a Docker container with the app mounted. This starts the app in [development mode](https://nextjs.org/docs/api-reference/cli#development), which takes advantage of NextJS's [fast refresh](https://nextjs.org/docs/basic-features/fast-refresh) functionality, which catches exceptions and loads code updates near-instantaneously.
+To ease developing the NextJS web app, we use `npm --prefix app run dev` in a Docker container with the app mounted. This starts the app in [development mode](https://nextjs.org/docs/api-reference/cli#development), which takes advantage of NextJS's [fast refresh](https://nextjs.org/docs/basic-features/fast-refresh) functionality, which catches exceptions and loads code updates near-instantaneously.
 
-Additionally, if you'd like to run a different command, e.g. to install a new npm package using `npm install new-package`, you can use the same script with an optional command, e.g. `app/run.sh YOUR CMD HERE`.
+### Updating node packages
+
+_TL;DR: Run `app/run.sh npm --prefix app update`._
+
+To install a new npm package using `npm --prefix app install new-package`, you can use the same script with an optional command, e.g. `app/run.sh YOUR CMD HERE`. To update all packages, run `app/run.sh npm --prefix app update`.
 
 ## Continuous Integration
 
@@ -221,3 +224,7 @@ The NextJS app is deployed to nba.mattefay.com by [Vercel](https://vercel.com/),
 Data and plots are stored in the `nba-mattefay` bucket on AWS S3. To access these files, we inject AWS credentials with environment variables. Unfortunately, Vercel [reserves the usual environment variables](https://vercel.com/docs/platform/limits#reserved-variables) for this, i.e. `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`. To get around this, we store them as the non-standard `AccessKeyId` and `SecretAccessKey` environment variables, and manually load credentials in the `aws_s3.ts` javascript library, similar to [this approach](https://vercel.com/support/articles/how-can-i-use-aws-sdk-environment-variables-on-vercel) on Vercel's website. These credentials are from the `matteosox-nba-vercel` AWS IAM user, with read-only access to this one bucket.
 
 To build the app locally (using `app/build.sh`), you should place your local AWS IAM credentials in `build/app.local.env`.
+
+### DNS
+
+I own the domain mattefay.com through hover.com. I host my blog there, using format.com. This repo's site is hosted at the nba.mattefay.com subdomain. Since [Vercel](https://vercel.com/) is hosting this site, I have a CNAME DNS record in Hover to alias that subdomain to them, i.e. `CNAME nba cname.vercel-dns.com`.

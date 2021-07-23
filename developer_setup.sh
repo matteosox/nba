@@ -1,16 +1,11 @@
 #! /usr/bin/env bash
 set -euf -o pipefail
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$DIR"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$REPO_DIR"
 
 echo "Setting up git pre-commit hook"
-ln -s test/pre-commit .git/hooks/pre-commit
-
-echo "Before going further, you'll need a few local env files."
-echo "We'll create empty ones for you now, but in the future, you'll need to add your local config options (usually secrets) to it"
-touch build/notebook.local.env
-touch build/app.local.env
+ln -s "$REPO_DIR"/test/pre-commit "$REPO_DIR"/.git/hooks/pre-commit
 
 echo "Since git only stores a single executable bit for file permissions, we'll need to configure file permissions as well."
 build/set_file_permissions.sh
