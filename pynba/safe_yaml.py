@@ -9,11 +9,11 @@ import numpy as np
 def _np_types():
     type_dict = {bool: [], np.integer: [], np.floating: [], np.character: []}
     for value in np.ScalarType:
-        for py_type in type_dict:
+        for py_type, np_types in type_dict.items():
             if (
                 issubclass(value, py_type) or np.issubdtype(value, py_type)
             ) and not issubclass(value, bytes):
-                type_dict[py_type].append(value)
+                np_types.append(value)
                 break
     return type_dict
 
