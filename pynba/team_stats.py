@@ -54,6 +54,8 @@ class TeamsModel:
         self.priors = self._process_priors(priors)
         self._assign_halfgames(halfgames)
         self._assign_model()
+        self._trace = None
+        self._results = None
 
     @staticmethod
     def _process_priors(priors):
@@ -438,22 +440,20 @@ class TeamsModel:
     @property
     def trace(self):
         """Property method to get PyMC3 model trace"""
-        try:
-            return self._trace
-        except AttributeError as exc:
+        if self._trace is None:
             raise Exception(
                 "Trace only available after fitting the model with the fit method"
-            ) from exc
+            )
+        return self._trace
 
     @property
     def results(self):
         """Property method to get post-processed model results"""
-        try:
-            return self._results
-        except AttributeError as exc:
+        if self._results is None:
             raise Exception(
                 "Results only available after fitting the model with the fit method"
-            ) from exc
+            )
+        return self._results
 
     def _calc_results(self):
         off_shots_per_opp_est = estimate_shots_per_opp(

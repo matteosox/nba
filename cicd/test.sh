@@ -33,7 +33,7 @@ if docker run \
     -e LOCAL_USER_ID="$USER_ID" \
     -v "$REPO_DIR":/home/jupyter/nba \
     matteosox/nba-notebook:"$GIT_SHA" \
-    black --verbose --check nba
+    black --verbose --check --diff nba
 then
     BLACK_STATUS=SUCCESS
 else

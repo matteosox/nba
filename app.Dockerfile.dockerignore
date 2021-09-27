@@ -6,4 +6,3 @@
 !build/install_node.sh
 !app/package.json
 !app/package-lock.json
-!build/entrypoint.sh

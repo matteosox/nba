@@ -8,10 +8,11 @@ cd "$REPO_DIR"
 GIT_SHA=$(git rev-parse --short HEAD)
 CMD=(npm --prefix app run dev)
 BROWSER=true
+PORT=3000
 
 usage()
 {
-    echo "usage: run.sh [--git-sha -g sha=$GIT_SHA] [--no-browser -n] cmd=${CMD[*]}"
+    echo "usage: run.sh [--git-sha -g sha=$GIT_SHA] [--no-browser -n] [--port -p port=$PORT] cmd=${CMD[*]}"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -23,6 +24,10 @@ while [[ $# -gt 0 ]]; do
         -n | --no-browser )
             BROWSER=false
             shift
+            ;;
+        -p | --port )
+            PORT="$2"
+            shift 2
             ;;
         -h | --help )
             usage
@@ -45,7 +50,7 @@ echo "Running app for git sha $GIT_SHA"
 
 open_browser() {
     sleep 2
-    python -m webbrowser http://localhost:3000
+    python -m webbrowser http://localhost:"$PORT"
 }
 
 if "$BROWSER"; then
@@ -53,9 +58,10 @@ if "$BROWSER"; then
 fi
 
 docker run --rm \
-    -p 3000:3000 \
+    --publish "$PORT":"$PORT" \
     --env-file build/app.local.env \
-    -v "$REPO_DIR"/app:/home/app/app \
-    -v /home/app/app/node_modules \
+    --env PORT="$PORT" \
+    --volume "$REPO_DIR"/app:/home/app/app \
+    --volume /home/app/app/node_modules \
     matteosox/nba-app:"$GIT_SHA" \
     "${CMD[@]}"
