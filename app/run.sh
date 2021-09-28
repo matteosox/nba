@@ -28,6 +28,7 @@ while [[ $# -gt 0 ]]; do
         -p | --port )
             PORT="$2"
             shift 2
+            echo "Using custom port $PORT"
             ;;
         -h | --help )
             usage
@@ -58,6 +59,7 @@ if "$BROWSER"; then
 fi
 
 docker run --rm \
+    --name app \
     --publish "$PORT":"$PORT" \
     --env-file build/app.local.env \
     --env PORT="$PORT" \
