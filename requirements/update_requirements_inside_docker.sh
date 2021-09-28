@@ -12,8 +12,7 @@ echo "Updating requirements for git sha $GIT_SHA"
 
 docker run \
     --rm \
-    -v "$REPO_DIR":/home/jupyter/nba \
-    -e "LC_ALL=C.UTF-8" \
-    -e "LANG=C.UTF-8" \
+    --name update_requirements \
+    --volume "$REPO_DIR"/requirements:/home/jupyter/nba/requirements \
     matteosox/nba-notebook:"$GIT_SHA" \
     nba/requirements/update_requirements.sh
