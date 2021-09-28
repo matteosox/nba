@@ -131,7 +131,7 @@ def write_latest():
     """Writes a small file with information on data provenance"""
     filepath = os.path.join(config.local_data_directory, "latest.yaml")
     data = {"git_sha": config.git_sha, "time": time.time()}
-    with open(filepath, "w") as latest_file:
+    with open(filepath, "w", encoding="utf-8") as latest_file:
         safe_yaml.dump(data, latest_file)
 
 
