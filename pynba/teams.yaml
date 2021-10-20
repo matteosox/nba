@@ -2941,6 +2941,127 @@ nba:
       abbreviation: CHA
       city: Charlotte
       nickname: Hornets
+  2022:
+    1610612737:
+      abbreviation: ATL
+      city: Atlanta
+      nickname: Hawks
+    1610612738:
+      abbreviation: BOS
+      city: Boston
+      nickname: Celtics
+    1610612739:
+      abbreviation: CLE
+      city: Cleveland
+      nickname: Cavaliers
+    1610612740:
+      abbreviation: NOP
+      city: New Orleans
+      nickname: Pelicans
+    1610612741:
+      abbreviation: CHI
+      city: Chicago
+      nickname: Bulls
+    1610612742:
+      abbreviation: DAL
+      city: Dallas
+      nickname: Mavericks
+    1610612743:
+      abbreviation: DEN
+      city: Denver
+      nickname: Nuggets
+    1610612744:
+      abbreviation: GSW
+      city: Golden State
+      nickname: Warriors
+    1610612745:
+      abbreviation: HOU
+      city: Houston
+      nickname: Rockets
+    1610612746:
+      abbreviation: LAC
+      city: LA
+      nickname: Clippers
+    1610612747:
+      abbreviation: LAL
+      city: Los Angeles
+      nickname: Lakers
+    1610612748:
+      abbreviation: MIA
+      city: Miami
+      nickname: Heat
+    1610612749:
+      abbreviation: MIL
+      city: Milwaukee
+      nickname: Bucks
+    1610612750:
+      abbreviation: MIN
+      city: Minnesota
+      nickname: Timberwolves
+    1610612751:
+      abbreviation: BKN
+      city: Brooklyn
+      nickname: Nets
+    1610612752:
+      abbreviation: NYK
+      city: New York
+      nickname: Knicks
+    1610612753:
+      abbreviation: ORL
+      city: Orlando
+      nickname: Magic
+    1610612754:
+      abbreviation: IND
+      city: Indiana
+      nickname: Pacers
+    1610612755:
+      abbreviation: PHI
+      city: Philadelphia
+      nickname: 76ers
+    1610612756:
+      abbreviation: PHX
+      city: Phoenix
+      nickname: Suns
+    1610612757:
+      abbreviation: POR
+      city: Portland
+      nickname: Trail Blazers
+    1610612758:
+      abbreviation: SAC
+      city: Sacramento
+      nickname: Kings
+    1610612759:
+      abbreviation: SAS
+      city: San Antonio
+      nickname: Spurs
+    1610612760:
+      abbreviation: OKC
+      city: Oklahoma City
+      nickname: Thunder
+    1610612761:
+      abbreviation: TOR
+      city: Toronto
+      nickname: Raptors
+    1610612762:
+      abbreviation: UTA
+      city: Utah
+      nickname: Jazz
+    1610612763:
+      abbreviation: MEM
+      city: Memphis
+      nickname: Grizzlies
+    1610612764:
+      abbreviation: WAS
+      city: Washington
+      nickname: Wizards
+    1610612765:
+      abbreviation: DET
+      city: Detroit
+      nickname: Pistons
+    1610612766:
+      abbreviation: CHA
+      city: Charlotte
+      nickname: Hornets
 wnba:
   2009:
     1611661313:
