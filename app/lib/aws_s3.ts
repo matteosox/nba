@@ -1,5 +1,4 @@
 import { S3Client, GetObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3'
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { Readable } from "stream"
 
 const clients = new Proxy({}, {
@@ -59,19 +58,4 @@ export async function getObjectStream({ region, bucket, key }: S3Object) {
 
 export async function getObjectString(input: S3Object) {
   return readStream(await getObjectStream(input))
-}
-
-interface S3Url extends S3Object {
-  expiresIn: number
-}
-
-export function getObjectUrl({ region, bucket, key, expiresIn }: S3Url) {
-  const s3 = clients[region]
-  const params = {
-    Bucket: bucket,
-    Key: key,
-  }
-  const command = new GetObjectCommand(params)
-  const options = {expiresIn}
-  return getSignedUrl(s3, command, options)
 }

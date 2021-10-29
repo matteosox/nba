@@ -4,9 +4,6 @@ set -euf -o pipefail
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$REPO_DIR"
 
-echo "Setting up git pre-commit hook"
-ln -s "$REPO_DIR"/test/pre-commit "$REPO_DIR"/.git/hooks/pre-commit
-
 echo "Since git only stores a single executable bit for file permissions, we'll need to configure file permissions as well."
 build/set_file_permissions.sh
 

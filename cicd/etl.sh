@@ -59,6 +59,6 @@ docker run --rm \
     --name etl \
     --env-file build/notebook.env \
     "${LOCAL_ENV_OPTION[@]}" \
-    -v "$REPO_DIR"/data:/home/jupyter/nba/data \
+    --volume "$REPO_DIR"/data:/home/jupyter/nba/data \
     matteosox/nba-notebook:"$GIT_SHA" \
     "${CMD[@]}"
