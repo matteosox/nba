@@ -32,7 +32,7 @@ DEFAULT_PRIORS = {
     "home_three_make_rate_sigma": 0.001,
     "home_two_make_rate_diff": 0.0065,
     "home_two_make_rate_sigma": 0.002,
-    "home_off_reb_rate_diff": 0.05,
+    "home_off_reb_rate_diff": 0.005,
     "home_off_reb_rate_sigma": 0.002,
     "home_turnover_rate_diff": -0.0002,
     "home_turnover_rate_sigma": 0.0001,
