@@ -56,6 +56,7 @@ open_browser() {
 open_browser &
 docker run --rm \
     --publish "$PORT":"$PORT" \
+    --privileged \
     --name notebook \
     --env-file build/notebook.env \
     --env-file build/notebook.local.env \
