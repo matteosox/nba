@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 
 # Install apt-get packages
 COPY build/install_packages.sh /usr/local/bin/install_packages.sh
-RUN install_packages.sh python3-dev python3-pip python3-venv g++ libopenblas-dev git awscli libyaml-dev shellcheck
+RUN install_packages.sh python3-dev python3-venv g++ libopenblas-dev git awscli libyaml-dev shellcheck
 COPY build/install_fonts.sh /usr/local/bin/install_fonts.sh
 RUN install_fonts.sh
 

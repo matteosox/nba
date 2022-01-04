@@ -7,7 +7,7 @@ boto3
 dynaconf
 jupyter
 matplotlib
-numpy
+numpy<1.22.0
 pandas
 pbpstats
 pip-tools
