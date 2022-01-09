@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 
 # Install apt-get packages
 COPY build/install_packages.sh /usr/local/bin/install_packages.sh
-RUN install_packages.sh python3-dev python3-venv g++ libopenblas-dev git awscli libyaml-dev shellcheck
+RUN install_packages.sh python3.9-dev python3.9-venv g++ libopenblas-dev git awscli libyaml-dev shellcheck
 COPY build/install_fonts.sh /usr/local/bin/install_fonts.sh
 RUN install_fonts.sh
 
@@ -15,7 +15,7 @@ WORKDIR /home/"$USER"
 
 # Create and activate virtual environment
 ENV VIRTUAL_ENV=/home/"$USER"/.venv
-RUN python3 -m venv "$VIRTUAL_ENV"
+RUN python3.9 -m venv "$VIRTUAL_ENV"
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install python dependencies
