@@ -22,7 +22,7 @@ from pynba import (
     use_blackontrans_style,
 )
 from pynba.config import config
-from pynba.constants import LEAGUES, MULTIYEAR_LEAGUES, SEASON_TYPES
+from pynba.constants import NBA, WNBA, MULTIYEAR_LEAGUES, SEASON_TYPES
 from pynba import safe_yaml
 from pynba.load_pbpstats import StatsNotFound
 
@@ -142,7 +142,7 @@ def main():
     """
     current_year = datetime.datetime.now().year
     logger.info(f"Determine current year as {current_year}")
-    for league in LEAGUES:
+    for league in [NBA, WNBA]:
         years = [current_year]
         if league in MULTIYEAR_LEAGUES:
             years = [current_year, current_year + 1]

@@ -4,21 +4,17 @@ import logging
 import datetime
 
 from pynba import season_from_pbpstats, save_season
+from pynba.constants import NBA, WNBA, SEASON_TYPES
 from pynba.load_pbpstats import StatsNotFound
 
 
 logger = logging.getLogger(__name__)
 
-NBA = "nba"
-WNBA = "wnba"
-GLEAGUE = "gleague"
 CURRENT_YEAR = datetime.datetime.now().year
 LEAGUE_YEARS = {
     NBA: range(2001, CURRENT_YEAR + 2),
     WNBA: range(2009, CURRENT_YEAR + 1),
-    GLEAGUE: range(2017, CURRENT_YEAR + 2),
 }
-SEASON_TYPES = ["Regular Season", "Playoffs"]
 LEAGUE_YEAR_SEASON_TYPES = [
     (league, year, season_type)
     for league, years in LEAGUE_YEARS.items()
