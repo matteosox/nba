@@ -133,7 +133,7 @@ To ease developing the NextJS web app, we use `npm --prefix app run dev` in a Do
 
 _TL;DR: Run `app/run.sh --no-browser npm --prefix app update`._
 
-To install a new npm package using `npm --prefix app install new-package`, you can use the same script with an optional command, e.g. `app/run.sh --no-browser YOUR CMD HERE`. To update all packages, run `app/run.sh npm --no-browser --prefix app update`.
+To install a new npm package using `npm --prefix app install new-package`, you can use the same script with an optional command, e.g. `app/run.sh --no-browser YOUR CMD HERE`. To update all packages, run `app/run.sh --no-browser npm --prefix app update`.
 
 ## Continuous Integration
 
