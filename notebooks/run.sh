@@ -8,7 +8,7 @@ REPO_DIR="$DIR"/..
 cd "$REPO_DIR"
 
 GIT_SHA=$(git rev-parse --short HEAD)
-PORT=8888
+PORT=8889
 IP=0.0.0.0
 
 usage()
@@ -60,13 +60,14 @@ docker run --rm \
     --name notebook \
     --env-file build/notebook.env \
     --env-file build/notebook.local.env \
-    --volume "$REPO_DIR"/pynba:/home/jupyter/nba/pynba \
-    --volume "$REPO_DIR"/data:/home/jupyter/nba/data \
-    --volume "$REPO_DIR"/notebooks:/home/jupyter/nba/notebooks \
+    --volume "$REPO_DIR"/pynba:/root/nba/pynba \
+    --volume "$REPO_DIR"/data:/root/nba/data \
+    --volume "$REPO_DIR"/notebooks:/root/nba/notebooks \
     matteosox/nba-notebook:"$GIT_SHA" \
     jupyter notebook \
     --ip="$IP" \
     --no-browser \
     --NotebookApp.token='' \
-    --NotebookApp.notebook_dir=/home/jupyter/nba/notebooks \
-    --port="$PORT"
+    --NotebookApp.notebook_dir=/root/nba/notebooks \
+    --port="$PORT" \
+    --allow-root

@@ -13,10 +13,10 @@ RUN install_node.sh
 ENV USER=app
 RUN groupadd --gid 1024 "$USER" && useradd --shell /bin/bash --uid 1024 --create-home --gid 1024 "$USER"
 USER "$USER"
-WORKDIR /home/"$USER"
+WORKDIR /home/"$USER"/app
 
 # Install npm packages
-COPY --chown="$USER" app/package.json app/package-lock.json app/
-RUN mkdir .npm
+COPY --chown="$USER" app/package.json app/package-lock.json ./
+RUN mkdir ~/.npm
 RUN --mount=type=cache,target=/home/app/.npm,uid=1024,gid=1024 \
-    npm --prefix app install
+    npm install

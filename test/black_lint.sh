@@ -16,6 +16,6 @@ docker run \
     --rm \
     --name black_linting \
     --user "$LOCAL_USER_ID:$LOCAL_GROUP_ID" \
-    --volume "$REPO_DIR":/home/jupyter/nba \
+    --volume "$REPO_DIR":/root/nba \
     matteosox/nba-notebook:"$GIT_SHA" \
     black --verbose nba
