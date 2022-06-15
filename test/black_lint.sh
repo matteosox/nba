@@ -8,14 +8,10 @@ cd "$REPO_DIR"
 GIT_SHA=$(git rev-parse --short HEAD)
 echo "Black formatting for git sha $GIT_SHA"
 
-LOCAL_USER_ID=$(id -u)
-LOCAL_GROUP_ID=$(id -g)
-
 echo "Running Black Python linting"
 docker run \
     --rm \
     --name black_linting \
-    --user "$LOCAL_USER_ID:$LOCAL_GROUP_ID" \
-    --volume "$REPO_DIR":/home/jupyter/nba \
+    --volume "$REPO_DIR":/root/nba \
     matteosox/nba-notebook:"$GIT_SHA" \
-    black --verbose nba
+    black --verbose .

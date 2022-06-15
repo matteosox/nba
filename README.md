@@ -54,7 +54,7 @@ This repo has three main parts:
 
 _TL;DR: To start up the notebook environment, run `notebooks/run.sh`, which will open up a browser tab for you._
 
-We use a Dockerized Jupyter notebook environment for data analysis. The `notebooks/run.sh` bash script starts this container and opens up a web browser to the Jupyter server for you, with the repo mounted to `/home/jupyter/nba`. This allows you to edit the `pynba` package without needing to restart the container, since it is installed in [editable mode](https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs). The Jupyter notebook directory is the repo's `notebooks` directory, which contains version controller notebooks. As well, the repo's `data` directory, ignored by Git, is mounted as well.
+We use a Dockerized Jupyter notebook environment for data analysis. The `notebooks/run.sh` bash script starts this container and opens up a web browser to the Jupyter server for you, with the repo mounted to `/root/nba`. This allows you to edit the `pynba` package without needing to restart the container, since it is installed in [editable mode](https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs). The Jupyter notebook directory is the repo's `notebooks` directory, which contains version controller notebooks. As well, the repo's `data` directory, ignored by Git, is mounted as well.
 
 ## TODO
 
@@ -103,7 +103,7 @@ When naming a branch, please use the syntax `firstname/branch-name-here`. If you
 
 ### Updating python requirements
 
-_TL;DR: Run `requirements/update_requirements_in_docker.sh`._
+_TL;DR: Run `requirements/update_requirements_inside_docker.sh`._
 
 There are two requirements files checked into this directory:
 1) `requirements.in`
@@ -127,13 +127,13 @@ Inspired by the [12-factor application guide](https://12factor.net/config).
 
 _TL;DR: Run `app/run.sh`._
 
-To ease developing the NextJS web app, we use `npm --prefix app run dev` in a Docker container with the app mounted. This starts the app in [development mode](https://nextjs.org/docs/api-reference/cli#development), which takes advantage of NextJS's [fast refresh](https://nextjs.org/docs/basic-features/fast-refresh) functionality, which catches exceptions and loads code updates near-instantaneously.
+To ease developing the NextJS web app, we use `npm run dev` in a Docker container with the app mounted. This starts the app in [development mode](https://nextjs.org/docs/api-reference/cli#development), which takes advantage of NextJS's [fast refresh](https://nextjs.org/docs/basic-features/fast-refresh) functionality, which catches exceptions and loads code updates near-instantaneously.
 
 ### Updating node packages
 
-_TL;DR: Run `app/run.sh --no-browser npm --prefix app update`._
+_TL;DR: Run `app/run.sh --no-browser npm update`._
 
-To install a new npm package using `npm --prefix app install new-package`, you can use the same script with an optional command, e.g. `app/run.sh --no-browser YOUR CMD HERE`. To update all packages, run `app/run.sh --no-browser npm --prefix app update`.
+To install a new npm package using `npm install new-package`, you can use the same script with an optional command, e.g. `app/run.sh --no-browser YOUR CMD HERE`. To update all packages, run `app/run.sh --no-browser npm update`.
 
 ## Continuous Integration
 

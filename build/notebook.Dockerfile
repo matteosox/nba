@@ -7,30 +7,33 @@ RUN install_packages.sh python3.9-dev python3.9-venv g++ libopenblas-dev git aws
 COPY build/install_fonts.sh /usr/local/bin/install_fonts.sh
 RUN install_fonts.sh
 
-# Create Jupyter notebook user & switch to it
-ENV USER=jupyter
-RUN groupadd --gid 1024 "$USER" && useradd --shell /bin/bash --uid 1024 --create-home --gid 1024 "$USER"
-USER "$USER"
-WORKDIR /home/"$USER"
+# Move to home directory
+WORKDIR /root
 
 # Create and activate virtual environment
-ENV VIRTUAL_ENV=/home/"$USER"/.venv
+ENV VIRTUAL_ENV=/root/.venv
 RUN python3.9 -m venv "$VIRTUAL_ENV"
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install python dependencies
-RUN mkdir -p .cache/pip
-COPY --chown="$USER" requirements/requirements.txt "$VIRTUAL_ENV"
-RUN --mount=type=cache,target=/home/jupyter/.cache/pip,uid=1024,gid=1024 \
+COPY requirements/requirements.txt "$VIRTUAL_ENV"
+RUN --mount=type=cache,target=/root/.cache/pip \
     pip install --upgrade pip wheel setuptools && \
     pip install --requirement "$VIRTUAL_ENV"/requirements.txt
 
+# Move to repo directory
+WORKDIR /root/nba
+
 # Copy over source code and packaging files
-COPY --chown="$USER" pynba nba/pynba
-COPY --chown="$USER" setup.py nba/setup.py
+COPY pynba pynba
+COPY setup.py ./
 
 # Install package using pip
-RUN pip install --editable nba/.
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install --editable .
+
+# Trust repo directory
+RUN git config --global --add safe.directory /root/nba
 
 # Pass Git SHA in
 ARG GIT_SHA

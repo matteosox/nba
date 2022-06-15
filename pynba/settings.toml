@@ -1,7 +1,7 @@
 [default]
 aws_s3_bucket = "nba-mattefay"
 aws_s3_key_prefix = "dev"
-local_data_directory = "/home/jupyter/nba/data"
+local_data_directory = "/root/nba/data"
 pbpstats_directory = "pbpstats"
 seasons_directory = "seasons"
 possessions_directory = "possessions"

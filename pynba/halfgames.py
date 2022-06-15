@@ -1,6 +1,6 @@
 """Module of functions to load and manipulate halfgames and their stats"""
 
-from pynba import possessions_from_file
+from pynba.possessions import possessions_from_file
 
 
 __all__ = [

@@ -3,7 +3,7 @@
 import pandas as pd
 import pymc3 as pm
 
-from pynba import team_id_to_abb
+from pynba.team_info import team_id_to_abb
 from pynba.halfgames import (
     estimate_shots_per_opp,
     estimate_shots_per_poss,

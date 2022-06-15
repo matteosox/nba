@@ -6,7 +6,7 @@ REPO_DIR="$DIR"/..
 cd "$REPO_DIR"
 
 GIT_SHA=$(git rev-parse --short HEAD)
-CMD=(npm --prefix app run dev)
+CMD=(npm run dev)
 BROWSER=true
 PORT=3000
 

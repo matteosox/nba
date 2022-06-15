@@ -13,6 +13,6 @@ echo "Updating requirements for git sha $GIT_SHA"
 docker run \
     --rm \
     --name update_requirements \
-    --volume "$REPO_DIR"/requirements:/home/jupyter/nba/requirements \
+    --volume "$REPO_DIR"/requirements:/root/nba/requirements \
     matteosox/nba-notebook:"$GIT_SHA" \
     nba/requirements/update_requirements.sh
