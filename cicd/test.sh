@@ -8,8 +8,6 @@ cd "$REPO_DIR"
 GIT_SHA=$(git rev-parse --short HEAD)
 echo "Running tests for git sha $GIT_SHA"
 
-USER_ID=$(id -u "$USER")
-
 BLACK_STATUS="NOT STARTED"
 PYLINT_STATUS="NOT STARTED"
 PYTHON_UNIT_TESTS_STATUS="NOT STARTED"
@@ -30,7 +28,6 @@ BLACK_STATUS=RUNNING
 if docker run \
     --rm \
     --name black_linting \
-    -e LOCAL_USER_ID="$USER_ID" \
     -v "$REPO_DIR":/root/nba \
     matteosox/nba-notebook:"$GIT_SHA" \
     black --verbose --check --diff .

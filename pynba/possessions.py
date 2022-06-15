@@ -70,13 +70,16 @@ def possessions_from_file(league, year, season_type):
             f"s3://{config.aws_s3_bucket}/{config.aws_s3_key_prefix}/"
             f"{config.possessions_directory}"
         )
-        partition_filter = (
-            lambda x: (x["league"] == league)
-            & (x["year"] == str(year))
-            & (x["season_type"] == season_type)
-        )
+
+        def _partition_filter(col_vals):
+            return (
+                (col_vals["league"] == league)
+                & (col_vals["year"] == str(year))
+                & (col_vals["season_type"] == season_type)
+            )
+
         possessions = load_pq_to_df(
-            source, dataset=True, partition_filter=partition_filter
+            source, dataset=True, partition_filter=_partition_filter
         )
         # awswrangler doesn't download partitions, uses strings for their types
         possessions["year"] = possessions["year"].astype(int)
