@@ -15,4 +15,4 @@ docker run \
     --name update_requirements \
     --volume "$REPO_DIR"/requirements:/root/nba/requirements \
     matteosox/nba-notebook:"$GIT_SHA" \
-    nba/requirements/update_requirements.sh
+    requirements/update_requirements.sh
