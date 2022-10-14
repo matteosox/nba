@@ -13,28 +13,12 @@ setup(
     packages=find_packages(exclude=["*.test", "*.test.*", "test.*", "test"]),
     package_data={
         "pynba": [
-            "logos/*",
+            "themes/*.yaml",
             "teams.yaml",
-            "blackontrans.mplstyle",
             "logging.yaml",
             "settings.toml",
         ],
     },
-    python_requires=">=3.8",
-    install_requires=[
-        "pbpstats",
-        "pandas",
-        "Pillow",
-        "numpy",
-        "setuptools",
-        "pyarrow",
-        "matplotlib",
-        "pymc3",
-        "PyYaml",
-        "dynaconf",
-        "awswrangler",
-        "boto3",
-    ],
     entry_points={
         "console_scripts": [
             "create_seasons = pynba.scripts.create_seasons:main",

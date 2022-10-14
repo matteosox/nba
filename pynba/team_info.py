@@ -15,8 +15,13 @@ def __load_team_info():
 
 
 def team_id_to_abb(league, year):
-    """Returns a dictionary mapping a team_id to its abbreviation for that league/year"""
+    """Returns a dictionary mapping a team's id to its abbreviation for that league/year"""
     return {key: val["abbreviation"] for key, val in team_info[league][year].items()}
+
+
+def team_abb_to_id(league, year):
+    """Returns a dictionary mapping a team's abbreviation to its id for that league/year"""
+    return {val["abbreviation"]: key for key, val in team_info[league][year].items()}
 
 
 team_info = __load_team_info()
