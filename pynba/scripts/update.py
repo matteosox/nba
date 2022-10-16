@@ -19,7 +19,6 @@ from pynba import (
     teams_from_halfgames,
     save_teams,
     save_team_plots,
-    use_blackontrans_style,
 )
 from pynba.config import config
 from pynba.constants import NBA, WNBA, MULTIYEAR_LEAGUES, SEASON_TYPES
@@ -28,8 +27,6 @@ from pynba.load_pbpstats import StatsNotFound
 
 
 logger = logging.getLogger(__name__)
-
-use_blackontrans_style()
 
 
 def update_season(league, year, season_type):

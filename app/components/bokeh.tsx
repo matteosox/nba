@@ -9,6 +9,6 @@ export default function BokehFigure({
   }) {
     embed.embed_item(json, target)
     return (
-      <div id={target}></div>
+      <div className="bk-root" id={target}></div>
     )
   }

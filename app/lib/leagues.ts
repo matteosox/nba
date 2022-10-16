@@ -2,6 +2,7 @@ import { parse } from '@vanillaes/csv'
 import { load } from 'js-yaml'
 import { getObjectString, listKeys } from '../lib/aws_s3'
 import { AWS_S3_REGION, AWS_S3_BUCKET, AWS_S3_ROOT_KEY } from '../lib/constants'
+import {loadJSON} from '../lib/bokeh'
 
 const teamsRegExp = /.*\/([a-z]+)_(\d+)_([a-zA-Z ]+)_teams.csv$/
 
@@ -36,20 +37,26 @@ export async function getLeagues() {
 }
 
 export async function getSeasonData(league: string, year: string, seasonType: string) {
-  const key = `${AWS_S3_ROOT_KEY}/teams/${league}_${year}_${seasonType}_teams.csv`
-  const statsStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key})
+  const csvKey = `${AWS_S3_ROOT_KEY}/teams/${league}_${year}_${seasonType}_teams.csv`
+  const statsStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: csvKey})
   const stats = parse(statsStr).map(row => {
     return row.slice(0, -3).map( (val: string) => {
       return parseFloat(val) ? parseFloat(val).toFixed(1) : val
     })
   })
+  const ratingsKey = `${AWS_S3_ROOT_KEY}/plots/team_ratings_${league}_${year}_${seasonType}.json`
+  const ratingsJSONStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: ratingsKey})
+  const ratingsJSON = loadJSON(ratingsJSONStr)
+  const pacesKey = `${AWS_S3_ROOT_KEY}/plots/team_paces_${league}_${year}_${seasonType}.json`
+  const pacesJSONStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: pacesKey})
+  const pacesJSON = loadJSON(pacesJSONStr)
   return {
     league,
     year,
     seasonType,
     stats,
-    ratingsImage: `/plots/team_ratings_${league}_${year}_${seasonType}.png`,
-    pacesImage: `/plots/team_paces_${league}_${year}_${seasonType}.png`,
+    ratingsJSON,
+    pacesJSON,
   }
 }
 
