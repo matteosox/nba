@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { embed } from '@bokeh/bokehjs'
 
 export default function BokehFigure({
@@ -7,7 +8,11 @@ export default function BokehFigure({
     json: embed.JsonItem,
     target: string
   }) {
-    embed.embed_item(json, target)
+    useEffect(() => {
+      for (const elem of document.getElementById(target).children)
+        elem.remove()
+      embed.embed_item(json, target)
+    });
     return (
       <div className="bk-root" id={target}></div>
     )

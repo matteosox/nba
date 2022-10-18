@@ -8,7 +8,7 @@ import { getUpdateDate, getLeagues, getSeasonData, Leagues } from '../../lib/lea
 import { REVALIDATE_TIME } from '../../lib/constants'
 import utilStyles from '../../styles/utils.module.css'
 
-const DynamicBokeh = dynamic(() => import('../../components/bokeh'), {
+const BokehFigure = dynamic(() => import('../../components/bokeh'), {
   ssr: false,
 })
 
@@ -42,14 +42,14 @@ export default function Season({
       <section className={utilStyles.headingMd}>
         <h1>{title} Team Stats</h1>
       </section>
-      <div className={utilStyles.centeredImage}>
-        <DynamicBokeh
+      <div className={utilStyles.centered}>
+        <BokehFigure
           json={seasonData.ratingsJSON}
           target='team_ratings_plot'
         />
       </div>
-      <div className={utilStyles.centeredImage}>
-        <DynamicBokeh
+      <div className={utilStyles.centered}>
+        <BokehFigure
           json={seasonData.pacesJSON}
           target='team_paces_plot'
         />

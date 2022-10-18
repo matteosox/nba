@@ -9,6 +9,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps}>
           <CssBaseline />
         </Component >
-        </StylesProvider>
+      </StylesProvider>
     )
 }

@@ -24,6 +24,7 @@ setup(
             "create_seasons = pynba.scripts.create_seasons:main",
             "create_possessions = pynba.scripts.create_possessions:main",
             "create_teams = pynba.scripts.create_teams:main",
+            "create_plots = pynba.scripts.create_plots:main",
             "pynba_update = pynba.scripts.update:main",
             "pynba_sync = pynba.scripts.sync:main",
         ],
