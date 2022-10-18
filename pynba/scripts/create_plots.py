@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 def main():
-    """Generate and save teams plots for all seasons on file"""
+    """Generate and save plots for all seasons on file"""
     logger.info("Loading seasons on file")
     season_info = seasons_on_file()
     for league, year, season_type in zip(
@@ -17,7 +17,7 @@ def main():
     ):
         logger.info(f"Loading teams data for {league} {year} {season_type} from file")
         teams = teams_from_file(league, year, season_type)
-        logger.info("Plotting & saving team ratings & pace")
+        logger.info("Creating & saving plots")
         save_team_plots(teams)
     logger.info("Complete")
 

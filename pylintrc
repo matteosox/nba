@@ -65,7 +65,8 @@ confidence=
 # --disable=W".
 disable=unsubscriptable-object,  # This occurs with some pymc3 objects
         logging-fstring-interpolation,  # This is a superior format
-        line-too-long  # Taken care of by Black autoformatting
+        line-too-long,  # Taken care of by Black autoformatting
+        duplicate-code  # This one is just annoying
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
