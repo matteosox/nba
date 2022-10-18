@@ -8,13 +8,10 @@ from pynba import (
     teams_from_halfgames,
     save_teams,
     save_team_plots,
-    use_blackontrans_style,
 )
 
 
 logger = logging.getLogger(__name__)
-
-use_blackontrans_style()
 
 
 def main():

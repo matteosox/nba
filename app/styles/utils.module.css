@@ -51,7 +51,7 @@
   color: #666;
 }
 
-.centeredImage {
+.centered {
   display: flex;
   justify-content: center;
 }
