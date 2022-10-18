@@ -2,7 +2,7 @@ import { parse } from '@vanillaes/csv'
 import { load } from 'js-yaml'
 import { getObjectString, listKeys } from '../lib/aws_s3'
 import { AWS_S3_REGION, AWS_S3_BUCKET, AWS_S3_ROOT_KEY } from '../lib/constants'
-import {loadJSON} from '../lib/bokeh'
+import { embed } from '@bokeh/bokehjs'
 
 const teamsRegExp = /.*\/([a-z]+)_(\d+)_([a-zA-Z ]+)_teams.csv$/
 
@@ -46,10 +46,10 @@ export async function getSeasonData(league: string, year: string, seasonType: st
   })
   const ratingsKey = `${AWS_S3_ROOT_KEY}/plots/team_ratings_${league}_${year}_${seasonType}.json`
   const ratingsJSONStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: ratingsKey})
-  const ratingsJSON = loadJSON(ratingsJSONStr)
+  const ratingsJSON = JSON.parse(ratingsJSONStr) as embed.JsonItem
   const pacesKey = `${AWS_S3_ROOT_KEY}/plots/team_paces_${league}_${year}_${seasonType}.json`
   const pacesJSONStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: pacesKey})
-  const pacesJSON = loadJSON(pacesJSONStr)
+  const pacesJSON = JSON.parse(pacesJSONStr) as embed.JsonItem
   return {
     league,
     year,

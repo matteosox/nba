@@ -124,7 +124,13 @@ def plot_paces(team_stats):
     year = team_stats["year"].iloc[0]
     season_type = team_stats["season_type"].iloc[0]
 
-    fig = figure(title=f"{league} {year} {season_type}", width=1000, height=1000)
+    fig = figure(
+        title=f"{league} {year} {season_type}",
+        sizing_mode="scale_both",
+        aspect_ratio=1,
+        max_width=800,
+        max_height=800,
+    )
 
     plot_logos(
         data=team_stats,
