@@ -95,6 +95,9 @@ def plot_ratings(team_stats):
         aspect_ratio=1,
         max_width=800,
         max_height=800,
+        tools="wheel_zoom,reset",
+        toolbar_location=None,
+        active_scroll="wheel_zoom",
     )
 
     plot_logos(
@@ -130,6 +133,9 @@ def plot_paces(team_stats):
         aspect_ratio=1,
         max_width=800,
         max_height=800,
+        tools="wheel_zoom,reset",
+        toolbar_location=None,
+        active_scroll="wheel_zoom",
     )
 
     plot_logos(
@@ -148,7 +154,7 @@ def plot_paces(team_stats):
     ]
 
     fig.xaxis.axis_label = "Offensive Pace (poss/48 min)"
-    fig.yaxis.axis_label = "Defensive Rating (poss/48 min)"
+    fig.yaxis.axis_label = "Defensive Pace (poss/48 min)"
 
     return fig
 
