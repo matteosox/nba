@@ -1,14 +1,20 @@
-import { parse } from '@vanillaes/csv'
 import { load } from 'js-yaml'
 import { getObjectString, listKeys } from '../lib/aws_s3'
 import { AWS_S3_REGION, AWS_S3_BUCKET, AWS_S3_ROOT_KEY } from '../lib/constants'
 import { embed } from '@bokeh/bokehjs'
+import Papa from 'papaparse'
 
 const teamsRegExp = /.*\/([a-z]+)_(\d+)_([a-zA-Z ]+)_teams.csv$/
 
 export interface Leagues {
   [key: string]: string[]
 }
+
+export interface StatsRow {
+  [key: string]: string | number
+}
+
+export type Stats = Array<StatsRow>
 
 export async function getLeagues() {
   const prefix = `${AWS_S3_ROOT_KEY}/teams/`
@@ -39,11 +45,7 @@ export async function getLeagues() {
 export async function getSeasonData(league: string, year: string, seasonType: string) {
   const csvKey = `${AWS_S3_ROOT_KEY}/teams/${league}_${year}_${seasonType}_teams.csv`
   const statsStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: csvKey})
-  const stats = parse(statsStr).map(row => {
-    return row.slice(0, -3).map( (val: string) => {
-      return parseFloat(val) ? parseFloat(val).toFixed(1) : val
-    })
-  })
+  const {data: stats}   = Papa.parse(statsStr.trimEnd(), {header: true, dynamicTyping: true})
   const ratingsKey = `${AWS_S3_ROOT_KEY}/plots/team_ratings_${league}_${year}_${seasonType}.json`
   const ratingsJSONStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: ratingsKey})
   const ratingsJSON = JSON.parse(ratingsJSONStr) as embed.JsonItem

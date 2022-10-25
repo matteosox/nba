@@ -3,8 +3,8 @@ import dynamic from 'next/dynamic'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { embed } from '@bokeh/bokehjs'
 import Layout from '../../components/layout'
-import MyTable from '../../components/table'
-import { getUpdateDate, getLeagues, getSeasonData, Leagues } from '../../lib/leagues'
+import Table from '../../components/table'
+import { getUpdateDate, getLeagues, getSeasonData, Leagues, Stats } from '../../lib/leagues'
 import { REVALIDATE_TIME } from '../../lib/constants'
 import utilStyles from '../../styles/utils.module.css'
 
@@ -21,9 +21,9 @@ export default function Season({
       league: string,
       year: string,
       seasonType: string,
-      stats: Array<Array<number | string>>
-      ratingsJSON: embed.JsonItem
-      pacesJSON: embed.JsonItem
+      stats: Stats,
+      ratingsJSON: embed.JsonItem,
+      pacesJSON: embed.JsonItem,
     },
     leagues: Leagues,
     updateDate: string,
@@ -55,7 +55,7 @@ export default function Season({
         />
       </div>
       <div>
-        <MyTable data={seasonData.stats} />
+        <Table stats={seasonData.stats}/>
       </div>
     </Layout>
   )
