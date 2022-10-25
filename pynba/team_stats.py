@@ -543,7 +543,7 @@ class TeamsModel:
         results["scoring_margin"] = (
             results["net_scoring_rate"] * results["total_pace"] / 100
         )
-        results = results.sort_values("scoring_margin", ascending=False)
+        results = results.sort_values("net_scoring_rate", ascending=False)
         results.loc[:, "league"] = self.league
         results.loc[:, "year"] = self.year
         results.loc[:, "season_type"] = self.season_type
