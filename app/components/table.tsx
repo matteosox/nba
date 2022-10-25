@@ -32,7 +32,7 @@ export default function Table({stats}: {stats: Stats}) {
       TableColumn(stats, {title: "3pt Fq", field: "def_three_attempt_rate", reverse: true, popup: "Percentage of shots conceded from 3", cssClass: "tabulator-cell-col-left"}),
       TableColumn(stats, {title: "2pt%", field: "def_two_make_rate", reverse: true, popup: "Opponent 2pt shooting percentage"}),
       TableColumn(stats, {title: "3pt%", field: "def_three_make_rate", reverse: true, popup: "Opponent 3pt shooting percentage"}),
-      TableColumn(stats, {title: "Reb%", field: "def_reb_rate", reverse: true, popup: "Percentage of opponent misses rebounded"}),
+      TableColumn(stats, {title: "Reb%", field: "def_reb_rate", popup: "Percentage of opponent misses rebounded"}),
       TableColumn(stats, {title: "Tov/100", field: "def_turnover_rate", popup: "Turnovers forced per 100 possessions"}),
       TableColumn(stats, {title: "FT/100", field: "def_ft_attempt_rate", reverse: true, popup: "Free throws conceded per 100 possessions"}),
     ]}),
