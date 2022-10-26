@@ -1,201 +1,189 @@
 """Module for plotting NBA stuff"""
 
+import json
 import os
 from pkg_resources import resource_filename
 
-from PIL import Image as pilimg
-import numpy as np
-from matplotlib import pyplot as plt
+from bokeh.plotting import ColumnDataSource, figure
+from bokeh.models import HoverTool
+from bokeh.embed import json_item
+from bokeh.themes import Theme
 
 from pynba.config import config
+from pynba import constants
+from pynba.team_info import team_abb_to_id
 
 
 __all__ = [
+    "bokeh_theme",
     "plot_logos",
     "plot_paces",
     "plot_ratings",
-    "use_blackontrans_style",
     "save_team_plots",
 ]
 
 
-def use_blackontrans_style():
-    """Use blackontrans matplotlib style"""
-    plt.style.use(resource_filename("pynba", "blackontrans.mplstyle"))
+def bokeh_theme(name):
+    """Load Bokeh theme from themes directory"""
+    return Theme(resource_filename("pynba", f"themes/{name}.yaml"))
 
 
-def plot_images(x_vals, y_vals, image_paths, axis, alpha=None, size=None):
-    """Plots images on a matplotlib axis
+def _logo_url(team, league, year):
+    if league == constants.G_LEAGUE:
+        return f"https://stats.gleague.nba.com/media/img/teams/logos/{team}.svg"
+    if league == constants.WNBA:
+        return f"https://stats.wnba.com/media/img/teams/logos/{team}.svg"
+    if league == constants.NBA:
+        team_id = team_abb_to_id(league, year)[team]
+        return f"https://cdn.nba.com/logos/nba/{team_id}/primary/L/logo.svg"
+    raise Exception(f"Invalid league {league} provided")
 
+
+def plot_logos(data, x_name, y_name, size, fig):
+    """Plots NBA logos on a bokeh figure
     Parameters
     ----------
-    x_vals : Iterable of numbers
-        x axis values for plotting.
-    y_vals : Iterable of numbers
-        y axis values for plotting.
-    image_paths : Iterable of str
-        file-system paths of images to plot.
-    ax : matplotlib axis object
-        axis on which images are plotted.
-    alpha : number
-        transparency of images, 0 being fully transparent.
+    data : pandas.DataFrame
+        must contain team (str), league (str), and year (int) columns
+    x_name : str
+        column name of dataframe column to be plotted on the x axis
+    y_name : str
+        column name of dataframe column to be plotted on the y axis
     size : number
         size of images in marker size units.
-
-
+    fig : bokeh.plotting.figure
+        Bokeh figure on which logos are to be plotted
     Returns
     -------
     None
     """
-    if alpha is None:
-        alpha = 1
-    if size is None:
-        size = 20
-
-    # plot placeholders and lock in the axis limits
-    axis.plot(x_vals, y_vals, "o", mfc="None", mec="None", markersize=size)
-    axis.axis(axis.axis())
-
-    for x_val, y_val, image_path in zip(x_vals, y_vals, image_paths):
-        with pilimg.open(image_path) as image:
-            offsets_px = np.array(
-                [
-                    sz / max(image.size) * size / 72 / 2 * axis.get_figure().dpi
-                    for sz in image.size
-                ]
-            )
-            px_per_unit = axis.transData.transform((1, 1)) - axis.transData.transform(
-                (0, 0)
-            )
-            offsets_unit = offsets_px / px_per_unit
-            extent = (
-                x_val - offsets_unit[0],
-                x_val + offsets_unit[0],
-                y_val - offsets_unit[1],
-                y_val + offsets_unit[1],
-            )
-            axis.imshow(
-                image,
-                alpha=alpha,
-                extent=extent,
-                aspect="auto",
-                interpolation="bilinear",
-            )
-
-
-def plot_logos(x_vals, y_vals, teams, league, axis, alpha=None, size=None):
-    """Plots NBA logos on a matplotlib axis
-
-    Parameters
-    ----------
-    x_vals : Iterable of numbers
-        x axis values for plotting.
-    y_vals : Iterable of numbers
-        y axis values for plotting.
-    teams : Iterable of str
-        three letter abbreviations for each team.
-    league : str
-        e.g. "wnba" or "nba"
-    ax : matplotlib axis object
-        axis on which images are plotted.
-    alpha : number
-        transparency of images, 0 being fully transparent.
-    size : number
-        size of images in marker size units.
-
-    Returns
-    -------
-    None
-    """
-    logo_dir_path = resource_filename("pynba", "logos")
-    image_paths = [
-        os.path.join(logo_dir_path, f"{league}_{team}.png") for team in teams
+    source = ColumnDataSource(data)
+    source.data["logo_url"] = [
+        _logo_url(team, league, year)
+        for team, league, year in zip(data["team"], data["league"], data["year"])
     ]
-    plot_images(x_vals, y_vals, image_paths, axis, alpha=alpha, size=size)
+
+    images = fig.image_url(
+        url="logo_url",
+        x=x_name,
+        y=y_name,
+        source=source,
+        w=size,
+        h=size,
+        w_units="screen",
+        h_units="screen",
+        anchor="center",
+    )
+    circles = fig.circle(x=x_name, y=y_name, size=size, alpha=0, source=source)
+
+    bound = data.loc[:, [x_name, y_name]].abs().max().max()
+    fig.circle(x=[bound, -bound], y=[bound, -bound], size=size, alpha=0)
+
+    hover_tool = HoverTool(renderers=[images, circles])
+    fig.add_tools(hover_tool)
 
 
-def plot_ratings(team_stats, axis):
-    """Plot team off/def ratings on the provided axis"""
+def plot_ratings(team_stats):
+    """Plot team off/def ratings using Bokeh"""
     league = team_stats["league"].iloc[0]
     year = team_stats["year"].iloc[0]
     season_type = team_stats["season_type"].iloc[0]
-    x_vals = team_stats["off_scoring_above_average"]
-    y_vals = team_stats["def_scoring_above_average"]
-    size = 30
-    _center_axis(x_vals, y_vals, axis, size)
-    plot_logos(
-        x_vals,
-        y_vals,
-        team_stats["team"],
-        league,
-        axis,
-        size=size,
+
+    fig = figure(
+        title=f"{league} {year} {season_type}",
+        sizing_mode="scale_both",
+        aspect_ratio=1,
+        max_width=800,
+        max_height=800,
+        tools="wheel_zoom,reset",
+        toolbar_location=None,
+        active_scroll="wheel_zoom",
     )
-    axis.set_xlabel("Offensive Rating (pts/poss)")
-    axis.set_ylabel("Defensive Rating (pts/poss)")
-    axis.set_title(f"{league} {year} {season_type}")
+
+    plot_logos(
+        data=team_stats,
+        x_name="off_scoring_above_average",
+        y_name="def_scoring_above_average",
+        size=40,
+        fig=fig,
+    )
+
+    fig.tools[-1].tooltips = [
+        ("Team", "@team"),
+        ("Off", "@off_scoring_above_average{0.0}"),
+        ("Def", "@def_scoring_above_average{0.0}"),
+        ("Tot", "@net_scoring_rate{0.0}"),
+    ]
+
+    fig.xaxis.axis_label = "Offensive Rating (pts/100 poss)"
+    fig.yaxis.axis_label = "Defensive Rating (pts/100 poss)"
+
+    return fig
 
 
-def plot_paces(team_stats, axis):
-    """Plot team off/def pace on the provided axis"""
+def plot_paces(team_stats):
+    """Plot team off/def pace using Bokeh"""
     league = team_stats["league"].iloc[0]
     year = team_stats["year"].iloc[0]
     season_type = team_stats["season_type"].iloc[0]
-    x_vals = team_stats["off_pace_above_average"]
-    y_vals = team_stats["def_pace_above_average"]
-    size = 30
-    _center_axis(x_vals, y_vals, axis, size)
+
+    fig = figure(
+        title=f"{league} {year} {season_type}",
+        sizing_mode="scale_both",
+        aspect_ratio=1,
+        max_width=800,
+        max_height=800,
+        tools="wheel_zoom,reset",
+        toolbar_location=None,
+        active_scroll="wheel_zoom",
+    )
+
     plot_logos(
-        x_vals,
-        y_vals,
-        team_stats["team"],
-        league,
-        axis,
-        size=size,
+        data=team_stats,
+        x_name="off_pace_above_average",
+        y_name="def_pace_above_average",
+        size=40,
+        fig=fig,
     )
-    axis.set_xlabel("Offensive Pace (poss/48)")
-    axis.set_ylabel("Defensive Pace (poss/48)")
-    axis.set_title(f"{league} {year} {season_type}")
 
+    fig.tools[-1].tooltips = [
+        ("Team", "@team"),
+        ("Off", "@off_pace_above_average{0.0}"),
+        ("Def", "@def_pace_above_average{0.0}"),
+        ("Tot", "@total_pace{0.0}"),
+    ]
 
-def _center_axis(x_vals, y_vals, axis, size=None):
-    axis.plot(
-        np.hstack([x_vals, x_vals, -x_vals, -x_vals, y_vals, -y_vals, y_vals, -y_vals]),
-        np.hstack([y_vals, -y_vals, y_vals, -y_vals, x_vals, x_vals, -x_vals, -x_vals]),
-        "o",
-        mfc="None",
-        mec="None",
-        markersize=size,
-    )
-    axis.axis(axis.axis("equal"))
+    fig.xaxis.axis_label = "Offensive Pace (poss/48 min)"
+    fig.yaxis.axis_label = "Defensive Pace (poss/48 min)"
+
+    return fig
 
 
 def save_team_plots(teams):
     """
-    Save some plots from the teams data (to be replaced by D3 interactives)
+    Save Bokeh json files for rendering in the browser
     """
     league = teams["league"].iloc[0]
     year = teams["year"].iloc[0]
     season_type = teams["season_type"].iloc[0]
+    theme = bokeh_theme("transparent")
 
-    fig = plt.figure(figsize=(8, 8))
-    axis = fig.add_subplot(1, 1, 1)
-    plot_ratings(teams, axis)
-    fig.savefig(
-        os.path.join(
-            config.local_data_directory,
-            config.plots_directory,
-            f"team_ratings_{league}_{year}_{season_type}.png",
-        )
+    fig = plot_ratings(teams)
+    fig_json = json_item(fig, theme=theme)
+    filename = os.path.join(
+        config.local_data_directory,
+        config.plots_directory,
+        f"team_ratings_{league}_{year}_{season_type}.json",
     )
+    with open(filename, "w", encoding="utf-8") as json_file:
+        json.dump(fig_json, json_file)
 
-    fig = plt.figure(figsize=(8, 8))
-    axis = fig.add_subplot(1, 1, 1)
-    plot_paces(teams, axis)
-    fig.savefig(
-        os.path.join(
-            config.local_data_directory,
-            config.plots_directory,
-            f"team_paces_{league}_{year}_{season_type}.png",
-        )
+    fig = plot_paces(teams)
+    fig_json = json_item(fig, theme=theme)
+    filename = os.path.join(
+        config.local_data_directory,
+        config.plots_directory,
+        f"team_paces_{league}_{year}_{season_type}.json",
     )
+    with open(filename, "w", encoding="utf-8") as json_file:
+        json.dump(fig_json, json_file)

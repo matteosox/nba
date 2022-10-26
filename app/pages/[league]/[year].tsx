@@ -1,11 +1,16 @@
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 import { GetStaticProps, GetStaticPaths } from 'next'
+import { embed } from '@bokeh/bokehjs'
 import Layout from '../../components/layout'
-import MyTable from '../../components/table'
-import S3Image from '../../components/s3image'
-import { getUpdateDate, getLeagues, getSeasonData, Leagues } from '../../lib/leagues'
+import Table from '../../components/table'
+import { getUpdateDate, getLeagues, getSeasonData, Leagues, Stats } from '../../lib/leagues'
 import { REVALIDATE_TIME } from '../../lib/constants'
 import utilStyles from '../../styles/utils.module.css'
+
+const BokehFigure = dynamic(() => import('../../components/bokeh'), {
+  ssr: false,
+})
 
 export default function Season({
     seasonData,
@@ -16,9 +21,9 @@ export default function Season({
       league: string,
       year: string,
       seasonType: string,
-      stats: Array<Array<number | string>>
-      ratingsImage: string
-      pacesImage: string
+      stats: Stats,
+      ratingsJSON: embed.JsonItem,
+      pacesJSON: embed.JsonItem,
     },
     leagues: Leagues,
     updateDate: string,
@@ -31,28 +36,26 @@ export default function Season({
         <title>{title}</title>
         <meta property="og:title" content={title}/>
         <meta property="og:description" content={`${title} Team Stats`}/>
-        <meta property="og:url" content={domain + seasonData.ratingsImage}/>
+        <meta property="og:url" content={`${domain}/${seasonData.league}/${seasonData.year}`}/>
         <meta name="twitter:card" content="summary_large_image"/>
       </Head>
       <section className={utilStyles.headingMd}>
         <h1>{title} Team Stats</h1>
       </section>
-      <div className={utilStyles.centeredImage}>
-        <S3Image
-          src={seasonData.ratingsImage}
-          height={800}
-          width={800}
+      <div className={utilStyles.centered}>
+        <BokehFigure
+          json={seasonData.ratingsJSON}
+          target='team_ratings_plot'
         />
       </div>
-      <div className={utilStyles.centeredImage}>
-        <S3Image
-          src={seasonData.pacesImage}
-          height={800}
-          width={800}
+      <div className={utilStyles.centered}>
+        <BokehFigure
+          json={seasonData.pacesJSON}
+          target='team_paces_plot'
         />
       </div>
       <div>
-        <MyTable data={seasonData.stats} />
+        <Table stats={seasonData.stats}/>
       </div>
     </Layout>
   )

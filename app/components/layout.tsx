@@ -28,7 +28,7 @@ export default function Layout({
         />
         <meta
           name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
+          content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
         />
         <meta
           property="og:site_name"
