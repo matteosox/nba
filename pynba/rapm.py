@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from collections.abc import Callable
+from pkg_resources import resource_filename
 
 import pandas as pd
 import numpy as np
@@ -23,7 +24,7 @@ POSS_COLS = [
 ]
 EPOCH = pd.Timestamp("1970-01-01")
 nba_player_ids = pd.read_csv(
-    "/root/nba/data/NBA_Player_IDs.csv", encoding_errors="ignore"
+    resource_filename("pynba", "NBA_Player_IDs.csv"), encoding_errors="ignore"
 )
 player_id_mapping = {
     int(player_id): player_name
@@ -92,7 +93,7 @@ class SparseWeightedRidgeRegression:
         """Calculate this lazily since inverting A is expensive"""
         residuals = self.y - self.predict(self.X)
         degrees_of_freedom = self.X.shape[0] - self.X.shape[1]
-        est_err_var = (residuals * self.w).dot(residuals) / degrees_of_freedom
+        est_err_var = (residuals * self.w.reshape(-1)).dot(residuals) / degrees_of_freedom
         return est_err_var * sparse.linalg.inv(self.A.tocsc())
 
 
@@ -206,6 +207,8 @@ class _RAPMData:
                 / points_df["count"].sum()
             )
 
+        df[0] = 1 - df.sum(1)
+
         df["mu"] = sum([df[point] * point * 100 for point in unique_pts])
         df["var"] = (
             sum([df[point] * (point * 100) ** 2 for point in unique_pts])
@@ -293,7 +296,8 @@ class TimeDecayedRAPM:
             [off_prior**2] * data.n_players + [def_prior**2] * data.n_players
         ).astype(float)
         rel_time = data.time - date
-        w = np.exp(np.log(0.5) / half_life) ** np.abs(rel_time) / data.y_var
+        alpha = np.exp(np.log(0.5) / (half_life * 365.25))
+        w = (alpha ** np.abs(rel_time) / data.y_var).reshape(-1, 1)
         model = SparseWeightedRidgeRegression.fit(data.X, data.y, w, k_prior_var)
         return cls(data, model, date, half_life, off_prior, def_prior)
 

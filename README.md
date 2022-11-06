@@ -8,7 +8,7 @@ Status<br>
 <a href="https://github.com/matteosox/nba/actions/workflows/setup_test_push.yaml"><img alt="Setup, Test, & Build" src="https://github.com/matteosox/nba/actions/workflows/setup_test_push.yaml/badge.svg"></a>
 <a href="https://nba.mattefay.com"><img alt="Website Status" src="https://img.shields.io/website?down_color=red&down_message=offline&label=nba.mattefay.com&up_color=brightgreen&up_message=online&url=https%3A%2F%2Fnba.mattefay.com"></a>
 <br>Languages<br>
-<a href="https://docs.python.org/3.8/"><img alt="Python: 3.8" src="https://img.shields.io/static/v1?label=Python&message=3%2C8&logo=python&color=%233776AB"></a>
+<a href="https://docs.python.org/3.9/"><img alt="Python: 3.9" src="https://img.shields.io/static/v1?label=Python&message=3%2C9&logo=python&color=%233776AB"></a>
 <a href="https://www.gnu.org/software/bash/"><img alt="Bash: 5.1" src="https://img.shields.io/static/v1?label=Bash&message=5%2C1&logo=GNU-bash&color=%234EAA25"></a>
 <a href="https://www.typescriptlang.org/"><img alt="Typescript: " src="https://img.shields.io/github/package-json/dependency-version/matteosox/nba/dev/typescript?filename=app%2Fpackage.json&logo=typescript&color=%233178C6&label=Typescript"></a>
 <br>Services<br>
@@ -58,16 +58,22 @@ We use a Dockerized Jupyter notebook environment for data analysis. The `noteboo
 
 ## TODO
 
+- Code
+    - Switch to NumPyro
+    - Upgrade to Python 3.10
+    - Switch to anaconda for python setup
 - Analysis
     - Travel and rest adjustments
     - Re-evaluate priors
     - Confirm reduction in home court advantage
-    - Fix 2020 bubble games
+    - Fix 2020 bubble games (no home court)
     - Playoffs?!
+    - Modeling possessions by origin (made shot/stoppage, def rebound, liveball turnover)
+    - Fix regression to get point estimates unbiased for each year
 - App
     - Theme/style
-    - Replace images with interactives
-    - Improve tables (sortable, hover for definition, colorize for z-scores)
+    - Writeup page
+    - Consolidate plots into one page with dropdowns for league, year, season type, and things to be plotted
 
 ## Developer Notes
 
