@@ -83,7 +83,7 @@ class SparseWeightedRidgeRegression:
     def predict(self, X: sparse.csr_matrix) -> np.array:
         return X.dot(self.k_hat)
 
-    def score(self, X: sparse.csr_matrix, y: np.array) -> float:
+    def score(self, X: sparse.csr_matrix, y: np.array) -> float:  # needs a y_var input to normalize 
         y_hat = self.predict(X)
         error = y - y_hat
         return stats.norm.logpdf(error).sum()
@@ -91,10 +91,13 @@ class SparseWeightedRidgeRegression:
     @property
     def k_hat_cov(self) -> np.array:
         """Calculate this lazily since inverting A is expensive"""
+        A_inv = sparse.linalg.inv(self.A.tocsc())
+        H = A_inv.dot(self.XT_W)  # this is the "hat" or projection matrix
+        M = sparse.eye(H.shape[0]) - H  # this is the annihilator matrix
+        degrees_of_freedom = M.T.dot(M).trace()
         residuals = self.y - self.predict(self.X)
-        degrees_of_freedom = self.X.shape[0] - self.X.shape[1]
         est_err_var = (residuals * self.w.reshape(-1)).dot(residuals) / degrees_of_freedom
-        return est_err_var * sparse.linalg.inv(self.A.tocsc())
+        return est_err_var * A_inv
 
 
 @dataclass(frozen=True)
@@ -347,7 +350,7 @@ class TimeDecayedRAPM:
 
     @property
     def _raw_stats(self) -> tuple[np.array, np.array, np.array, np.array, np.array]:
-        XT_W = self.model.XT_W
+        XT_W = self.model.XT_W  # this is off by the variance of a possession
         n_players = self.data.n_players
         b = self.model.b
 

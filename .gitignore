@@ -8,3 +8,6 @@ __pycache__/
 
 # Repo specific files
 *.local.env
+
+# MacOS files
+.DS_Store
