@@ -1,11 +1,14 @@
 from dataclasses import dataclass
 from collections.abc import Callable
+import logging
 from pkg_resources import resource_filename
 
 import pandas as pd
 import numpy as np
 from scipy import sparse, stats
 
+
+logger = logging.getLogger(__name__)
 
 POSS_COLS = [
     "off_player0",
@@ -41,63 +44,52 @@ class SparseWeightedRidgeRegression:
     Weighted ridge regression using SciPy sparse matrices
 
     y = X * k + errors
-    V(y|X) = V(errors) = 1 / w (actually a matrix with this as its diagonal)
-    V(k) = k_prior_var (actually a matrix with this as its diagonal),
-    where k_prior_var is normalized to V(y|X), i.e. w.
+    V(y|X) = V(errors) = y_var (actually a matrix with this as its diagonal)
+    V(k) = k_prior_var (actually a matrix with this as its diagonal)
 
-    Each observation (row of X) is weighted by w, i.e. weighted least squares.
+    Each observation (row of X) is weighted by w (weighted least squares).
 
-    XT_W = X^T * W, where W is the matrix with w as its diagonal
     G = 1 / k_prior_var (actually a matrix with this as its diagonal)
-    A = X^T * W * X + G
-    b = X^T * W * y
+    A = X^T * w * X + G
+    b = X^T * w * y
     k_hat = A^-1 * b (we actually solve for this instead of calculating the inverse
     for computational reasons, but you get the idea)
 
-    k_hat minimizes (y - X * k_hat)^T * W * (y - X * k_hat) + k_hat^T * G * k_hat
+    k_hat minimizes (y - X * k_hat)^T * w * (y - X * k_hat) + k_hat^T * G * k_hat
 
-    k_hat_cov = V(k_hat)
+    k_hat_cov = V(k_hat|X) = A^-1
     """
 
     X: sparse.csr_matrix
     y: np.array
     w: np.array
     k_prior_var: np.array
-    XT_W: sparse.csr_matrix
-    G: sparse.dia_matrix
-    A: sparse.csr_matrix
-    b: np.array
     k_hat: np.array
+    _A: np.array
 
     @classmethod
     def fit(
         cls, X: sparse.csr_matrix, y: np.array, w: np.array, k_prior_var: np.array
     ) -> None:
-        XT_W = X.multiply(w).T.tocsr()
-        G = sparse.diags(1 / k_prior_var)
-        A = XT_W.dot(X) + G
+        XT_W = X.multiply(w.reshape(-1, 1)).transpose().tocsr()
+        G = np.diag(1 / k_prior_var.reshape(-1))
+        A = XT_W.dot(X).toarray() + G
         b = XT_W.dot(y)
-        k_hat = sparse.linalg.spsolve(A, b)
-        return cls(X, y, w, k_prior_var, XT_W, G, A, b, k_hat)
+        k_hat = np.linalg.solve(A, b)
+        return cls(X, y, w, k_prior_var, k_hat, A)
 
     def predict(self, X: sparse.csr_matrix) -> np.array:
         return X.dot(self.k_hat)
 
-    def score(self, X: sparse.csr_matrix, y: np.array) -> float:  # needs a y_var input to normalize 
+    def score(self, X: sparse.csr_matrix, y: np.array, y_var: np.array) -> float:
         y_hat = self.predict(X)
         error = y - y_hat
-        return stats.norm.logpdf(error).sum()
+        return stats.norm.logpdf(error, scale=np.sqrt(y_var)).sum()
 
     @property
     def k_hat_cov(self) -> np.array:
         """Calculate this lazily since inverting A is expensive"""
-        A_inv = sparse.linalg.inv(self.A.tocsc())
-        H = A_inv.dot(self.XT_W)  # this is the "hat" or projection matrix
-        M = sparse.eye(H.shape[0]) - H  # this is the annihilator matrix
-        degrees_of_freedom = M.T.dot(M).trace()
-        residuals = self.y - self.predict(self.X)
-        est_err_var = (residuals * self.w.reshape(-1)).dot(residuals) / degrees_of_freedom
-        return est_err_var * A_inv
+        return np.linalg.inv(self._A)
 
 
 @dataclass(frozen=True)
@@ -107,15 +99,16 @@ class _RAPMData:
     y_var: np.array
     time: np.array
     player_ids: np.array
+    curr_var: float
 
     @classmethod
     def from_possessions(cls, poss: pd.DataFrame) -> "_RAPMData":
         stints = cls._calc_stints(poss)
-        y, y_var = cls._calc_y_y_var(poss, stints)
+        y, y_var, curr_var = cls._calc_y_y_var_curr_var(poss, stints)
         time = cls._calc_time(stints)
         player_ids = cls._calc_player_ids(stints)
         X = cls._calc_X(stints, player_ids, player_ids.shape[0])
-        return cls(X, y, y_var, time, player_ids)
+        return cls(X, y, y_var, time, player_ids, curr_var)
 
     def __getitem__(self, index) -> "_RAPMData":
         cls = type(self)
@@ -125,6 +118,7 @@ class _RAPMData:
             self.y_var[index],
             self.time[index],
             self.player_ids,
+            self.curr_var,
         )
 
     @classmethod
@@ -167,7 +161,7 @@ class _RAPMData:
         return (dates - EPOCH).days.to_numpy().astype(float)
 
     @classmethod
-    def _calc_y_y_var(
+    def _calc_y_y_var_curr_var(
         cls, poss: pd.DataFrame, stints: pd.DataFrame
     ) -> tuple[np.array, np.array]:
         alpha = np.exp(np.log(0.5) / 20)
@@ -217,12 +211,13 @@ class _RAPMData:
             sum([df[point] * (point * 100) ** 2 for point in unique_pts])
             - df["mu"] ** 2
         )
+        curr_var = df.loc[np.max(days), "var"]
         mu = stints["days_since_epoch"].map(df["mu"])
         y_var = (
             stints["days_since_epoch"].map(df["var"]) / stints["possession_num"]
         ).to_numpy()
         y = (stints["points_scored"] / stints["possession_num"] * 100 - mu).to_numpy()
-        return y, y_var
+        return y, y_var, curr_var
 
     @staticmethod
     def _calc_time(stints: pd.DataFrame) -> np.array:
@@ -350,30 +345,15 @@ class TimeDecayedRAPM:
 
     @property
     def _raw_stats(self) -> tuple[np.array, np.array, np.array, np.array, np.array]:
-        XT_W = self.model.XT_W  # this is off by the variance of a possession
-        n_players = self.data.n_players
-        b = self.model.b
+        XT_W = self.model.X.multiply(self.model.w.reshape(-1, 1)).transpose().tocsr()
+        poss = np.asarray(XT_W.sum(1)).reshape(-1) * self.data.curr_var
+        raw_pms = XT_W.dot(self.model.y) / poss * self.data.curr_var
 
-        poss = np.asarray(XT_W.sum(1)).reshape(-1)
-        off_poss, def_poss = (
-            poss[:n_players] * self._curr_var,
-            poss[n_players:] * self._curr_var,
-        )
-        raw_pms = b / poss
+        n_players = self.data.n_players
+        off_poss, def_poss = poss[:n_players], poss[n_players:]        
         off_raw_pm, def_raw_pm = raw_pms[:n_players], -raw_pms[n_players:]
         raw_pm = off_raw_pm + def_raw_pm
         return off_poss, def_poss, raw_pm, off_raw_pm, def_raw_pm
-
-    @property
-    def _curr_var(self) -> float:
-        """Interpolate the current V(y|X), no extrapolation. Could be better..."""
-        date = self.date
-        time = self.data.time
-        y_var = self.data.y_var
-
-        xp, index = np.unique(time, return_index=True)
-        yp = y_var[index]
-        return np.interp(date, xp, yp)
 
     @property
     def _names(self) -> list[str]:
@@ -395,15 +375,17 @@ def optimize(
     start_time = data.time.min() + frac * (data.time.max() - data.time.min())
 
     def score(half_life: float, off_prior: float, def_prior: float) -> float:
+        logger.info(f"Evaluating model with {half_life=}, {off_prior=}, and {def_prior=}")
         log_likelihood = 0
         for date, train_index, test_index in ts_cv(data.time, start_time, time_step):
             train_data = data[train_index]
             time_decayed_rapm = TimeDecayedRAPM.from_data(
                 train_data, date, half_life, off_prior, def_prior
             )
-            X_test = data.X[test_index]
-            y_test = data.y[test_index]
-            log_likelihood += time_decayed_rapm.model.score(X_test, y_test)
+            test_data = data[test_index]
+            log_likelihood += time_decayed_rapm.model.score(test_data.X, test_data.y, test_data.y_var)
+        
+        logger.info(f"Model with {half_life=}, {off_prior=}, and {def_prior=} has {log_likelihood=}")
         return log_likelihood
 
     return pattern_search(
