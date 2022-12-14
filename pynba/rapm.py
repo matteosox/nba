@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from collections.abc import Callable
 import logging
-from pkg_resources import resource_filename
+import warnings
 
 import pandas as pd
 import numpy as np
@@ -26,16 +26,6 @@ POSS_COLS = [
     "date",
 ]
 EPOCH = pd.Timestamp("1970-01-01")
-nba_player_ids = pd.read_csv(
-    resource_filename("pynba", "NBA_Player_IDs.csv"), encoding_errors="ignore"
-)
-player_id_mapping = {
-    int(player_id): player_name
-    for player_name, player_id in zip(
-        nba_player_ids["NBAName"], nba_player_ids["NBAID"]
-    )
-    if not pd.isna(player_id)
-}
 
 
 @dataclass(frozen=True)
@@ -304,7 +294,7 @@ class TimeDecayedRAPM:
         """Stats table for time-decayed RAPM"""
         rapm, off_rapm, def_rapm = self._rapm
         rapm_std, off_rapm_std, def_rapm_std = self._stds
-        off_poss, def_poss, raw_pm, off_raw_pm, def_raw_pm = self._raw_stats
+        poss, off_poss, def_poss, raw_pm, off_raw_pm, def_raw_pm = self._raw_stats
         return pd.DataFrame(
             {
                 "name": self._names,
@@ -314,6 +304,7 @@ class TimeDecayedRAPM:
                 "rapm_std": rapm_std,
                 "off_rapm_std": off_rapm_std,
                 "def_rapm_std": def_rapm_std,
+                "poss": poss,
                 "off_poss": off_poss,
                 "def_poss": def_poss,
                 "raw_pm": raw_pm,
@@ -347,19 +338,19 @@ class TimeDecayedRAPM:
     def _raw_stats(self) -> tuple[np.array, np.array, np.array, np.array, np.array]:
         XT_W = self.model.X.multiply(self.model.w.reshape(-1, 1)).transpose().tocsr()
         poss = np.asarray(XT_W.sum(1)).reshape(-1) * self.data.curr_var
-        raw_pms = XT_W.dot(self.model.y) / poss * self.data.curr_var
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            raw_pms = XT_W.dot(self.model.y) / poss * self.data.curr_var
 
         n_players = self.data.n_players
         off_poss, def_poss = poss[:n_players], poss[n_players:]        
         off_raw_pm, def_raw_pm = raw_pms[:n_players], -raw_pms[n_players:]
         raw_pm = off_raw_pm + def_raw_pm
-        return off_poss, def_poss, raw_pm, off_raw_pm, def_raw_pm
+        return off_poss + def_poss, off_poss, def_poss, raw_pm, off_raw_pm, def_raw_pm
 
     @property
     def _names(self) -> list[str]:
-        player_ids = self.data.player_ids
-
-        return [player_id_mapping.get(player_id, "n/a") for player_id in player_ids]
+        return ["n/a" for _ in self.data.player_ids]
 
 
 def optimize(
