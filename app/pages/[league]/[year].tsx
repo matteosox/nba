@@ -5,7 +5,6 @@ import { embed } from '@bokeh/bokehjs'
 import Layout from '../../components/layout'
 import Table from '../../components/table'
 import { getUpdateDate, getLeagues, getSeasonData, Leagues, Stats } from '../../lib/leagues'
-import { REVALIDATE_TIME } from '../../lib/constants'
 import utilStyles from '../../styles/utils.module.css'
 
 const BokehFigure = dynamic(() => import('../../components/bokeh'), {
@@ -22,8 +21,7 @@ export default function Season({
       year: string,
       seasonType: string,
       stats: Stats,
-      ratingsJSON: embed.JsonItem,
-      pacesJSON: embed.JsonItem,
+      plotJSON: embed.JsonItem,
     },
     leagues: Leagues,
     updateDate: string,
@@ -44,14 +42,8 @@ export default function Season({
       </section>
       <div className={utilStyles.centered}>
         <BokehFigure
-          json={seasonData.ratingsJSON}
+          json={seasonData.plotJSON}
           target='team_ratings_plot'
-        />
-      </div>
-      <div className={utilStyles.centered}>
-        <BokehFigure
-          json={seasonData.pacesJSON}
-          target='team_paces_plot'
         />
       </div>
       <div>
@@ -88,7 +80,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       seasonData,
       updateDate,
       leagues,
-    },
-    revalidate: REVALIDATE_TIME
+    }
   }
 }

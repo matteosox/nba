@@ -7,7 +7,7 @@ from pynba import (
     halfgames_from_file,
     teams_from_halfgames,
     save_teams,
-    save_team_plots,
+    save_stats_plot,
 )
 
 
@@ -32,7 +32,7 @@ def main():
         logger.info(f"Saving teams data for {league} {year} {season_type}")
         save_teams(teams)
         logger.info("Plotting & saving team ratings & pace")
-        save_team_plots(teams)
+        save_stats_plot(teams)
     logger.info("Complete")
 
 

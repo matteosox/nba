@@ -1,3 +1,6 @@
+# MacOS
+.DS_Store
+
 # Python files
 __pycache__/
 .ipynb_checkpoints

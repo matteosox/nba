@@ -1,11 +1,10 @@
 """Module for parsing game_ids to get relevant information"""
 
-from pynba.constants import NBA, WNBA, G_LEAGUE
+from pynba.constants import NBA, WNBA
 
 GAME_ID_PREFIXES = {
     "00": NBA,
     "10": WNBA,
-    "20": G_LEAGUE,
 }
 SEASON_TYPE_STRS = {
     "2": "Regular Season",

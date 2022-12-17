@@ -6,7 +6,7 @@ from requests import ReadTimeout, HTTPError
 
 from pynba.pbpstats_client import pbpstats_client
 from pynba.game_id import league_from_game_id, year_from_game_id
-from pynba.constants import NBA, WNBA, G_LEAGUE, FILE, WEB, STATS_NBA, DATA_NBA
+from pynba.constants import NBA, WNBA, FILE, WEB, STATS_NBA, DATA_NBA
 
 
 logger = logging.getLogger(__name__)
@@ -14,7 +14,6 @@ logger = logging.getLogger(__name__)
 LEAGUE_SEASON_PROVIDERS = {
     NBA: STATS_NBA,
     WNBA: DATA_NBA,
-    G_LEAGUE: DATA_NBA,
 }
 STATS_NBA_CUTOFF_YEAR = 2020
 PBPSTATS_SUBDIRS = ["game_details", "overrides", "pbp", "schedule"]

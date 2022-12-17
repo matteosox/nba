@@ -21,14 +21,14 @@ export default function Layout({
   return (
     <div>
       <Head>
-        <link rel="icon" href="/basketball.png" />
+        <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
           content="NBA Stats & Analysis, powered by Python & NextJS"
         />
         <meta
           name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
         />
         <meta
           property="og:site_name"
@@ -39,7 +39,7 @@ export default function Layout({
         <Toolbar className={styles.toolbar}>
           <Link href="/" >
             <a className={styles.toolbarImage}><Image
-                src={"/basketball.png"}
+                src={"/favicon.ico"}
                 height={45}
                 width={45}
             /></a>
