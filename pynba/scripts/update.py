@@ -18,7 +18,7 @@ from pynba import (
     halfgames_from_possessions,
     teams_from_halfgames,
     save_teams,
-    save_team_plots,
+    save_stats_plot,
 )
 from pynba.config import config
 from pynba.constants import NBA, WNBA, MULTIYEAR_LEAGUES, SEASON_TYPES
@@ -119,7 +119,7 @@ def update_season(league, year, season_type):
     logger.info(
         f"Plotting & saving team ratings & pace for the {league} {year} {season_type}"
     )
-    save_team_plots(teams)
+    save_stats_plot(teams)
 
     logger.info(f"Finished updating data for the {league} {year} {season_type}")
 

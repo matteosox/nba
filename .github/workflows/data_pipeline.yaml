@@ -39,10 +39,10 @@ jobs:
       - name: Connect to ProtonVPN
         run: vpn/connect.sh vpn/config.ovpn
         env:
-            VPN_USERNAME: ${{ secrets.PROTONVPN_USERNAME }}
-            VPN_PASSWORD: ${{ secrets.PROTONVPN_PASSWORD }}
-            VPN_ROOT_CERT: ${{ secrets.PROTONVPN_ROOT_CERT }}
-            VPN_TLS_AUTH_KEY: ${{ secrets.PROTONVPN_TLS_AUTH_KEY }}
+          VPN_USERNAME: ${{ secrets.PROTONVPN_USERNAME }}
+          VPN_PASSWORD: ${{ secrets.PROTONVPN_PASSWORD }}
+          VPN_ROOT_CERT: ${{ secrets.PROTONVPN_ROOT_CERT }}
+          VPN_TLS_AUTH_KEY: ${{ secrets.PROTONVPN_TLS_AUTH_KEY }}
 
       - name: Update Data Locally
         run: cicd/etl.sh --env prod pynba_update
@@ -60,3 +60,9 @@ jobs:
         with:
           name: data_output
           path: data
+
+      - name: Deploy to Vercel
+        run: cicd/deploy.sh
+        env:
+          VERCEL_ACCOUNT_TOKEN: ${{secrets.VERCEL_ACCOUNT_TOKEN}}
+          VERCEL_DEPLOY_HOOK_URL: ${{secrets.VERCEL_DEPLOY_HOOK_URL}}

@@ -46,19 +46,15 @@ export async function getSeasonData(league: string, year: string, seasonType: st
   const csvKey = `${AWS_S3_ROOT_KEY}/teams/${league}_${year}_${seasonType}_teams.csv`
   const statsStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: csvKey})
   const {data: stats}   = Papa.parse(statsStr.trimEnd(), {header: true, dynamicTyping: true})
-  const ratingsKey = `${AWS_S3_ROOT_KEY}/plots/team_ratings_${league}_${year}_${seasonType}.json`
-  const ratingsJSONStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: ratingsKey})
-  const ratingsJSON = JSON.parse(ratingsJSONStr) as embed.JsonItem
-  const pacesKey = `${AWS_S3_ROOT_KEY}/plots/team_paces_${league}_${year}_${seasonType}.json`
-  const pacesJSONStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: pacesKey})
-  const pacesJSON = JSON.parse(pacesJSONStr) as embed.JsonItem
+  const plotKey = `${AWS_S3_ROOT_KEY}/plots/team_stats_${league}_${year}_${seasonType}.json`
+  const plotJSONStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: plotKey})
+  const plotJSON = JSON.parse(plotJSONStr) as embed.JsonItem
   return {
     league,
     year,
     seasonType,
     stats,
-    ratingsJSON,
-    pacesJSON,
+    plotJSON,
   }
 }
 

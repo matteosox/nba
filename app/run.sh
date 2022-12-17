@@ -7,12 +7,11 @@ cd "$REPO_DIR"
 
 GIT_SHA=$(git rev-parse --short HEAD)
 CMD=(npm run dev)
-BROWSER=true
 PORT=3000
 
 usage()
 {
-    echo "usage: run.sh [--git-sha -g sha=$GIT_SHA] [--no-browser -n] [--port -p port=$PORT] cmd=${CMD[*]}"
+    echo "usage: run.sh [--git-sha -g sha=$GIT_SHA] [--port -p port=$PORT] cmd=${CMD[*]}"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -20,10 +19,6 @@ while [[ $# -gt 0 ]]; do
         -g | --git-sha )
             GIT_SHA="$2"
             shift 2
-            ;;
-        -n | --no-browser )
-            BROWSER=false
-            shift
             ;;
         -p | --port )
             PORT="$2"
@@ -49,16 +44,7 @@ done
 
 echo "Running app for git sha $GIT_SHA"
 
-open_browser() {
-    sleep 2
-    python -m webbrowser http://localhost:"$PORT"
-}
-
-if "$BROWSER"; then
-    open_browser &
-fi
-
-docker run --rm \
+docker run --rm -it \
     --name app \
     --publish "$PORT":"$PORT" \
     --env-file build/app.local.env \

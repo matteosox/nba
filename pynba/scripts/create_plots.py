@@ -2,7 +2,7 @@
 
 import logging
 
-from pynba import seasons_on_file, save_team_plots, teams_from_file
+from pynba import seasons_on_file, save_stats_plot, teams_from_file
 
 
 logger = logging.getLogger(__name__)
@@ -18,7 +18,7 @@ def main():
         logger.info(f"Loading teams data for {league} {year} {season_type} from file")
         teams = teams_from_file(league, year, season_type)
         logger.info("Creating & saving plots")
-        save_team_plots(teams)
+        save_stats_plot(teams)
     logger.info("Complete")
 
 

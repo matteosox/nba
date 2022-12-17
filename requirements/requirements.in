@@ -2,7 +2,7 @@ Pillow
 PyYaml
 awswrangler
 black
-bokeh
+bokeh<3
 boto3
 dynaconf
 jupyter
