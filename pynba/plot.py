@@ -60,15 +60,17 @@ def plot_stats(team_stats):
     )
 
     full_source = ColumnDataSource(team_stats)
-    source = ColumnDataSource({
-        "x": team_stats[NAMES[DEFAULT_X_NAME]],
-        "y": team_stats[NAMES[DEFAULT_Y_NAME]],
-        "logo_url": [
-            f"/logos/{league}/{team}.svg"
-            for team, league in zip(team_stats["team"], team_stats["league"])
+    source = ColumnDataSource(
+        {
+            "x": team_stats[NAMES[DEFAULT_X_NAME]],
+            "y": team_stats[NAMES[DEFAULT_Y_NAME]],
+            "logo_url": [
+                f"/logos/{league}/{team}.svg"
+                for team, league in zip(team_stats["team"], team_stats["league"])
             ],
-        "team": team_stats["team"],
-    })
+            "team": team_stats["team"],
+        }
+    )
 
     images = fig.image_url(
         url="logo_url",
@@ -81,26 +83,39 @@ def plot_stats(team_stats):
     )
     circles = fig.circle(size=SIZE, alpha=0, source=source)
 
-    hover_tool = HoverTool(renderers=[images, circles], tooltips=[("", "@team"), ("x", "@x{0.1}"), ("y", "@y{0.1}")])
+    hover_tool = HoverTool(
+        renderers=[images, circles],
+        tooltips=[("", "@team"), ("x", "@x{0.1}"), ("y", "@y{0.1}")],
+    )
     fig.add_tools(hover_tool)
 
     fig.xaxis.axis_label = DEFAULT_X_NAME
     fig.yaxis.axis_label = DEFAULT_Y_NAME
-    
+
     code = """
     axis[0].axis_label = cb_obj.value
     source.data.{} = full_source.data[names[cb_obj.value]]
     source.change.emit()
     """
-    
-    callback_x = CustomJS(args=dict(source=source, full_source=full_source, names=NAMES, axis=fig.xaxis), code=code.format("x"))
-    callback_y = CustomJS(args=dict(source=source, full_source=full_source, names=NAMES, axis=fig.yaxis), code=code.format("y"))
-    
-    select_x = Select(title="X variable", value=DEFAULT_X_NAME, options=list(NAMES.keys()))
+
+    callback_x = CustomJS(
+        args=dict(source=source, full_source=full_source, names=NAMES, axis=fig.xaxis),
+        code=code.format("x"),
+    )
+    callback_y = CustomJS(
+        args=dict(source=source, full_source=full_source, names=NAMES, axis=fig.yaxis),
+        code=code.format("y"),
+    )
+
+    select_x = Select(
+        title="X variable", value=DEFAULT_X_NAME, options=list(NAMES.keys())
+    )
     select_x.js_on_change("value", callback_x)
-    select_y = Select(title="Y variable", value=DEFAULT_Y_NAME, options=list(NAMES.keys()))
+    select_y = Select(
+        title="Y variable", value=DEFAULT_Y_NAME, options=list(NAMES.keys())
+    )
     select_y.js_on_change("value", callback_y)
-    
+
     return column(row(select_x, select_y), fig)
 
 

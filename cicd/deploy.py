@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(pathname)s:%(funcName)s @ %(lineno)d | %(levelname)s | %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S %z"
+    datefmt="%Y-%m-%d %H:%M:%S %z",
 )
 POLLING_PERIOD = 5
 TIMEOUT = 45 * 60
@@ -25,13 +25,13 @@ PROJECT_ID = "prj_u9E8EAUMVH5JhnXa5S6eX3gQ86aF"
 
 class Timeout:
     """Context manager, raises a TimeoutError after seconds"""
+
     def __init__(self, duration: int, retry_duration: int = 1):
         self.duration = duration
         self.retry_duration = retry_duration
 
     def __enter__(self):
-
-        def handler(signal_num, curr_frame):   # pylint: disable=unused-argument
+        def handler(signal_num, curr_frame):  # pylint: disable=unused-argument
             signal.alarm(self.retry_duration)
             raise TimeoutError("{}s timeout".format(self.duration))
 
@@ -56,7 +56,9 @@ def request_deploy() -> int:
     if response.status_code != 201:
         raise Exception(f"Received HTTP status code {response.status_code}")
     result = response.json()
-    logger.info(f"Received the following JSON response from the Vercel deploy hook:\n{yaml.dump(result)}")
+    logger.info(
+        f"Received the following JSON response from the Vercel deploy hook:\n{yaml.dump(result)}"
+    )
     return result["job"]["createdAt"]
 
 
@@ -64,9 +66,13 @@ def get_deployment_id(timestamp: int) -> str:
     headers = {"Authorization": f"Bearer {ACCOUNT_TOKEN}"}
     params = {"limit": 1, "projectId": PROJECT_ID, "since": timestamp}
     while True:
-        response = requests.get("https://api.vercel.com/v6/deployments", params=params, headers=headers)
+        response = requests.get(
+            "https://api.vercel.com/v6/deployments", params=params, headers=headers
+        )
         result = response.json()
-        logger.info(f"Received the following JSON response from the Vercel deployments API:\n{yaml.dump(result)}")
+        logger.info(
+            f"Received the following JSON response from the Vercel deployments API:\n{yaml.dump(result)}"
+        )
         deployments = result["deployments"]
         if deployments:
             return deployments[0]["uid"]
@@ -77,9 +83,13 @@ def get_deployment_id(timestamp: int) -> str:
 def is_deployed(deployment_id: str) -> None:
     headers = {"Authorization": f"Bearer {ACCOUNT_TOKEN}"}
     while True:
-        response = requests.get(f"https://api.vercel.com/v13/deployments/{deployment_id}", headers=headers)
+        response = requests.get(
+            f"https://api.vercel.com/v13/deployments/{deployment_id}", headers=headers
+        )
         result = response.json()
-        logger.info(f"Received the following JSON response from the Vercel deployment API:\n{yaml.dump(result)}")
+        logger.info(
+            f"Received the following JSON response from the Vercel deployment API:\n{yaml.dump(result)}"
+        )
         state = result["readyState"]
         if state in {"ERROR", "CANCELED"}:
             raise Exception(f"Deployment failed, state is {state}")
