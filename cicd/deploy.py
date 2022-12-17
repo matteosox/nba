@@ -18,8 +18,8 @@ logging.basicConfig(
 )
 POLLING_PERIOD = 5
 TIMEOUT = 45 * 60
-ACCOUNT_TOKEN = os.environ["VERCEL_ACCOUNT_TOKEN"]  # UsiGHtvcYrQU7ZSqLnUENTsk
-DEPLOY_HOOK_URL = os.environ["VERCEL_DEPLOY_HOOK_URL"]  # https://api.vercel.com/v1/integrations/deploy/prj_u9E8EAUMVH5JhnXa5S6eX3gQ86aF/xUZ0rFBa2W
+ACCOUNT_TOKEN = os.environ["VERCEL_ACCOUNT_TOKEN"]
+DEPLOY_HOOK_URL = os.environ["VERCEL_DEPLOY_HOOK_URL"]
 PROJECT_ID = "prj_u9E8EAUMVH5JhnXa5S6eX3gQ86aF"
 
 
