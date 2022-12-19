@@ -48,12 +48,6 @@ done
 
 echo "Opening up a Jupyter notebook in your browser at http://$IP:$PORT for git sha $GIT_SHA"
 
-open_browser() {
-    sleep 2
-    python -m webbrowser http://"$IP":"$PORT"
-}
-
-open_browser &
 docker run --rm \
     --publish "$PORT":"$PORT" \
     --privileged \

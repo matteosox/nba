@@ -48,7 +48,9 @@ export async function getSeasonData(league: string, year: string, seasonType: st
   const {data: stats}   = Papa.parse(statsStr.trimEnd(), {header: true, dynamicTyping: true})
   const plotKey = `${AWS_S3_ROOT_KEY}/plots/team_stats_${league}_${year}_${seasonType}.json`
   const plotJSONStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: plotKey})
-  const plotJSON = JSON.parse(plotJSONStr) as embed.JsonItem
+  // Load plot JSON locally
+  // const plotJSONStr = readFileSync(`../data/plots/team_stats_${league}_${year}_${seasonType}.json`).toString()
+  const plotJSON = JSON.parse(plotJSONStr) as embed.JsonItem  
   return {
     league,
     year,

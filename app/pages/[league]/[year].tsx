@@ -43,7 +43,7 @@ export default function Season({
       <div className={utilStyles.centered}>
         <BokehFigure
           json={seasonData.plotJSON}
-          target='team_ratings_plot'
+          target='team_stats_plot'
         />
       </div>
       <div>

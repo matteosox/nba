@@ -44,12 +44,13 @@ done
 
 echo "Running app for git sha $GIT_SHA"
 
-docker run --rm -it \
+docker run --rm \
     --name app \
     --publish "$PORT":"$PORT" \
     --env-file build/app.local.env \
     --env PORT="$PORT" \
     --volume "$REPO_DIR"/app:/home/app/app \
+    --volume "$REPO_DIR"/data:/home/app/data \
     --volume /home/app/app/node_modules \
     matteosox/nba-app:"$GIT_SHA" \
     "${CMD[@]}"
