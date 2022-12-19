@@ -51,7 +51,6 @@ def bokeh_theme(name):
 def plot_stats(team_stats):
     """Plot team stats using Bokeh"""
     fig = figure(
-        sizing_mode="scale_both",
         aspect_ratio=1,
         max_width=800,
         max_height=800,
@@ -108,15 +107,19 @@ def plot_stats(team_stats):
     )
 
     select_x = Select(
-        title="X variable", value=DEFAULT_X_NAME, options=list(NAMES.keys())
+        title="X variable",
+        value=DEFAULT_X_NAME,
+        options=list(NAMES.keys()),
     )
     select_x.js_on_change("value", callback_x)
     select_y = Select(
-        title="Y variable", value=DEFAULT_Y_NAME, options=list(NAMES.keys())
+        title="Y variable",
+        value=DEFAULT_Y_NAME,
+        options=list(NAMES.keys()),
     )
     select_y.js_on_change("value", callback_y)
 
-    return column(row(select_x, select_y), fig)
+    return column(row(select_x, select_y), fig, sizing_mode="scale_both")
 
 
 def save_stats_plot(teams):
