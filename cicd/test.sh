@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
-set -euf -o pipefail
+set -o errexit -o nounset -o pipefail
+IFS=$'\n\t'
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[@]}")" && pwd)"
-REPO_DIR="$DIR"/..
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"/..
 cd "$REPO_DIR"
 
 GIT_SHA=$(git rev-parse --short HEAD)
@@ -29,6 +29,7 @@ if docker run \
     --rm \
     --name black_linting \
     -v "$REPO_DIR":/root/nba \
+    --volume /root/nba/pynba.egg-info \
     matteosox/nba-notebook:"$GIT_SHA" \
     black --verbose --check --diff .
 then
@@ -44,6 +45,7 @@ if docker run \
     --rm \
     --name pylint \
     -v "$REPO_DIR":/root/nba \
+    --volume /root/nba/pynba.egg-info \
     matteosox/nba-notebook:"$GIT_SHA" \
     pylint --rcfile pylintrc pynba
 then
@@ -59,6 +61,7 @@ if docker run \
     --rm \
     --name python_unit_test \
     -v "$REPO_DIR":/root/nba \
+    --volume /root/nba/pynba.egg-info \
     matteosox/nba-notebook:"$GIT_SHA" \
     python -m unittest discover --verbose
 then
@@ -74,6 +77,7 @@ if docker run \
     --rm \
     --name shellcheck \
     -v "$REPO_DIR":/root/nba \
+    --volume /root/nba/pynba.egg-info \
     matteosox/nba-notebook:"$GIT_SHA" \
     test/shellcheck.sh
 then

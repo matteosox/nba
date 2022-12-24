@@ -8,7 +8,7 @@ Status<br>
 <a href="https://github.com/matteosox/nba/actions/workflows/setup_test_push.yaml"><img alt="Setup, Test, & Build" src="https://github.com/matteosox/nba/actions/workflows/setup_test_push.yaml/badge.svg"></a>
 <a href="https://nba.mattefay.com"><img alt="Website Status" src="https://img.shields.io/website?down_color=red&down_message=offline&label=nba.mattefay.com&up_color=brightgreen&up_message=online&url=https%3A%2F%2Fnba.mattefay.com"></a>
 <br>Languages<br>
-<a href="https://docs.python.org/3.8/"><img alt="Python: 3.8" src="https://img.shields.io/static/v1?label=Python&message=3%2C8&logo=python&color=%233776AB"></a>
+<a href="https://docs.python.org/3.10/"><img alt="Python: 3.10" src="https://img.shields.io/static/v1?label=Python&message=3%2C10&logo=python&color=%233776AB"></a>
 <a href="https://www.gnu.org/software/bash/"><img alt="Bash: 5.1" src="https://img.shields.io/static/v1?label=Bash&message=5%2C1&logo=GNU-bash&color=%234EAA25"></a>
 <a href="https://www.typescriptlang.org/"><img alt="Typescript: " src="https://img.shields.io/github/package-json/dependency-version/matteosox/nba/dev/typescript?filename=app%2Fpackage.json&logo=typescript&color=%233178C6&label=Typescript"></a>
 <br>Services<br>
@@ -32,7 +32,7 @@ Status<br>
 <a href="https://www.shellcheck.net/"><img alt="Bash quality: ShellCheck" src="https://img.shields.io/static/v1?label=Bash%20quality&message=ShellCheck"></a>
 </p>
 
-## Info
+## General Info
 
 ### NBA Stats and Analysis
 
@@ -54,9 +54,9 @@ This repo has three main parts:
 
 _TL;DR: To start up the notebook environment, run `notebooks/run.sh`, which will open up a browser tab for you._
 
-We use a Dockerized Jupyter notebook environment for data analysis. The `notebooks/run.sh` bash script starts this container and opens up a web browser to the Jupyter server for you, with the repo mounted to `/root/nba`. This allows you to edit the `pynba` package without needing to restart the container, since it is installed in [editable mode](https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs). The Jupyter notebook directory is the repo's `notebooks` directory, which contains version controller notebooks. As well, the repo's `data` directory, ignored by Git, is mounted as well.
+We use a Dockerized Jupyter notebook environment for data analysis. The `notebooks/run.sh` bash script starts this container and opens up a web browser to the Jupyter server for you, with the repo mounted to `/root/nba`. This allows you to edit the `pynba` package without needing to restart the container, since it is installed in [editable mode](https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs). The Jupyter notebook directory is the repo's `notebooks` directory, which contains version controller notebooks.
 
-## TODO
+## Future Work
 
 - Analysis
     - Travel and rest adjustments
@@ -69,21 +69,13 @@ We use a Dockerized Jupyter notebook environment for data analysis. The `noteboo
     - Replace images with interactives
     - Improve tables (sortable, hover for definition, colorize for z-scores)
 
-## Developer Notes
+## Contributing
 
 ### Getting started
 
-_TL;DR: Run `./developer_setup.sh`._
-
 We use Docker for a clean environment within which to build, test, analyze, and so on. The `setup.sh` script in the `cicd` directory will build the relevant images for you. Running things natively isn't a supported/maintained thing.
 
-In addition to docker, you'll need some developer secrets, in `build/notebook.local.env` and `build/app.local.env`. Those files are git ignored for obvious reasons, so you'll need to ask around to get those credentials.
-
-To get you setup, you can run `./developer_setup.sh`. This will:
-1) Symlink `test/pre-commit` to your `.git` directory, so that you'll automatically build and test code before you commit it.
-2) Git only tracks a single executable bit for all files, so when setting up the repo, we need to set file permissions manually for files we need to write to from Docker. The `set_file_permissions.sh` script does this for you.
-
-With all that out of the way, it then puts your machine through its paces by setting up, testing, and running various other workflows locally.
+In addition to Docker, you'll need some developer secrets, in `build/notebook.local.env` and `build/app.local.env`. Those files are git ignored for obvious reasons, so you'll need to ask around to get those credentials.
 
 Finally, while you don't need it to do most workflows, it's probably a good idea to setup docker so you have push access to the Docker hub registry. That'll require a personal access token, which you can then use in combination with your Docker ID to login using `docker login`.
 
@@ -91,15 +83,13 @@ Finally, while you don't need it to do most workflows, it's probably a good idea
 
 We use PEP8 for Python, but don't trip, just run `test/black_lint.sh` to get all your spaces in a row.
 
-### Committing Code
-
-We use the `pre-commit` git hook to run the settin' up and testin' phases of our CI/CD pipeline locally.
-
 ### Pull Requests
 
 The `main` branch has [branch protections](https://help.github.com/en/github/administering-a-repository/about-protected-branches) turned on in Github, requiring one reviewer to approve a PR before merging. We also use the code owners feature to specify who can approve certain PRs. As well, merging a PR requires status checks to complete successfully.
 
 When naming a branch, please use the syntax `firstname/branch-name-here`. If you plan to collaborate with others on that branch, use `team/branch-name-here`.
+
+## Developer Workflows
 
 ### Updating python requirements
 
@@ -131,9 +121,9 @@ To ease developing the NextJS web app, we use `npm run dev` in a Docker containe
 
 ### Updating node packages
 
-_TL;DR: Run `app/run.sh --no-browser npm update`._
+_TL;DR: Run `app/run.sh npm update`._
 
-To install a new npm package using `npm install new-package`, you can use the same script with an optional command, e.g. `app/run.sh --no-browser YOUR CMD HERE`. To update all packages, run `app/run.sh --no-browser npm update`.
+To install a new npm package using `npm install new-package`, you can use the same script with an optional command, e.g. `app/run.sh YOUR CMD HERE`. To update all packages, run `app/run.sh npm update`.
 
 ## Continuous Integration
 
@@ -191,7 +181,7 @@ In addition to pushing each image with a tag as the git SHA of the code producin
 
 ### Buildin'
 
-We don't build the Next.js app in the `setup_test_push.yaml` Github Actions workflow because Vercel is configured to do this for us. That said, as with all other CI workflows, we support running these locally. To build the app, use `app/build.sh`.
+We don't build the Next.js app in the `setup_test_push.yaml` Github Actions workflow because Vercel is configured to do this for us. That said, as with all other CI workflows, we support running these locally. To build the app, use `app/run.sh npm run build`.
 
 ## Data Pipeline
 
@@ -222,8 +212,6 @@ The Python package `pynba` is strictly for code refactoring in this repo's Jupyt
 The NextJS app is deployed to nba.mattefay.com by [Vercel](https://vercel.com/), the company behind NextJS. The deployment process is integrated with Github, so that any commit to the `main` branch results in a new deploy. Conveniently, Vercel also builds and deploys a "staging" site for every commit that changes the `app` directory, making them available through comments in your pull request for example.
 
 Data and plots are stored in the `nba-mattefay` bucket on AWS S3. To access these files, we inject AWS credentials with environment variables. Unfortunately, Vercel [reserves the usual environment variables](https://vercel.com/docs/platform/limits#reserved-variables) for this, i.e. `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`. To get around this, we store them as the non-standard `AccessKeyId` and `SecretAccessKey` environment variables, and manually load credentials in the `aws_s3.ts` javascript library, similar to [this approach](https://vercel.com/support/articles/how-can-i-use-aws-sdk-environment-variables-on-vercel) on Vercel's website. These credentials are from the `matteosox-nba-vercel` AWS IAM user, with read-only access to this one bucket.
-
-To build the app locally (using `app/build.sh`), you should place your local AWS IAM credentials in `build/app.local.env`.
 
 ### DNS
 

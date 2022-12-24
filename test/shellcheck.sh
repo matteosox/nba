@@ -1,8 +1,9 @@
 #! /usr/bin/env bash
-set -euf -o pipefail
+set -o errexit -o nounset -o pipefail
+IFS=$'\n\t'
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$DIR"/..
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"/..
+cd "$REPO_DIR"
 
 EXIT_CODE=0
 BASH_SCRIPTS=$(git ls-files | grep ".*\.sh$")

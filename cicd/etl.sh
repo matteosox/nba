@@ -1,10 +1,8 @@
 #! /usr/bin/env bash
-set -euf -o pipefail
+set -o errexit -o nounset -o pipefail
+IFS=$'\n\t'
 
-# Runs etl commands in the notebook container
-
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_DIR="$DIR"/..
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"/..
 cd "$REPO_DIR"
 
 GIT_SHA=$(git rev-parse --short HEAD)
@@ -59,6 +57,7 @@ docker run --rm \
     --name etl \
     --env-file build/notebook.env \
     "${LOCAL_ENV_OPTION[@]}" \
-    --volume "$REPO_DIR"/data:/root/nba/data \
+    --volume "$REPO_DIR":/root/nba \
+    --volume /root/nba/pynba.egg-info \
     matteosox/nba-notebook:"$GIT_SHA" \
     "${CMD[@]}"

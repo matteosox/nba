@@ -1,10 +1,9 @@
 #! /usr/bin/env bash
-set -euf -o pipefail
+set -o errexit -o nounset -o pipefail
+IFS=$'\n\t'
 
-# Push step for CI
-
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$DIR"/..
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"/..
+cd "$REPO_DIR"
 
 GIT_SHA=$(git rev-parse --short HEAD)
 echo "Pushing images for git sha $GIT_SHA"

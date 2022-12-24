@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
-set -euf -o pipefail
+set -o errexit -o nounset -o pipefail
+IFS=$'\n\t'
 
 # Installs the ttf-mscorefonts-installer package, which requires some fanciness to agree to the
 # end user license agreement automatically. Inspired by:

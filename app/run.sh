@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
-set -euf -o pipefail
+set -o errexit -o nounset -o pipefail
+IFS=$'\n\t'
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_DIR="$DIR"/..
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"/..
 cd "$REPO_DIR"
 
 GIT_SHA=$(git rev-parse --short HEAD)
@@ -49,8 +49,7 @@ docker run --rm \
     --publish "$PORT":"$PORT" \
     --env-file build/app.local.env \
     --env PORT="$PORT" \
-    --volume "$REPO_DIR"/app:/home/app/app \
-    --volume "$REPO_DIR"/data:/home/app/data \
-    --volume /home/app/app/node_modules \
+    --volume "$REPO_DIR":/root/nba \
+    --volume /root/nba/app/node_modules \
     matteosox/nba-app:"$GIT_SHA" \
     "${CMD[@]}"

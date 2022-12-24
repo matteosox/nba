@@ -1,18 +1,25 @@
-# syntax=docker/dockerfile:1.2
-FROM ubuntu:20.04
+# syntax=docker/dockerfile:1.4
+FROM ubuntu:22.04
 
-# Install apt-get packages
-COPY build/install_packages.sh /usr/local/bin/install_packages.sh
-RUN install_packages.sh python3.9-dev python3.9-venv g++ libopenblas-dev git awscli libyaml-dev shellcheck
-COPY build/install_fonts.sh /usr/local/bin/install_fonts.sh
-RUN install_fonts.sh
+# Install OS-level packages
+COPY build/install_packages.sh build/install_fonts.sh /usr/local/bin/
+RUN install_packages.sh \
+    python3.10-dev \
+    python3.10-venv \
+    g++ \
+    libopenblas-dev \
+    git \
+    awscli \
+    libyaml-dev \
+    shellcheck && \
+    install_fonts.sh
 
 # Move to home directory
 WORKDIR /root
 
 # Create and activate virtual environment
 ENV VIRTUAL_ENV=/root/.venv
-RUN python3.9 -m venv "$VIRTUAL_ENV"
+RUN python3.10 -m venv "$VIRTUAL_ENV"
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install python dependencies
@@ -26,7 +33,7 @@ WORKDIR /root/nba
 
 # Copy over source code and packaging files
 COPY pynba pynba
-COPY setup.py ./
+COPY pyproject.toml ./
 
 # Install package using pip
 RUN --mount=type=cache,target=/root/.cache/pip \

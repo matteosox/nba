@@ -1,7 +1,6 @@
 #! /usr/bin/env bash
-set -euf -o pipefail
-
-# Connects to an OpenVPN server
+set -o errexit -o nounset -o pipefail
+IFS=$'\n\t'
 
 usage() {
     echo "usage: connect.sh

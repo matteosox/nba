@@ -3,7 +3,7 @@
 import os
 
 import pyarrow
-from pyarrow import parquet
+from pyarrow import parquet, BufferReader
 import awswrangler as wr
 import pandas as pd
 
@@ -32,6 +32,7 @@ def load_pq_to_df(source, *args, **kwargs):
         is_s3 = source.startswith(constants.S3)
     except AttributeError:
         is_s3 = False  # file-like objects aren't s3
+        source = BufferReader(source.read())
     if is_s3:
         return _convert_dtypes(wr.s3.read_parquet(source, *args, **kwargs))
     return parquet.read_table(source, *args, **kwargs).to_pandas()

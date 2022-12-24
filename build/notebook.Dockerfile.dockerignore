@@ -6,4 +6,5 @@
 !build/install_fonts.sh
 !requirements/requirements.txt
 !pynba
-!setup.py
+pynba/**/__pycache__/
+!pyproject.toml
