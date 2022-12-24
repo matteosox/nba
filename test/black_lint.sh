@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
-set -euf -o pipefail
+set -o errexit -o nounset -o pipefail
+IFS=$'\n\t'
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_DIR="$DIR"/..
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"/..
 cd "$REPO_DIR"
 
 GIT_SHA=$(git rev-parse --short HEAD)
@@ -13,5 +13,6 @@ docker run \
     --rm \
     --name black_linting \
     --volume "$REPO_DIR":/root/nba \
+    --volume /root/nba/pynba.egg-info \
     matteosox/nba-notebook:"$GIT_SHA" \
     black --verbose .

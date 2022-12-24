@@ -1,15 +1,38 @@
-[tool.black]
-line-length = 88
-target-version = ['py38']
-include = '\.pyi?$'
-exclude = '''
+[project]
+name = "pynba"
+version = "0.0.0"
+description = "NBA python package"
+readme = "README.md"
+license = {text = "Apache License, Version 2.0"}
+authors = [{ name = "Matt Fay", email = "matt.e.fay@gmail.com" }]
 
-(
-  /(
-      \.git         # exclude a few common directories in the
-    | \.github      # root of the project
-    | notebooks
-    | app
-  )/
-)
-'''
+[project.urls]
+Site = "https://nba.mattefay.com"
+Source = "https://github.com/matteosox/nba"
+
+[project.scripts]
+create_seasons = "pynba.scripts.create_seasons:main"
+create_possessions = "pynba.scripts.create_possessions:main"
+create_teams = "pynba.scripts.create_teams:main"
+create_plots = "pynba.scripts.create_plots:main"
+pynba_update = "pynba.scripts.update:main"
+pynba_sync = "pynba.scripts.sync:main"
+
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+exclude = ["*.test", "*.test.*", "test.*", "test"]
+
+[tool.setuptools.package-data]
+pynba = ["themes/*.yaml", "teams.yaml", "logging.yaml", "settings.toml"]
+
+[tool.black]
+verbose = true
+color = true
+target_version = ["py310"]
+line_length = 88

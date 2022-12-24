@@ -9,7 +9,7 @@ from pynba.config import config
 from pynba.constants import WNBA, LOCAL, S3
 from pynba import load_pbpstats
 from pynba.parquet import load_pq_to_df, save_df_to_pq
-from pynba.aws_s3 import list_objects
+from pynba.aws_s3 import list_objects, get_fileobject
 
 
 __all__ = [
@@ -86,18 +86,16 @@ def season_from_file(league, year, season_type):
     pd.DataFrame
     """
     if config.seasons_source == LOCAL:
-        source = _season_filepath(league, year, season_type)
+        filepath_or_buffer = _season_filepath(league, year, season_type)
     elif config.seasons_source == S3:
         filename = _season_filename(league, year, season_type)
-        source = (
-            f"s3://{config.aws_s3_bucket}/{config.aws_s3_key_prefix}/"
-            f"{config.seasons_directory}/{filename}"
-        )
+        key = "/".join([config.aws_s3_key_prefix, config.seasons_directory, filename])
+        filepath_or_buffer = get_fileobject(config.aws_s3_bucket, key)
     else:
         raise ValueError(
             f"Incompatible config for season source data: {config.seasons_source}"
         )
-    return load_pq_to_df(source)
+    return load_pq_to_df(filepath_or_buffer)
 
 
 def season_from_pbpstats(league, year, season_type):
