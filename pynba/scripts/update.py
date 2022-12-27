@@ -6,13 +6,12 @@ import datetime
 import time
 
 import pandas as pd
-from awswrangler.exceptions import NoFilesFound
 
 from pynba import (
     season_from_file,
     season_from_pbpstats,
     save_season,
-    halfgames_from_file,
+    possessions_from_file,
     possessions_from_season,
     save_possessions,
     halfgames_from_possessions,
@@ -37,9 +36,9 @@ def update_season(league, year, season_type):
         3) If there are no missing games, quits.
         4) Saves updated season data to file.
         5) Loads possession data for the missing games from pbpstats.
-        6) Saves the missing possession data to file.
-        7) Calculates halfgame data from the missing possessions.
-        8) Loads halfgame data from file for existing games.
+        6) Loads possessions data from earlier games from file.
+        7) Saves the combined possession data to file.
+        8) Calculates halfgame data from the possessions.
         9) Calculates team data from the joined halfgame data.
         10) Saves updated team data to file.
         11) Saves updated team plots to file.
@@ -58,7 +57,7 @@ def update_season(league, year, season_type):
     logger.info(f"Loading season data for the {league} {year} {season_type} from file")
     try:
         season = season_from_file(league, year, season_type)
-    except (NoFilesFound, FileNotFoundError):
+    except FileNotFoundError:
         missing_games = set(updated_season["game_id"])
     else:
         missing_games = set(updated_season["game_id"]) - set(season["game_id"])
@@ -80,38 +79,32 @@ def update_season(league, year, season_type):
     missing_season = updated_season[filt]
     missing_possessions = possessions_from_season(missing_season)
 
-    logger.info(
-        f"Saving missing possessions data for the {league} {year} {season_type}"
-    )
-    save_possessions(missing_possessions)
-
-    logger.info(
-        "Calculating halfgames data for the missing possessions "
-        f"for the {league} {year} {season_type}"
-    )
-    missing_halfgames = halfgames_from_possessions(missing_possessions)
-
-    logger.info(
-        f"Loading halfgame data for the {league} {year} {season_type} from file"
-    )
     try:
-        halfgames = halfgames_from_file(league, year, season_type)
-    except (NoFilesFound, FileNotFoundError):
+        earlier_possessions = possessions_from_file(league, year, season_type)
+    except FileNotFoundError:
         if missing_games != set(updated_season["game_id"]):
             raise
         logger.info(
-            f"No halfgame data for the {league} {year} {season_type} found from file, "
+            f"No possessions data for the {league} {year} {season_type} found from file, "
             "but this is alright since saved season contained no games."
         )
-        updated_halfgames = missing_halfgames
+        updated_possessions = missing_possessions
     else:
-        updated_halfgames = pd.concat([halfgames, missing_halfgames], ignore_index=True)
+        updated_possessions = pd.concat(
+            [earlier_possessions, missing_possessions], ignore_index=True
+        )
+
+    logger.info(f"Saving possessions data for the {league} {year} {season_type}")
+    save_possessions(updated_possessions)
+
+    logger.info("Calculating halfgames data " f"for the {league} {year} {season_type}")
+    halfgames = halfgames_from_possessions(updated_possessions)
 
     logger.info(
         "Calculating team statistics "
         f"for the {league} {year} {season_type} from updated halfgames"
     )
-    teams = teams_from_halfgames(updated_halfgames)
+    teams = teams_from_halfgames(halfgames)
 
     logger.info(f"Saving teams data for the {league} {year} {season_type}")
     save_teams(teams)

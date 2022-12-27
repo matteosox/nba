@@ -6,6 +6,7 @@ from pynba.constants import S3
 
 
 s3_client = boto3.client(S3)
+NoSuchKey = s3_client.exceptions.NoSuchKey
 
 
 def get_fileobject(bucket, key, **kwargs):

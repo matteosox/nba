@@ -4,12 +4,12 @@ import os
 import logging
 
 import pandas as pd
+from pyarrow import BufferReader
 
 from pynba.config import config
 from pynba.constants import WNBA, LOCAL, S3
 from pynba import load_pbpstats
-from pynba.parquet import load_pq_to_df, save_df_to_pq
-from pynba.aws_s3 import list_objects, get_fileobject
+from pynba.aws_s3 import list_objects, get_fileobject, NoSuchKey
 
 
 __all__ = [
@@ -28,7 +28,7 @@ def save_season(season):
     year = season["year"].iloc[0]
     season_type = season["season_type"].iloc[0]
 
-    save_df_to_pq(season, _season_filepath(league, year, season_type))
+    season.to_parquet(_season_filepath(league, year, season_type))
 
 
 def _season_filename(league, year, season_type):
@@ -90,12 +90,18 @@ def season_from_file(league, year, season_type):
     elif config.seasons_source == S3:
         filename = _season_filename(league, year, season_type)
         key = "/".join([config.aws_s3_key_prefix, config.seasons_directory, filename])
-        filepath_or_buffer = get_fileobject(config.aws_s3_bucket, key)
+        try:
+            fileobject = get_fileobject(config.aws_s3_bucket, key)
+        except NoSuchKey as exc:
+            raise FileNotFoundError(
+                f"No such key {key} in bucket {config.aws_s3_bucket}"
+            ) from exc
+        filepath_or_buffer = BufferReader(fileobject.read())
     else:
         raise ValueError(
             f"Incompatible config for season source data: {config.seasons_source}"
         )
-    return load_pq_to_df(filepath_or_buffer)
+    return pd.read_parquet(filepath_or_buffer)
 
 
 def season_from_pbpstats(league, year, season_type):
