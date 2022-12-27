@@ -4,16 +4,18 @@ import os
 import logging
 
 import pandas as pd
+from pyarrow import BufferReader
 
 from pynba.config import config
 from pynba.parse_pbpstats_possessions import parse_possession
 from pynba import load_pbpstats
-from pynba.parquet import load_pq_to_df, save_df_to_pq
 from pynba.constants import LOCAL, S3
+from pynba.aws_s3 import get_fileobject, NoSuchKey
 
 
 __all__ = [
     "possessions_from_file",
+    "possessions_from_game",
     "possessions_from_season",
     "save_possessions",
 ]
@@ -21,8 +23,15 @@ __all__ = [
 logger = logging.getLogger(__name__)
 
 
-def _possessions_dir():
-    return os.path.join(config.local_data_directory, config.possessions_directory)
+def _possessions_filename(league, year, season_type):
+    return f"{league}_{year}_{season_type}_possessions.parquet"
+
+
+def _possessions_filepath(league, year, season_type):
+    filename = _possessions_filename(league, year, season_type)
+    return os.path.join(
+        config.local_data_directory, config.possessions_directory, filename
+    )
 
 
 def save_possessions(possessions):
@@ -30,11 +39,10 @@ def save_possessions(possessions):
     Saves possessions data
     in the appropriate place and with proper partitioning
     """
-    save_df_to_pq(
-        possessions,
-        _possessions_dir(),
-        partition_cols=["league", "year", "season_type"],
-    )
+    league = possessions["league"].iloc[0]
+    year = possessions["year"].iloc[0]
+    season_type = possessions["season_type"].iloc[0]
+    possessions.to_parquet(_possessions_filepath(league, year, season_type))
 
 
 def possessions_from_file(league, year, season_type):
@@ -55,39 +63,26 @@ def possessions_from_file(league, year, season_type):
     pd.DataFrame
     """
     if config.possessions_source == LOCAL:
-        source = _possessions_dir()
-        filters = [
-            [
-                ("league", "=", league),
-                ("year", "=", year),
-                ("season_type", "=", season_type),
-            ]
-            for season_type in season_type.split("+")
-        ]
-        return load_pq_to_df(source, filters=filters)
-    if config.possessions_source == S3:
-        source = (
-            f"s3://{config.aws_s3_bucket}/{config.aws_s3_key_prefix}/"
-            f"{config.possessions_directory}"
+        filepath_or_buffer = pd.read_parquet(
+            _possessions_filepath(league, year, season_type)
         )
-
-        def _partition_filter(col_vals):
-            return (
-                (col_vals["league"] == league)
-                & (col_vals["year"] == str(year))
-                & (col_vals["season_type"] == season_type)
-            )
-
-        possessions = load_pq_to_df(
-            source, dataset=True, partition_filter=_partition_filter
+    elif config.possessions_source == S3:
+        filename = _possessions_filename(league, year, season_type)
+        key = "/".join(
+            [config.aws_s3_key_prefix, config.possessions_directory, filename]
         )
-        # awswrangler doesn't download partitions, uses strings for their types
-        possessions["year"] = possessions["year"].astype(int)
-        return possessions
-
-    raise ValueError(
-        f"Incompatible config for possessions source data: {config.possessions_source}"
-    )
+        try:
+            fileobject = get_fileobject(config.aws_s3_bucket, key)
+        except NoSuchKey as exc:
+            raise FileNotFoundError(
+                f"No such key {key} in bucket {config.aws_s3_bucket}"
+            ) from exc
+        filepath_or_buffer = BufferReader(fileobject.read())
+    else:
+        raise ValueError(
+            f"Incompatible config for possessions source data: {config.seasons_source}"
+        )
+    return pd.read_parquet(filepath_or_buffer)
 
 
 def possessions_from_game(game_data):

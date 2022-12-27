@@ -15,7 +15,18 @@ def main():
     dest = f"s3://{config.aws_s3_bucket}/{config.aws_s3_key_prefix}"
     logger.info(f"Copying local data directory {source} to {dest}")
     subprocess.run(
-        ["aws", "s3", "cp", source, dest, "--recursive", "--exclude", "*.gitignore"],
+        [
+            "aws",
+            "s3",
+            "cp",
+            source,
+            dest,
+            "--recursive",
+            "--exclude",
+            "*.gitignore",
+            "--exclude",
+            "*.DS_Store",
+        ],
         check=True,
     )
     logger.info("Sync complete!")
