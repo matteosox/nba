@@ -8,10 +8,11 @@ cd "$REPO_DIR"
 GIT_SHA=$(git rev-parse --short HEAD)
 CMD=(npm run dev)
 PORT=3000
+USE_LOCAL=""
 
 usage()
 {
-    echo "usage: run.sh [--git-sha -g sha=$GIT_SHA] [--port -p port=$PORT] cmd=${CMD[*]}"
+    echo "usage: run.sh [--git-sha -g sha=$GIT_SHA] [--port -p port=$PORT] [--local -l] cmd=${CMD[*]}"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -24,6 +25,11 @@ while [[ $# -gt 0 ]]; do
             PORT="$2"
             shift 2
             echo "Using custom port $PORT"
+            ;;
+        -l | --local )
+            USE_LOCAL=true
+            shift 1
+            echo "Using local filesystem for plot files"
             ;;
         -h | --help )
             usage
@@ -44,11 +50,12 @@ done
 
 echo "Running app for git sha $GIT_SHA"
 
+export PORT USE_LOCAL
+
 docker run --rm \
     --name app \
     --publish "$PORT":"$PORT" \
     --env-file build/app.local.env \
-    --env PORT="$PORT" \
     --volume "$REPO_DIR":/root/nba \
     --volume /root/nba/app/node_modules \
     matteosox/nba-app:"$GIT_SHA" \

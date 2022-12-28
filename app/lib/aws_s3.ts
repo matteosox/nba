@@ -1,6 +1,6 @@
-import * as constants from '../lib/constants'
 import { S3Client, GetObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3'
 import { Readable } from "stream"
+import config from '../lib/config'
 
 const clients = new Proxy({}, {
   get: function (target: { [key: string]: S3Client}, region: string) {
@@ -13,8 +13,8 @@ const clients = new Proxy({}, {
 
 async function getCredentials() {
   return {
-    accessKeyId: constants.AWS_ACCESS_KEY_ID,
-    secretAccessKey: constants.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: config.awsAccessKeyId,
+    secretAccessKey: config.awsSecretAccessKey
   }
 }
 
