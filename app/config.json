@@ -1,0 +1,8 @@
+{
+  "awsS3Region": "us-west-2",
+  "awsS3Bucket": "nba-mattefay",
+  "awsS3RootKey": "prod",
+  "awsAccessKeyId": "{{AccessKeyId}}",
+  "awsSecretAccessKey": "{{SecretAccessKey}}",
+  "useLocal": "{{USE_LOCAL}}"
+}

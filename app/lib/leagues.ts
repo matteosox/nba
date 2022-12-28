@@ -1,8 +1,9 @@
 import { load } from 'js-yaml'
 import { getObjectString, listKeys } from '../lib/aws_s3'
-import { AWS_S3_REGION, AWS_S3_BUCKET, AWS_S3_ROOT_KEY } from '../lib/constants'
+import config from '../lib/config'
 import { embed } from '@bokeh/bokehjs'
 import Papa from 'papaparse'
+import { readFileSync } from "fs"
 
 const teamsRegExp = /.*\/([a-z]+)_(\d+)_([a-zA-Z ]+)_teams.csv$/
 
@@ -17,9 +18,9 @@ export interface StatsRow {
 export type Stats = Array<StatsRow>
 
 export async function getLeagues() {
-  const prefix = `${AWS_S3_ROOT_KEY}/teams/`
+  const prefix = `${config.awsS3RootKey}/teams/`
   const leagues: Leagues = {}
-  const keys = await listKeys({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, prefix})
+  const keys = await listKeys({region: config.awsS3Region, bucket: config.awsS3Bucket, prefix})
   for (const key of keys) {
     const match = key.match(teamsRegExp)
     if (match) {
@@ -43,13 +44,14 @@ export async function getLeagues() {
 }
 
 export async function getSeasonData(league: string, year: string, seasonType: string) {
-  const csvKey = `${AWS_S3_ROOT_KEY}/teams/${league}_${year}_${seasonType}_teams.csv`
-  const statsStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: csvKey})
+  const csvKey = `${config.awsS3RootKey}/teams/${league}_${year}_${seasonType}_teams.csv`
+  const statsStr = await getObjectString({region: config.awsS3Region, bucket: config.awsS3Bucket, key: csvKey})
   const {data: stats}   = Papa.parse(statsStr.trimEnd(), {header: true, dynamicTyping: true})
-  const plotKey = `${AWS_S3_ROOT_KEY}/plots/team_stats_${league}_${year}_${seasonType}.json`
-  const plotJSONStr = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key: plotKey})
-  // Load plot JSON locally
-  // const plotJSONStr = readFileSync(`../data/plots/team_stats_${league}_${year}_${seasonType}.json`).toString()
+  const plotKey = `${config.awsS3RootKey}/plots/team_stats_${league}_${year}_${seasonType}.json`
+  const plotJSONStr = (
+    config.useLocal ? readFileSync(`../data/plots/team_stats_${league}_${year}_${seasonType}.json`).toString()
+    : await getObjectString({region: config.awsS3Region, bucket: config.awsS3Bucket, key: plotKey})
+  )
   const plotJSON = JSON.parse(plotJSONStr) as embed.JsonItem  
   return {
     league,
@@ -66,8 +68,8 @@ interface Latest {
 }
 
 export async function getUpdateDate() {
-  const key = `${AWS_S3_ROOT_KEY}/latest.yaml`
-  const yamlString = await getObjectString({region: AWS_S3_REGION, bucket: AWS_S3_BUCKET, key})
+  const key = `${config.awsS3RootKey}/latest.yaml`
+  const yamlString = await getObjectString({region: config.awsS3Region, bucket: config.awsS3Bucket, key})
   const latest = load(yamlString) as Latest
   const date = new Date(latest['time'] * 1000)
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
