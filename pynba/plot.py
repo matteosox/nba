@@ -51,9 +51,9 @@ def bokeh_theme(name):
 def plot_stats(team_stats):
     """Plot team stats using Bokeh"""
     fig = figure(
+        width=800,
+        height=800,
         aspect_ratio=1,
-        max_width=800,
-        max_height=800,
         tools="",
         toolbar_location=None,
     )
