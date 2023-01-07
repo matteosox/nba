@@ -44,6 +44,7 @@ export default function Season({
         <BokehFigure
           json={seasonData.plotJSON}
           target='team_stats_plot'
+          style={{width: "100vw", maxWidth: "800px", height: "100vw", maxHeight: "900px", marginBottom: "60px" }}
         />
       </div>
       <div>
