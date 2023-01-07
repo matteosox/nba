@@ -3,10 +3,12 @@ import { embed } from '@bokeh/bokehjs'
 
 export default function BokehFigure({
     json,
-    target
+    target,
+    style
   }: {
     json: embed.JsonItem,
-    target: string
+    target: string,
+    style: object
   }) {
     useEffect(() => {
       for (const elem of document.getElementById(target).children)
@@ -14,6 +16,6 @@ export default function BokehFigure({
       embed.embed_item(json, target)
     });
     return (
-      <div className="bk-root" id={target}></div>
+      <div className="bk-root" id={target} style={style}></div>
     )
   }

@@ -56,7 +56,7 @@ docker run --rm \
     --name app \
     --publish "$PORT":"$PORT" \
     --env-file build/app.local.env \
-    --volume "$REPO_DIR":/root/nba \
-    --volume /root/nba/app/node_modules \
+    --volume "$REPO_DIR":/home/zion/nba \
+    --volume /home/zion/nba/app/node_modules \
     matteosox/nba-app:"$GIT_SHA" \
     "${CMD[@]}"

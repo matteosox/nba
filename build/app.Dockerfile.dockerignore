@@ -4,5 +4,6 @@
 # Except files we explicitly need
 !build/install_packages.sh
 !build/install_node.sh
+!build/entrypoint.sh
 !app/package.json
 !app/package-lock.json

@@ -31,15 +31,15 @@ NAMES = {
     "Off 2pt%": "off_two_make_rate",
     "Off 3pt%": "off_three_make_rate",
     "Off Reb%": "off_reb_rate",
-    "Off Tov%": "off_turnover_rate",
-    "Off FT Fq": "off_ft_attempt_rate",
+    "Off Tov/100": "off_turnover_rate",
+    "Off FT/100": "off_ft_attempt_rate",
     "Off FT%": "off_ft_make_rate",
     "Def 3pt Fq": "def_three_attempt_rate",
     "Def 2pt%": "def_two_make_rate",
     "Def 3pt%": "def_three_make_rate",
     "Def Reb%": "def_reb_rate",
-    "Def Tov%": "def_turnover_rate",
-    "Def FT Fq": "def_ft_attempt_rate",
+    "Def Tov/100": "def_turnover_rate",
+    "Def FT/100": "def_ft_attempt_rate",
 }
 
 
@@ -51,9 +51,9 @@ def bokeh_theme(name):
 def plot_stats(team_stats):
     """Plot team stats using Bokeh"""
     fig = figure(
+        width=800,
+        height=800,
         aspect_ratio=1,
-        max_width=800,
-        max_height=800,
         tools="",
         toolbar_location=None,
     )
