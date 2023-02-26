@@ -31,7 +31,9 @@ jobs:
           aws-region: us-west-2
 
       - name: Install OpenVPN
-        run: sudo build/install_packages.sh openvpn
+        run: sudo apt-get --yes install --no-install-recommends openvpn
+        env:
+          DEBIAN_FRONTEND: noninteractive
 
       - name: Connect to ProtonVPN
         run: vpn/connect.sh vpn/config.ovpn
